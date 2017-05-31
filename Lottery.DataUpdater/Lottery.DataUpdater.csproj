@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C3A4F72A-964E-4D7A-A1ED-91F4435C62A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lottery.DataUpdater</RootNamespace>
+    <AssemblyName>Lottery.DataUpdater</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentScheduler, Version=5.2.1.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.2.1\lib\net40\FluentScheduler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataUpdateContainer.cs" />
+    <Compile Include="ILotteryUpdateConfigLoader.cs" />
+    <Compile Include="Jobs\LotteryDataJob.cs" />
+    <Compile Include="Jobs\LotteryJobRegistry.cs" />
+    <Compile Include="Jobs\StructureMapJobFactory.cs" />
+    <Compile Include="LotteryUpdateConfigLoader.cs" />
+    <Compile Include="Models\DataSite.cs" />
+    <Compile Include="Models\LotteryDatetime.cs" />
+    <Compile Include="Models\LotteryUpdateConfig.cs" />
+    <Compile Include="Models\TimeRule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lottery.Entities.Extend\Lottery.Entities.Extend.csproj">
+      <Project>{3a652242-ccf1-474a-943f-5c46b17cf16d}</Project>
+      <Name>Lottery.Entities.Extend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lottery.Entities\Lottery.Entities.csproj">
+      <Project>{f7798356-4fb7-41b4-a4fe-bd4c537bddaa}</Project>
+      <Name>Lottery.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.Application\LotteryService.Application.csproj">
+      <Project>{de1d1f4e-c7c8-4fa6-9b85-4433091fdf8a}</Project>
+      <Name>LotteryService.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.Common\LotteryService.Common.csproj">
+      <Project>{408228bd-2151-49ed-8b30-5835bc3e3e27}</Project>
+      <Name>LotteryService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.CrossCutting.InversionOfControl\LotteryService.CrossCutting.InversionOfControl.csproj">
+      <Project>{016b1f21-43ea-4a7a-95f4-452289ec3d91}</Project>
+      <Name>LotteryService.CrossCutting.InversionOfControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.Data.Repository\LotteryService.Data.Repository.csproj">
+      <Project>{8432230b-23e6-463d-a232-49200dbc7ae1}</Project>
+      <Name>LotteryService.Data.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.Domain\LotteryService.Domain.csproj">
+      <Project>{affd11f8-dd7c-4eef-ab73-4d59607bc87d}</Project>
+      <Name>LotteryService.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
