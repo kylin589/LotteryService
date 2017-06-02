@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.IO;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -11,12 +8,12 @@ using LotteryService.Data.Context.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 
 namespace LotteryService.WebApi
-{
+{    
     public class WebApiApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
-            AutoFacBootStrapper.CoreAutoFacInit();
+            AutofacBootstrap.CoreAutoFacInit();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -24,15 +21,17 @@ namespace LotteryService.WebApi
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             JobConfig.JobRegister();
 
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("log4net.config")));
+           
         }
 
-        protected void Application_EndRequest()
-        {
-            var contextManager = ServiceLocator.Current.GetInstance<IContextManager<LotteryDbContext>>() as ContextManager<LotteryDbContext>;
-            if (contextManager != null)
-            {
-                contextManager.GetContext().Dispose();
-            }
-        }
+        //protected void Application_EndRequest()
+        //{
+        //    var contextManager = ServiceLocator.Current.GetInstance<IContextManager<LotteryDbContext>>();
+        //    if (contextManager != null)
+        //    {
+        //        contextManager.GetContext().Dispose();
+        //    }
+        //}
     }
 }

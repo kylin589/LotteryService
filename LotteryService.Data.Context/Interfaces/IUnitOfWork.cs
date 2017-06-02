@@ -5,6 +5,6 @@
     {
         void BeginTransaction();
 
-        void SaveChanges();
+        bool SaveChanges();
     }
 }

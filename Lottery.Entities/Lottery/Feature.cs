@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Lottery.Entities.Common;
 using Lottery.Entities.Extend;
 using Lottery.Entities.Extend.Interfaces.Validation;
 using Lottery.Entities.Validations;
@@ -21,7 +20,7 @@ namespace Lottery.Entities
 
         //public Norm Norm { get; set; }
 
-
+        [NotMapped]
         public ValidationResult ValidationResult { get; private set; }
 
         public bool IsValid

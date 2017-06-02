@@ -19,7 +19,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             throw new NotImplementedException();
         }
 
-        public LotteryData Get(int id)
+        public LotteryData Get(string id)
         {
             throw new NotImplementedException();
         }

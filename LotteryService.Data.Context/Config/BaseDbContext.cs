@@ -1,4 +1,6 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using Lottery.Entities;
 using LotteryService.Data.Context.Interfaces;
 
 namespace LotteryService.Data.Context.Config

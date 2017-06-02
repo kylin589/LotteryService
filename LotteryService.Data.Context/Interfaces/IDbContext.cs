@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using Lottery.Entities;
 
 namespace LotteryService.Data.Context.Interfaces
 {

@@ -39,6 +39,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="LitJson, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LitJson.0.7.0\lib\LitJson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -58,6 +66,11 @@
     <Compile Include="Interfaces\IReadOnlyAppService.cs" />
     <Compile Include="Interfaces\ITransactionAppService.cs" />
     <Compile Include="Interfaces\IWriteOnlyAppService.cs" />
+    <Compile Include="Log\AuditAppService.cs" />
+    <Compile Include="Log\Dtos\AuditLogEdit.cs" />
+    <Compile Include="Log\Dtos\AuditLogInput.cs" />
+    <Compile Include="Log\IAuditAppService.cs" />
+    <Compile Include="Lottery\Dtos\LotteryDataInput.cs" />
     <Compile Include="Lottery\Dtos\LotteryDataOutput.cs" />
     <Compile Include="Lottery\ILotteryDataAppService.cs" />
     <Compile Include="Lottery\LotteryDataAppService.cs" />
@@ -91,6 +104,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

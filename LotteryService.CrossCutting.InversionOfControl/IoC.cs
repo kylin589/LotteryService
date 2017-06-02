@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using Lottery.Entities;
-using Lottery.Entities.Common;
+using Lottery.Entities.Extend;
 using LotteryService.Common.Dependency;
 using LotteryService.Data.Context;
 using LotteryService.Data.Context.Interfaces;
-using LotteryService.Data.Repository.Dapper.Common;
+using LotteryService.Data.Repository.Dapper.Log;
 using LotteryService.Data.Repository.Dapper.Lottery;
 using LotteryService.Data.Repository.EntityFramework.Common;
 using LotteryService.Domain.Interfaces.Repository.Common;
@@ -53,12 +50,26 @@ namespace LotteryService.CrossCutting.InversionOfControl
             SetupResolveRules();
             SetupResolveGenerics();
             SetupResolveReadOnlyRepositories();
+            SetupResolveLog4Net();
+        }
+
+        private void SetupResolveLog4Net()
+        {
+            ContainerBuilder.RegisterModule<LoggingModule>();
         }
 
         private void SetupResolveReadOnlyRepositories()
         {
             ContainerBuilder.RegisterType<LotteryDataDapperRepostory>()
                 .As<IReadOnlyRepository<LotteryData>>()
+                .InstancePerDependency();
+
+            ContainerBuilder.RegisterType<AuditLogDapperRepostory>()
+                .As<IReadOnlyRepository<AuditLog>>()
+                .InstancePerDependency();
+
+            ContainerBuilder.RegisterType<FeatureDapperRepostory>()
+                .As<IReadOnlyRepository<Feature>>()
                 .InstancePerDependency();
         }
 
@@ -79,9 +90,12 @@ namespace LotteryService.CrossCutting.InversionOfControl
 
         private void SetupResolveTypes()
         {
-            ContainerBuilder.RegisterType<LotteryDbContext>().As<IDbContext>().AsSelf();
-            ContainerBuilder.RegisterGeneric(typeof(ContextManager<>)).As(typeof(IContextManager<>)).AsSelf();
-            ContainerBuilder.RegisterGeneric(typeof(UnitOfWork<>)).As(typeof(IUnitOfWork<>)).AsSelf();
+            ContainerBuilder.RegisterType<LotteryDbContext>().As<IDbContext>()
+                .InstancePerDependency();
+            ContainerBuilder.RegisterGeneric(typeof(ContextManager<>)).As(typeof(IContextManager<>))
+                .SingleInstance();
+            ContainerBuilder.RegisterGeneric(typeof(UnitOfWork<>)).As(typeof(IUnitOfWork<>));
+
         }
 
         private void SetupResolveRules()
@@ -89,16 +103,18 @@ namespace LotteryService.CrossCutting.InversionOfControl
             var transientType = typeof(ITransientDependency);
             var singletonType = typeof(ISingletonDependency);
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(p => p.FullName.Contains("Lottery")).ToArray();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(p => p.FullName.Contains(Constant.LotterySchema)).ToArray();
 
             ContainerBuilder.RegisterAssemblyTypes(assemblies)
                 .Where(p => transientType.IsAssignableFrom(p) && p != transientType)
                 .AsImplementedInterfaces()
+                .AsSelf()
                 .InstancePerDependency();
 
             ContainerBuilder.RegisterAssemblyTypes(assemblies)
                .Where(p => singletonType.IsAssignableFrom(p) && p != singletonType)
                .AsImplementedInterfaces()
+               .AsSelf()
                .SingleInstance();
 
             //ContainerBuilder.RegisterAssemblyTypes(assemblies)

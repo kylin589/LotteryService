@@ -7,15 +7,15 @@ namespace LotteryService.Data.Context
     public class UnitOfWork<TContext> : IUnitOfWork<TContext>,IDisposable
         where TContext : IDbContext, new()
     {
-        private readonly ContextManager<TContext> _contextManager = new ContextManager<TContext>();
+        private readonly IContextManager<TContext> _contextManager;
 
         private readonly IDbContext _dbContext;
         private bool _disposed;
 
         public UnitOfWork()
         {
-           // _contextManager = ServiceLocator.Current.GetInstance<IContextManager<TContext>>() as ContextManager<TContext>;
-            _dbContext = _contextManager.GetContext();
+           _contextManager = ServiceLocator.Current.GetInstance<IContextManager<TContext>>();
+           _dbContext = _contextManager.GetContext();
         }
 
         public void BeginTransaction()
@@ -23,9 +23,9 @@ namespace LotteryService.Data.Context
             _disposed = false;
         }
 
-        public void SaveChanges()
+        public bool SaveChanges()
         {
-            _dbContext.SaveChanges();
+            return _dbContext.SaveChanges() > 0;
         }
 
         public void Dispose()

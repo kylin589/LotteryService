@@ -8,5 +8,6 @@ namespace LotteryService.Application.Lottery
     {
         IList<LotteryDataOutput> GetLotteryData();
 
+        void Add(LotteryDataInput lotteryDataInput);
     }
 }

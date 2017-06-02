@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Lottery.Entities;
 using LotteryService.Domain.Interfaces.Repository.Common;
 using LotteryService.Domain.Interfaces.Service.Common;
 
@@ -30,7 +31,7 @@ namespace LotteryService.Domain.Services.Common
 
         #endregion
 
-        public virtual TEntity Get(int id)
+        public virtual TEntity Get(string id)
         {
             return _readOnlyRepository.Get(id);
         }

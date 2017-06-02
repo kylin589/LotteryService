@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Lottery.Entities.Common;
 using Lottery.Entities.Extend;
 using Lottery.Entities.Extend.Interfaces.Validation;
 using ValidationResult = Lottery.Entities.Extend.Validation.ValidationResult;
@@ -19,7 +18,7 @@ namespace Lottery.Entities
 
         // [Unique]
         [Required]
-        public long Period { get; set; }
+        public int Period { get; set; }
 
         [Required]
         [MaxLength(30)]
@@ -32,6 +31,7 @@ namespace Lottery.Entities
 
         public DateTime LotteryDateTime { get; set; }
 
+        [NotMapped]
         public ValidationResult ValidationResult { get; }
 
         public bool IsValid {

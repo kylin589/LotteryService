@@ -1,17 +1,18 @@
-﻿using LotteryService.Data.Context.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using Lottery.Entities;
 using LotteryService.Data.Context;
 using LotteryService.Domain.Interfaces.Repository.Common;
+using LotteryService.Data.Context.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 
 namespace LotteryService.Data.Repository.EntityFramework.Common
 {
     public class Repository<TEntity> : IRepository<TEntity>, IDisposable
-           where TEntity : class
+        where TEntity : class
     {
         private readonly IDbContext _dbContext;
         private readonly IDbSet<TEntity> _dbSet;
@@ -21,8 +22,7 @@ namespace LotteryService.Data.Repository.EntityFramework.Common
             var contextManager = ServiceLocator.Current.GetInstance<IContextManager<LotteryDbContext>>()
                 as ContextManager<LotteryDbContext>;
 
-            if (contextManager != null)
-                _dbContext = contextManager.GetContext();
+            _dbContext = contextManager.GetContext();
             _dbSet = _dbContext.Set<TEntity>();
         }
 
@@ -46,10 +46,10 @@ namespace LotteryService.Data.Repository.EntityFramework.Common
             DbSet.Remove(entity);
         }
 
-        public TEntity Get(int id)
+        public TEntity Get(string id)
         {
             return DbSet.Find(id);
-        }
+        }   
 
         public virtual void Update(TEntity entity)
         {

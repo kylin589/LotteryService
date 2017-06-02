@@ -6,14 +6,14 @@ namespace LotteryService.Data.Context.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class InitDB : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class AddAuditLogFileds : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAuditLogFileds));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705311457260_InitDB"; }
+            get { return "201706021857053_AddAuditLogFileds"; }
         }
         
         string IMigrationMetadata.Source

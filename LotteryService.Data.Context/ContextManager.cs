@@ -13,7 +13,7 @@ namespace LotteryService.Data.Context
 
         public ContextManager()
         {
-            ContextKey = ContextKey + "." + typeof(TContext).Name;
+            ContextKey = "ContextKey." + typeof(TContext).Name;
         }
 
 
@@ -36,7 +36,7 @@ namespace LotteryService.Data.Context
         public IDbContext GetContext()
         {
             HttpContext context = HttpContext.Current;
-            if (context !=null)
+            if (context != null)
             {
                 if (context.Items[ContextKey] == null)
                 {
@@ -50,8 +50,6 @@ namespace LotteryService.Data.Context
                 _dbContext = new TContext();
             }
             return _dbContext;
-
- 
         }
     }
 }

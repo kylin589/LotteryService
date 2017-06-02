@@ -6,6 +6,6 @@ namespace LotteryService.Application.Interfaces
          where TContext : IDbContext, new()
     {
         void BeginTransaction();
-        void Commit();
+        bool Commit();
     }
 }

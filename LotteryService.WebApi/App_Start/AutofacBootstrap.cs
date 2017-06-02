@@ -1,11 +1,13 @@
 ﻿using System.Reflection;
 using System.Web.Http;
+using Autofac;
 using Autofac.Integration.WebApi;
+using LotteryService.Application.Lottery;
 using LotteryService.CrossCutting.InversionOfControl;
 
 namespace LotteryService.WebApi
 {
-    public class AutoFacBootStrapper
+    public class AutofacBootstrap
     {
         public static void CoreAutoFacInit()
         {
@@ -17,6 +19,8 @@ namespace LotteryService.WebApi
 
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
+            builder.RegisterWebApiFilterProvider(config);
 
             // Set the dependency resolver to be Autofac.
             var container = ioc.Container;

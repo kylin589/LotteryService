@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Lottery.Entities;
 using Lottery.Entities.Extend.Interfaces.Validation;
 using Lottery.Entities.Extend.Validation;
+using LotteryService.Common;
 using LotteryService.Domain.Interfaces.Repository.Common;
 using LotteryService.Domain.Interfaces.Service.Common;
 
@@ -26,7 +28,7 @@ namespace LotteryService.Domain.Services.Common
 
         #region Read Methods
 
-        public virtual TEntity Get(int id, bool @readonly = false)
+        public virtual TEntity Get(string id, bool @readonly = false)
         {
             return @readonly
                 ? _readOnlyRepository.Get(id)
@@ -58,6 +60,12 @@ namespace LotteryService.Domain.Services.Common
 
 
             _repository.Add(entity);
+            var baseEntity = entity as BaseEntity;
+            if (baseEntity != null)
+            {
+                _validationResult.SetData(LsConstant.IdKey, baseEntity.Id);
+            }
+            
             return _validationResult;
         }
 
@@ -71,6 +79,12 @@ namespace LotteryService.Domain.Services.Common
                 return selfValidationEntity.ValidationResult;
 
             _repository.Update(entity);
+            //_validationResult.SetData(LsConstant.EntityKey, entity);
+            var baseEntity = entity as BaseEntity;
+            if (baseEntity != null)
+            {
+                _validationResult.SetData(LsConstant.IdKey, baseEntity.Id);
+            }
             return _validationResult;
         }
 
@@ -80,6 +94,11 @@ namespace LotteryService.Domain.Services.Common
                 return _validationResult;
 
             _repository.Delete(entity);
+            var baseEntity = entity as BaseEntity;
+            if (baseEntity != null)
+            {
+                _validationResult.SetData(LsConstant.IdKey, baseEntity.Id);
+            }
             return _validationResult;
         }
 

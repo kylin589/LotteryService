@@ -19,6 +19,12 @@ namespace LotteryService.WebApi
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // 全局异常捕获处理器
+            config.Filters.Add(new WebApiExceptionFilterAttribute());
+
+            //   审计日志
+            config.Filters.Add(new WebApiAuditFilterAttribute());
         }
     }
 }
