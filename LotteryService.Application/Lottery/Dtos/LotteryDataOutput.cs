@@ -2,7 +2,7 @@
 
 namespace LotteryService.Application.Lottery.Dtos
 {
-    public class LotteryDataOutput
+    public class LotteryDataOutput : IDto
     {
         public int Period { get; set; }
 

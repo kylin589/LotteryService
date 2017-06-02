@@ -1,12 +1,11 @@
-﻿using System;
-
+﻿
 namespace LotteryService.Application.Log.Dtos
 {
-    public class AuditLogInput
+    public class AuditLogInput : IDto
     {
         public string UserId { get; set; }
 
-        public string RequestAddress { get; set; }
+        public string ApiAddress { get; set; }
 
         public string MethodName { get; set; }
 
@@ -25,5 +24,6 @@ namespace LotteryService.Application.Log.Dtos
         public string ActionName { get; set; }
 
         public bool IsExecSuccess { get; set; }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Lottery.Entities;
 using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Data.Context;
@@ -25,25 +26,13 @@ namespace LotteryService.Application.Lottery
         public IList<LotteryDataOutput> GetLotteryData()
         {
             var lotteryDatas = _lotteryService.All();
-            return lotteryDatas.Select(p =>
-            {
-                return new LotteryDataOutput()
-                {
-                    Data = p.Data,
-                    LotteryType = p.LotteryType
-                };
-            }).ToList();
+            return Mapper.Map(lotteryDatas, new List<LotteryDataOutput>());
+
         }
 
         public void Add(LotteryDataInput input)
         {
-            WriteData(_lotteryService.Add, new LotteryData
-            {
-                LotteryType = input.LotteryType,
-                Data = input.Data,
-                LotteryDateTime = input.LotteryDateTime,
-                Period = input.Period,
-            });
+            WriteData(_lotteryService.Add, input.DtoConvertEntity<LotteryData>());
         }
     }
 }

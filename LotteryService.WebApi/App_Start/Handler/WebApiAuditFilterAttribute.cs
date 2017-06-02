@@ -46,7 +46,7 @@ namespace LotteryService.WebApi
                 ClientName = RequestExtend.RequestValue(LsConstant.RequestClientName),
                 ClientIpAddress = RequestExtend.RequestValue(LsConstant.RequestClientAddress),
                 MethodName = actionContext.Request.Method.ToString(),
-                RequestAddress = actionContext.Request.RequestUri.LocalPath,
+                ApiAddress = actionContext.Request.RequestUri.LocalPath,
                 Parameters = actionContext.ActionArguments.ToJsonString(),
                 ActionName = actionContext.ActionDescriptor.ActionName,
                 ControllerName = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName,

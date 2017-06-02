@@ -20,6 +20,7 @@ namespace LotteryService.WebApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             JobConfig.JobRegister();
+            AutoMapperConfig.RegisterMappings();
 
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("log4net.config")));
            

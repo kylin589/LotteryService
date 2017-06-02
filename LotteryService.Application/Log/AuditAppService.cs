@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using Lottery.Entities;
 using LotteryService.Application.Log.Dtos;
 using LotteryService.Common;
@@ -18,39 +19,21 @@ namespace LotteryService.Application.Log
         public AuditAppService(IService<AuditLog> auditLogService)
         {
             _auditLogService = auditLogService;
-            ValidationResult.SetData(LsConstant.AuditLogKey,true);
+            ValidationResult.SetData(LsConstant.AuditLogKey, true);
         }
 
         public string InsertAuditLog(AuditLogInput input)
         {
-            var auditLog = new AuditLog()
-            {
-                UserId = input.UserId,
-                BrowserInfo = input.BrowserInfo,
-                ClientIpAddress = input.ClientIpAddress,
-                ClientName = input.ClientName,              
-                MethodName = input.MethodName,
-                ApiAddress = input.RequestAddress,           
-                ExecutionDuration = 0,
-                Parameters = input.Parameters,
-                IsExecSuccess = input.IsExecSuccess,
-                ActionName = input.ActionName,
-                ControllerName = input.ControllerName,
-            };
-
-             WriteData(_auditLogService.Add, auditLog);
-
+            var auditLog = input.DtoConvertEntity<AuditLog>();
+            WriteData(_auditLogService.Add, auditLog);
             return ValidationResult.GetData<string>(LsConstant.IdKey);
-      
+
         }
 
         public void UpdateAuditLog(AuditLogEdit input)
         {
-            var auditLog = _auditLogService.Get(input.Id);
-            auditLog.Exception = input.Exception;
-            auditLog.ExecutionDuration = input.ExecutionDuration;
-            auditLog.IsExecSuccess = input.IsExecSuccess;
-            WriteData(_auditLogService.Update,auditLog);
+            var auditLog = input.DtoConvertEntity(_auditLogService.Get(input.Id)); 
+            WriteData(_auditLogService.Update, auditLog);
             if (!ValidationResult.IsValid)
             {
                 throw new LSException("更新Api执行时间失败");

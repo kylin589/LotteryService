@@ -2,7 +2,7 @@
 
 namespace LotteryService.Application.Lottery.Dtos
 {
-    public class LotteryDataInput
+    public class LotteryDataInput : IDto
     {
         public string LotteryType { get; set; }
 

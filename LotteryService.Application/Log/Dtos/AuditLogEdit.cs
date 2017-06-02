@@ -1,8 +1,7 @@
-﻿using System;
-
+﻿
 namespace LotteryService.Application.Log.Dtos
 {
-    public class AuditLogEdit
+    public class AuditLogEdit : IDto
     {
         public string Id { get; set; }
 
