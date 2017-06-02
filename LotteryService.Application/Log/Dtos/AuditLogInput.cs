@@ -25,5 +25,7 @@ namespace LotteryService.Application.Log.Dtos
 
         public bool IsExecSuccess { get; set; }
 
+        public int ExecutionDuration { get; set; }
+
     }
 }

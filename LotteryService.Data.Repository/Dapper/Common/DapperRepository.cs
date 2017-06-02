@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq.Expressions;
 
 namespace LotteryService.Data.Repository.Dapper.Common
 {
@@ -11,7 +9,10 @@ namespace LotteryService.Data.Repository.Dapper.Common
     {
         public IDbConnection LotteryDbConnection
         {
-            get { return new SqlConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString); }
+            get
+            {
+                return new SqlConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+            }
         }
 
 

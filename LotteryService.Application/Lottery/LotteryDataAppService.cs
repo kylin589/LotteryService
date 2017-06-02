@@ -25,7 +25,7 @@ namespace LotteryService.Application.Lottery
 
         public IList<LotteryDataOutput> GetLotteryData()
         {
-            var lotteryDatas = _lotteryService.All();
+            var lotteryDatas = _lotteryReadOnlyService.All();
             return Mapper.Map(lotteryDatas, new List<LotteryDataOutput>());
 
         }

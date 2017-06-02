@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppService.cs" />
+    <Compile Include="Common\AutoMapper\DtoToEntityMappingProfile.cs" />
+    <Compile Include="Common\AutoMapper\EntityToDtoMappingProfile.cs" />
     <Compile Include="Common\IDto.cs" />
     <Compile Include="Common\MapperExtensions.cs" />
     <Compile Include="Interfaces\IBasicAppService.cs" />

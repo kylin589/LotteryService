@@ -1,9 +1,8 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Lottery.Entities;
 using LotteryService.Application.Lottery.Dtos;
 
-namespace LotteryService.WebApi
+namespace LotteryService.Application.Common
 {
     public class EntityToDtoMappingProfile : Profile
     {

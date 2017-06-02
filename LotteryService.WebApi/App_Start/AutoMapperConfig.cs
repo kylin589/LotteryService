@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LotteryService.Application.Common;
 
 namespace LotteryService.WebApi
 {

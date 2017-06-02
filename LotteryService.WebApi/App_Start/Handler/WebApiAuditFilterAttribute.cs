@@ -51,6 +51,7 @@ namespace LotteryService.WebApi
                 ActionName = actionContext.ActionDescriptor.ActionName,
                 ControllerName = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                 IsExecSuccess = false,
+                ExecutionDuration = 0,
 
             };
             m_auditId = auditAppService.InsertAuditLog(auditLogInput);

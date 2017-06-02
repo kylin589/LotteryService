@@ -3,7 +3,7 @@ using Lottery.Entities;
 using LotteryService.Application.Log.Dtos;
 using LotteryService.Application.Lottery.Dtos;
 
-namespace LotteryService.WebApi
+namespace LotteryService.Application.Common
 {
     public class DtoToEntityMappingProfile : Profile
     {

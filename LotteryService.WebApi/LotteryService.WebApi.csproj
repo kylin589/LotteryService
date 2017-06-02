@@ -195,9 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutofacBootstrap.cs" />
-    <Compile Include="App_Start\AutoMapper\AutoMapperConfig.cs" />
-    <Compile Include="App_Start\AutoMapper\DtoToEntityMappingProfile.cs" />
-    <Compile Include="App_Start\AutoMapper\EntityToDtoMappingProfile.cs" />
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Extend\RequestExtend.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
