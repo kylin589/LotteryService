@@ -7,9 +7,19 @@ using LotteryService.Domain.Interfaces.Repository.Common;
 
 namespace LotteryService.Data.Repository.Dapper.Log
 {
-    public class AuditLogDapperRepostory : DapperRepository, IReadOnlyRepository<AuditLog>
+    public class AuditLogDapperRepostory : DapperRepository, IDapperRepository<AuditLog>
     {
         public AuditLog Get(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IDapperRepository<AuditLog>.Add(AuditLog entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AuditLog Add(AuditLog entity)
         {
             throw new NotImplementedException();
         }
@@ -20,6 +30,11 @@ namespace LotteryService.Data.Repository.Dapper.Log
         }
 
         public IEnumerable<AuditLog> Find(Expression<Func<AuditLog, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(string id, object[] fields)
         {
             throw new NotImplementedException();
         }

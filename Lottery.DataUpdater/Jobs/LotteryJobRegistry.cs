@@ -1,9 +1,6 @@
 ﻿using System.Linq;
-using Autofac;
 using FluentScheduler;
-using Lottery.DataUpdater.Models;
-using Lottery.Entities;
-using LotteryService.CrossCutting.InversionOfControl;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Lottery.DataUpdater.Jobs
 {
@@ -11,12 +8,13 @@ namespace Lottery.DataUpdater.Jobs
     {
         public LotteryJobRegistry()
         {
-            //var ioc = new IoC();
-            //var lotteryeConfigLoader = ioc.Container.Resolve<ILotteryUpdateConfigLoader>();
-            //var lotteryConfig = lotteryeConfigLoader.GetLotteryUpdateConfigs().First(p=>p.Name == "bjpks");
+            var lotteryeConfigLoader = ServiceLocator.Current.GetInstance<ILotteryUpdateConfigLoader>();
+            var lotteryConfigs = lotteryeConfigLoader.GetLotteryUpdateConfigs();
 
-            //// Schedule an IJob to run at an interval
-            //Schedule<LotteryDataJob>().ToRunNow().AndEvery(lotteryConfig.Interval).Seconds();
+            var bjpksConfig = lotteryConfigs.First(p => p.Name == "bjpks");
+            Schedule<BjpksLotteryDataJob>().ToRunNow().AndEvery(bjpksConfig.Interval).Seconds();
+            
+
         }
     }
 }

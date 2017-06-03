@@ -61,15 +61,15 @@ namespace LotteryService.CrossCutting.InversionOfControl
         private void SetupResolveReadOnlyRepositories()
         {
             ContainerBuilder.RegisterType<LotteryDataDapperRepostory>()
-                .As<IReadOnlyRepository<LotteryData>>()
+                .As<IDapperRepository<LotteryData>>()
                 .InstancePerDependency();
 
             ContainerBuilder.RegisterType<AuditLogDapperRepostory>()
-                .As<IReadOnlyRepository<AuditLog>>()
+                .As<IDapperRepository<AuditLog>>()
                 .InstancePerDependency();
 
             ContainerBuilder.RegisterType<FeatureDapperRepostory>()
-                .As<IReadOnlyRepository<Feature>>()
+                .As<IDapperRepository<Feature>>()
                 .InstancePerDependency();
         }
 
@@ -83,8 +83,8 @@ namespace LotteryService.CrossCutting.InversionOfControl
                 .As(typeof(IService<>))
                 .InstancePerDependency();
 
-            ContainerBuilder.RegisterGeneric(typeof(ReadOnlyService<>))
-                .As(typeof(IReadOnlyService<>))
+            ContainerBuilder.RegisterGeneric(typeof(DapperService<>))
+                .As(typeof(IDapperService<>))
                 .InstancePerDependency();
         }
 

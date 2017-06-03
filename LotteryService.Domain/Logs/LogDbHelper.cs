@@ -17,7 +17,7 @@ namespace LotteryService.Domain.Logs
         {
             get
             {
-                log4net.Config.XmlConfigurator.Configure(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.db.config"));
+                log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.db.config"));
 
                 if (_dbLog == null)
                 {
@@ -43,7 +43,26 @@ namespace LotteryService.Domain.Logs
                 OperationType = operationType.ToString(),
                 Logger = _loggerName,
                 MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = errorMsg,
+
+            };
+
+            if (DbLog.IsErrorEnabled)
+            {
+                DbLog.Error(errorLog);
+            }
+        }
+
+        public static void LogError(string errorMsg, string methodName,OperationType operationType)
+        {
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
                 UserId = 0,
                 Message = errorMsg,
 
@@ -62,7 +81,7 @@ namespace LotteryService.Domain.Logs
                 OperationType = operationType.ToString(),
                 Logger = _loggerName,
                 MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
+                IP = IpHelper.GetWorkIP(),
                 UserId = 0,
                 Message = ex.Message,
                 Exception = ex.ToString()
@@ -82,7 +101,7 @@ namespace LotteryService.Domain.Logs
                 OperationType = operationType.ToString(),
                 Logger = _loggerName,
                 MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
+                IP = IpHelper.GetWorkIP(),
                 UserId = 0,
                 Message = ex.Message,
                 Exception = ex.ToString()
@@ -92,9 +111,186 @@ namespace LotteryService.Domain.Logs
             {
                 DbLog.Error(errorLog);
             }
+        }        
+
+        public static void LogInfo(string info, string methodName)
+        {
+            var operationType = GetOperationType(methodName);
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = info,
+
+            };
+
+            if (DbLog.IsInfoEnabled)
+            {
+                DbLog.Info(errorLog);
+            }
+        }       
+
+        public static void LogInfo(string info, string methodName, OperationType operationType)
+        {
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = info,
+
+            };
+
+            if (DbLog.IsInfoEnabled)
+            {
+                DbLog.Info(errorLog);
+            }
         }
 
-        private static OperationType GetOperationType(string methodName) 
+        public static void LogWarn(string info, string methodName)
+        {
+            var operationType = GetOperationType(methodName);
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = info,
+
+            };
+
+            if (DbLog.IsWarnEnabled)
+            {
+                DbLog.Warn(errorLog);
+            }
+        }
+
+        public static void LogWarn(string info, string methodName, OperationType operationType)
+        {
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = info,
+
+            };
+
+            if (DbLog.IsWarnEnabled)
+            {
+                DbLog.Warn(errorLog);
+            }
+        }
+
+        public static void LogDebug(string info, string methodName)
+        {
+            var operationType = GetOperationType(methodName);
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = info,
+
+            };
+
+            if (DbLog.IsDebugEnabled)
+            {
+                DbLog.Debug(errorLog);
+            }
+        }
+
+        public static void LogDebug(string info, string methodName, OperationType operationType)
+        {
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = info,
+
+            };
+
+            if (DbLog.IsDebugEnabled)
+            {
+                DbLog.Debug(errorLog);
+            }
+        }
+
+        public static void LogFatal(string fatalMsg, string methodName)
+        {
+            var operationType = GetOperationType(methodName);
+
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = fatalMsg,
+
+            };
+
+            if (DbLog.IsFatalEnabled)
+            {
+                DbLog.Fatal(errorLog);
+            }
+        }
+
+        public static void LogFatal(Exception ex, string methodName, OperationType operationType)
+        {
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = ex.Message,
+                Exception = ex.ToString()
+            };
+
+            if (DbLog.IsFatalEnabled)
+            {
+                DbLog.Fatal(errorLog);
+            }
+        }
+
+        public static void LogFatal(Exception ex, string methodName)
+        {
+            var operationType = GetOperationType(methodName);
+            var errorLog = new ErrorLog()
+            {
+                OperationType = operationType.ToString(),
+                Logger = _loggerName,
+                MethodName = methodName,
+                IP = IpHelper.GetWorkIP(),
+                UserId = 0,
+                Message = ex.Message,
+                Exception = ex.ToString()
+
+            };
+            if (DbLog.IsFatalEnabled)
+            {
+                DbLog.Fatal(errorLog);
+            }
+        }
+
+        private static OperationType GetOperationType(string methodName)
         {
             var operationType = OperationType.Other;
             if (methodName.ToLower().Contains("add") || methodName.ToLower().Contains("creat") ||
@@ -119,144 +315,6 @@ namespace LotteryService.Domain.Logs
                 operationType = OperationType.Query;
             }
             return operationType;
-        }
-
-        public static void LogInfo(string info, string methodName)
-        {
-            var operationType = GetOperationType(methodName);
-            var errorLog = new ErrorLog()
-            {
-                OperationType = operationType.ToString(),
-                Logger = _loggerName,
-                MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
-                UserId = 0,
-                Message = info,
-
-            };
-
-            if (DbLog.IsInfoEnabled)
-            {
-                DbLog.Info(errorLog);
-            }
-        }       
-
-        public static void LogInfo(string info, string methodName, OperationType operationType)
-        {
-            var errorLog = new ErrorLog()
-            {
-                OperationType = operationType.ToString(),
-                Logger = _loggerName,
-                MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
-                UserId = 0,
-                Message = info,
-
-            };
-
-            if (DbLog.IsInfoEnabled)
-            {
-                DbLog.Info(errorLog);
-            }
-        }
-
-        public static void LogWarn(string info, string methodName)
-        {
-            var operationType = GetOperationType(methodName);
-            var errorLog = new ErrorLog()
-            {
-                OperationType = operationType.ToString(),
-                Logger = _loggerName,
-                MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
-                UserId = 0,
-                Message = info,
-
-            };
-
-            if (DbLog.IsWarnEnabled)
-            {
-                DbLog.Warn(errorLog);
-            }
-        }
-
-        public static void LogWarn(string info, string methodName, OperationType operationType)
-        {
-            var errorLog = new ErrorLog()
-            {
-                OperationType = operationType.ToString(),
-                Logger = _loggerName,
-                MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
-                UserId = 0,
-                Message = info,
-
-            };
-
-            if (DbLog.IsWarnEnabled)
-            {
-                DbLog.Warn(errorLog);
-            }
-        }
-
-        public static void LogFatal(string fatalMsg, string methodName)
-        {
-            var operationType = GetOperationType(methodName);
-
-            var errorLog = new ErrorLog()
-            {
-                OperationType = operationType.ToString(),
-                Logger = _loggerName,
-                MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
-                UserId = 0,
-                Message = fatalMsg,
-
-            };
-
-            if (DbLog.IsFatalEnabled)
-            {
-                DbLog.Fatal(errorLog);
-            }
-        }
-
-        public static void LogFatal(Exception ex, string methodName, OperationType operationType)
-        {
-            var errorLog = new ErrorLog()
-            {
-                OperationType = operationType.ToString(),
-                Logger = _loggerName,
-                MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
-                UserId = 0,
-                Message = ex.Message,
-                Exception = ex.ToString()
-            };
-
-            if (DbLog.IsFatalEnabled)
-            {
-                DbLog.Fatal(errorLog);
-            }
-        }
-
-        public static void LogFatal(Exception ex, string methodName)
-        {
-            var operationType = GetOperationType(methodName);
-            var errorLog = new ErrorLog()
-            {
-                OperationType = operationType.ToString(),
-                Logger = _loggerName,
-                MethodName = methodName,
-                IP = IpHelper.GetClientIP(),
-                UserId = 0,
-                Message = ex.Message,
-                Exception = ex.ToString()
-
-            };
-            if (DbLog.IsFatalEnabled)
-            {
-                DbLog.Fatal(errorLog);
-            }
         }
     }
 }

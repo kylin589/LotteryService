@@ -45,16 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Repository\ReadOnly\ILotteryDataDapperRepository.cs" />
+    <Compile Include="Interfaces\Service\ILotteryDataService.cs" />
     <Compile Include="Logs\Layout\CustomLayout.cs" />
     <Compile Include="Logs\CustomPatternConverter.cs" />
     <Compile Include="Logs\LogDbHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\Repository\Common\IReadOnlyRepository.cs" />
+    <Compile Include="Interfaces\Repository\Common\IDapperRepository.cs" />
     <Compile Include="Interfaces\Repository\Common\IRepository.cs" />
-    <Compile Include="Services\Common\ReadOnlyService.cs" />
+    <Compile Include="Services\Common\DapperService.cs" />
     <Compile Include="Services\Common\Service.cs" />
-    <Compile Include="Interfaces\Service\Common\IReadOnlyService.cs" />
+    <Compile Include="Interfaces\Service\Common\IDapperService.cs" />
     <Compile Include="Interfaces\Service\Common\IService.cs" />
+    <Compile Include="Services\Lottery\LotteryDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lottery.Entities.Extend\Lottery.Entities.Extend.csproj">

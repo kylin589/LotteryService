@@ -4,35 +4,50 @@ using System.Linq;
 using AutoMapper;
 using Lottery.Entities;
 using LotteryService.Application.Lottery.Dtos;
+using LotteryService.Common;
+using LotteryService.Common.Enums;
 using LotteryService.Data.Context;
+using LotteryService.Domain.Interfaces.Service;
 using LotteryService.Domain.Interfaces.Service.Common;
+using LotteryService.Domain.Logs;
 
 namespace LotteryService.Application.Lottery
 {
     public class LotteryDataAppService : AppService<LotteryDbContext>, ILotteryDataAppService
     {
-        private IService<LotteryData> _lotteryService;
+        private ILotteryDataService _lotteryService;
 
-        private IReadOnlyService<LotteryData> _lotteryReadOnlyService;
+        private IDapperService<LotteryData> _lotteryDapperService;
 
-        public LotteryDataAppService(IService<LotteryData> lotteryService, 
-            IReadOnlyService<LotteryData> lotteryReadOnlyService)
+        public LotteryDataAppService(ILotteryDataService lotteryService, 
+            IDapperService<LotteryData> lotteryDapperService)
         {
             _lotteryService = lotteryService;
-            _lotteryReadOnlyService = lotteryReadOnlyService;
+            _lotteryDapperService = lotteryDapperService;
         }
-
 
         public IList<LotteryDataOutput> GetLotteryData()
         {
-            var lotteryDatas = _lotteryReadOnlyService.All();
+            var lotteryDatas = _lotteryDapperService.All();
             return Mapper.Map(lotteryDatas, new List<LotteryDataOutput>());
 
         }
 
-        public void Add(LotteryDataInput input)
+ 
+        public LotteryData Insert(LotteryData newData)
         {
-            WriteData(_lotteryService.Add, input.DtoConvertEntity<LotteryData>());
+            var lotteryDataId = _lotteryDapperService.Add(newData);
+            return _lotteryDapperService.Get(lotteryDataId.GetData<string>(LsConstant.IdKey));
+        }
+
+        public bool ExsitData(string lotteryType, int period)
+        {
+            return _lotteryService.ExsitData(lotteryType, period);
+        }
+
+        public LotteryData GetLatestLotteryData(string lotteryType)
+        {
+            return _lotteryService.GetLatestLotteryData(lotteryType);
         }
     }
 }

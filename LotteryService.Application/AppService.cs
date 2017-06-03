@@ -44,7 +44,7 @@ namespace LotteryService.Application
             }
             else
             {
-                LogDbHelper.LogInfo("数据保存失败,原因:" + ValidationResult.Errors.ToJsonString(), GetType().FullName + "=>" + func.Method.Name);
+                LogDbHelper.LogFatal("数据保存失败,原因:" + ValidationResult.Errors.ToJsonString(), GetType().FullName + "=>" + func.Method.Name);
             }
 
         }
@@ -67,7 +67,7 @@ namespace LotteryService.Application
             }
             else
             {
-                LogDbHelper.LogInfo("数据保存失败,原因:" + ValidationResult.Errors.ToJsonString(), GetType().FullName + "=>" + func.Method.Name);
+                LogDbHelper.LogFatal("数据保存失败,原因:" + ValidationResult.Errors.ToJsonString(), GetType().FullName + "=>" + func.Method.Name);
             }
         }
 

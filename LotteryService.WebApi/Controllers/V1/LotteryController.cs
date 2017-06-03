@@ -33,12 +33,6 @@ namespace LotteryService.WebApi.Controllers.V1
             var data = _lotteryDataAppService.GetLotteryData();
             return  ResponseUtils.DataResult(data);
         }
-
-        [Route("data")]
-        public ResultMessage<string> PostLotteryData(LotteryDataInput input)
-        {
-            _lotteryDataAppService.Add(input);            
-            return ResponseUtils.DataResult("OK");
-        }
+    
     }
 }

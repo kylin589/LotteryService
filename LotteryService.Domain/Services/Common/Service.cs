@@ -14,14 +14,14 @@ namespace LotteryService.Domain.Services.Common
       where TEntity : class
     {
         protected readonly IRepository<TEntity> _repository;
-        protected readonly IReadOnlyRepository<TEntity> _readOnlyRepository;
+        protected readonly IDapperRepository<TEntity> _dapperRepository;
         protected readonly ValidationResult _validationResult;
 
         public Service(IRepository<TEntity> repository,
-            IReadOnlyRepository<TEntity> readOnlyRepository)
+            IDapperRepository<TEntity> dapperRepository)
         {
             _repository = repository;
-            _readOnlyRepository = readOnlyRepository;
+            _dapperRepository = dapperRepository;
             _validationResult = new ValidationResult();
         }
 
@@ -31,7 +31,7 @@ namespace LotteryService.Domain.Services.Common
         public virtual TEntity Get(string id, bool @readonly = false)
         {
             return @readonly
-                ? _readOnlyRepository.Get(id)
+                ? _dapperRepository.Get(id)
                 : _repository.Get(id);
         }
 

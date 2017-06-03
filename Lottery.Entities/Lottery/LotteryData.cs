@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Lottery.Entities.Extend;
 using Lottery.Entities.Extend.Interfaces.Validation;
+using Lottery.Entities.Validations;
 using ValidationResult = Lottery.Entities.Extend.Validation.ValidationResult;
 
 namespace Lottery.Entities
@@ -15,8 +16,6 @@ namespace Lottery.Entities
             InsertTime = DateTime.Now;
         }
 
-
-        // [Unique]
         [Required]
         public int Period { get; set; }
 
@@ -32,10 +31,16 @@ namespace Lottery.Entities
         public DateTime LotteryDateTime { get; set; }
 
         [NotMapped]
-        public ValidationResult ValidationResult { get; }
+        public ValidationResult ValidationResult { get; private set; }
 
         public bool IsValid {
-            get { return true; }
+
+            get
+            {
+                var fiscal = new LotteryDataIsValidValidation();
+                ValidationResult = fiscal.Valid(this);
+                return ValidationResult.IsValid;
+            }
         }
     }
 }

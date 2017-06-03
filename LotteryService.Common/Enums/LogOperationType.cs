@@ -7,6 +7,7 @@
         Delete,
         Query,
         Exception,
+        Job,
         Other,
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lottery.Entities;
 using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common.Dependency;
 
@@ -8,6 +9,10 @@ namespace LotteryService.Application.Lottery
     {
         IList<LotteryDataOutput> GetLotteryData();
 
-        void Add(LotteryDataInput lotteryDataInput);
+        LotteryData Insert(LotteryData newData);
+
+        bool ExsitData(string lotteryType, int period);
+
+        LotteryData GetLatestLotteryData(string lotteryType);
     }
 }

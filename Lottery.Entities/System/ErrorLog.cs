@@ -7,7 +7,6 @@ namespace Lottery.Entities
     [Table("ErrorLogs",Schema = Constant.SystemSchema)]
     public class ErrorLog : BaseEntity
     {
-
         public int? UserId { get; set; }
 
         public string Thread { get; set; }
@@ -23,6 +22,8 @@ namespace Lottery.Entities
         public string Logger { get; set; }
 
         public string MethodName { get; set; }
+
+        public string Memo { get; set; }
 
         public string Message { get; set; }
 

@@ -275,6 +275,7 @@
     <Content Include="LotteryData.config" />
     <Content Include="log4net.config" />
     <Content Include="log4net.db.config" />
+    <None Include="Properties\PublishProfiles\lotteryService-stage.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

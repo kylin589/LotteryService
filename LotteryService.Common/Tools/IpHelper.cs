@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Net;
+using System.Web;
 
 namespace LotteryService.Common.Tools
 {
@@ -34,6 +35,23 @@ namespace LotteryService.Common.Tools
                 return userHostAddress;
             }
             return "127.0.0.1";
+        }
+
+        /// <summary>
+        /// 获取日志服务器
+        /// </summary>
+        /// <returns>若失败则返回回送地址</returns>
+        public static string GetWorkIP()
+        {
+            if (HttpContext.Current != null)
+            {
+                return GetClientIP();
+            }
+            string hostName = Dns.GetHostName();   //获取本机名
+            IPHostEntry localhost = Dns.GetHostByName(hostName);    //方法已过期，可以获取IPv4的地址
+            //IPHostEntry localhost = Dns.GetHostEntry(hostName);   //获取IPv6地址
+            IPAddress localaddr = localhost.AddressList[0];
+            return localaddr.ToString();
         }
 
         /// <summary>

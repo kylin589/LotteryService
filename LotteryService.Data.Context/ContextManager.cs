@@ -26,10 +26,10 @@ namespace LotteryService.Data.Context
                     ((IDbContext)context.Items[ContextKey]).Dispose();
             }
 
-            if (_dbContext != null)
-            {
-                _dbContext.Dispose();
-            }
+            //if (_dbContext != null)
+            //{
+            //    _dbContext.Dispose();
+            //}
 
         }
 
