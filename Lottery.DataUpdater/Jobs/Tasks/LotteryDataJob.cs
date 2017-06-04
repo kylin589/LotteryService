@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Hosting;
-using FluentScheduler;
 using Lottery.DataUpdater.Models;
 using LotteryService.Application.Lottery;
 using LotteryService.Common.Enums;
 using LotteryService.Domain.Logs;
 using Microsoft.Practices.ServiceLocation;
+using Quartz;
 
 namespace Lottery.DataUpdater.Jobs
 {
-    public abstract class LotteryDataJob : IJob, IRegisteredObject
+    public abstract class LotteryDataJob : IJob,IRegisteredObject
     {
         private readonly object _lock = new object();
         protected readonly LotteryType _LotteryType;
@@ -60,7 +60,7 @@ namespace Lottery.DataUpdater.Jobs
             get { return isFirstStartService; }
         }
 
-        public void Execute()
+        public void Execute(IJobExecutionContext context)
         {
             lock (_lock)
             {
@@ -106,5 +106,7 @@ namespace Lottery.DataUpdater.Jobs
                 GetType().FullName + "=>Stop",OperationType.Job);
              HostingEnvironment.UnregisterObject(this);
         }
+
+       
     }
 }

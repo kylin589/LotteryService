@@ -12,7 +12,7 @@ namespace Lottery.DataUpdater.Jobs
             var lotteryConfigs = lotteryeConfigLoader.GetLotteryUpdateConfigs();
 
             var bjpksConfig = lotteryConfigs.First(p => p.Name == "bjpks");
-            Schedule<BjpksLotteryDataJob>().ToRunNow().AndEvery(bjpksConfig.Interval).Seconds();
+            //Schedule<BjpksLotteryDataJob>().ToRunNow().AndEvery(bjpksConfig.Interval).Seconds();
             
 
         }
