@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using LotteryService.Application.Log;
-using LotteryService.Application.Log.Dtos;
 using LotteryService.Application.Lottery;
 using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common;
-using LotteryService.Common.Enums;
-using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
 using LotteryService.WebApi.Controllers.Base;
 

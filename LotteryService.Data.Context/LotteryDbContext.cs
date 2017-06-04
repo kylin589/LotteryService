@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using Lottery.Entities;
 using LotteryService.Data.Context.Config;
 
@@ -25,5 +24,7 @@ namespace LotteryService.Data.Context
         public virtual IDbSet<ErrorLog> ErrorLogs { get; set; }
 
         public virtual IDbSet<AuditLog> AuditLogs { get; set; }
+
+        public virtual IDbSet<User> Users { get; set; }
     }
 }

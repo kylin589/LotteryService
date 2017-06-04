@@ -25,7 +25,7 @@ namespace LotteryService.WebApi
                 );
 
             actionExecutedContext.Response = 
-                actionExecutedContext.Request.CreateResponse(HttpStatusCode.InternalServerError, ResponseUtils.ErrorResult(exception));
+                actionExecutedContext.Request.CreateResponse(HttpStatusCode.InternalServerError, ResponseUtils.ErrorResult<object>(exception));
 
             base.OnException(actionExecutedContext);
 

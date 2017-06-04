@@ -31,6 +31,7 @@ namespace Lottery.DataUpdater
             _lotteryUpdateConfig = lotteryUpdateConfig;
             _lotteryDataAppService = lotteryDataAppService;
             _lotteryDataJob = lotteryDataJob;
+
         }
 
         protected int LastPeriod
@@ -59,6 +60,7 @@ namespace Lottery.DataUpdater
         public void Execute()
         {
             RequestNewDataAsync();
+
         }
 
         private void RequestNewDataAsync()
@@ -75,6 +77,7 @@ namespace Lottery.DataUpdater
 
         private void RequestData(DataSite dataSite)
         {
+
             var dataUpdateItem = ObtainDataUpdateItemByReflect(dataSite);
             if (dataUpdateItem == null)
             {
@@ -82,7 +85,6 @@ namespace Lottery.DataUpdater
             }
 
             var newDataList = dataUpdateItem.RequestNewDatas();
-
             lock (_lockObject)
             {
                 if (newDataList != null && newDataList.Count > 0)
@@ -98,13 +100,12 @@ namespace Lottery.DataUpdater
                             // todo:更新彩票分析数据
                         }
                     }
-                    LogDbHelper.LogDebug(string.Format("更新彩票{0}开奖数据数据成功,共{1}条数据",_lotteryDataJob.LotteryType,newDataList.Count),
-                        GetType().FullName + "=>RequestData",OperationType.Job);
+                    LogDbHelper.LogDebug(string.Format("更新彩票{0}开奖数据数据成功,共{1}条数据", _lotteryDataJob.LotteryType, newDataList.Count),
+                        GetType().FullName + "=>RequestData", OperationType.Job);
                     _lotteryDataJob.NextLotteryTime = _lotteryUpdateConfig.NextLotteryTime;
 
                 }
             }
-
         }
 
         private DataUpdateItem ObtainDataUpdateItemByReflect(DataSite dataSite)

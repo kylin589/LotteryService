@@ -10,9 +10,9 @@ namespace LotteryService.Common.Tools
         /// </summary>
         /// <param name="ex">异常</param>
         /// <returns></returns>
-        public static ResultMessage<object> ErrorResult(Exception ex)
+        public static ResultMessage<T> ErrorResult<T>(Exception ex)
         {
-            return new ResultMessage<object>(ex);
+            return new ResultMessage<T>(ex);
         }
 
         /// <summary>
@@ -20,9 +20,9 @@ namespace LotteryService.Common.Tools
         /// </summary>
         /// <param name="errMsg">错误信息</param>
         /// <returns></returns>
-        public static ResultMessage<object> ErrorResult(string errMsg)
+        public static ResultMessage<T> ErrorResult<T>(string errMsg)
         {
-            return new ResultMessage<object>(ResultCode.ServiceError,errMsg);
+            return new ResultMessage<T>(ResultCode.ServiceError,errMsg);
         }
 
         /// <summary>

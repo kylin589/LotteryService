@@ -7,6 +7,7 @@ using Lottery.Entities.Extend;
 using LotteryService.Common.Dependency;
 using LotteryService.Data.Context;
 using LotteryService.Data.Context.Interfaces;
+using LotteryService.Data.Repository.Dapper.Account;
 using LotteryService.Data.Repository.Dapper.Log;
 using LotteryService.Data.Repository.Dapper.Lottery;
 using LotteryService.Data.Repository.EntityFramework.Common;
@@ -70,6 +71,11 @@ namespace LotteryService.CrossCutting.InversionOfControl
 
             ContainerBuilder.RegisterType<FeatureDapperRepostory>()
                 .As<IDapperRepository<Feature>>()
+                .InstancePerDependency();
+
+            ContainerBuilder.RegisterType<UserDapperRepository>()
+                .As<UserDapperRepository>()
+                .As<IDapperRepository<User>>()
                 .InstancePerDependency();
         }
 

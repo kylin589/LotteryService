@@ -1,6 +1,6 @@
 ﻿using Lottery.Entities;
 using LotteryService.Domain.Interfaces.Repository.Common;
-using LotteryService.Domain.Interfaces.Repository.ReadOnly;
+using LotteryService.Domain.Interfaces.Repository.Dapper;
 using LotteryService.Domain.Interfaces.Service;
 using LotteryService.Domain.Interfaces.Service.Common;
 using LotteryService.Domain.Services.Common;

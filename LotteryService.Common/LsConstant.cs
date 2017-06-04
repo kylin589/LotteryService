@@ -15,5 +15,7 @@
         public const string RequestParameters = "RequestParameters";
 
         public const string AuditLogKey = "AuditLogKey";
+
+        public const string ExecKey = "ExecKey";
     }
 }

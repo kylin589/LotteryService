@@ -15,7 +15,7 @@ namespace LotteryService.Domain.Services.Common
     {
         #region Constructor
 
-        private readonly IDapperRepository<TEntity> _dapperRepository;
+        protected readonly IDapperRepository<TEntity> _dapperRepository;
         protected readonly ValidationResult _validationResult;
 
         public DapperService(
@@ -51,7 +51,7 @@ namespace LotteryService.Domain.Services.Common
             return _dapperRepository.Find(predicate);
         }
 
-        public ValidationResult Add(TEntity entity)
+        public virtual ValidationResult Add(TEntity entity)
         {
             if (!_validationResult.IsValid)
                 return _validationResult;
@@ -73,7 +73,7 @@ namespace LotteryService.Domain.Services.Common
             return _validationResult;
         }
 
-        public ValidationResult Update(string id, params object [] fields)
+        public  ValidationResult Update(string id, params object [] fields)
         {
             if (!_validationResult.IsValid)
                 return _validationResult;

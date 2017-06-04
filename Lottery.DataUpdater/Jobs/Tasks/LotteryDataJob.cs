@@ -20,8 +20,9 @@ namespace Lottery.DataUpdater.Jobs
         protected readonly LotteryUpdateConfig _lotteryUpdateConfig;
 
         protected static bool isFirstStartService = true;
+
         protected DataUpdateContainer _dataUpdateContainer;
-        protected DateTime _nextLotteryTime;
+        protected static DateTime _nextLotteryTime;
 
         protected LotteryDataJob(LotteryType lotteryType)
         {
@@ -30,7 +31,7 @@ namespace Lottery.DataUpdater.Jobs
             _lotteryDataAppService = ServiceLocator.Current.GetInstance<ILotteryDataAppService>();
             _lotteryUpdateConfigLoader = ServiceLocator.Current.GetInstance<ILotteryUpdateConfigLoader>();
             _lotteryUpdateConfig = _lotteryUpdateConfigLoader.GetLotteryUpdateConfigs().Single(p=>p.Name == lotteryType.ToString());
-            _nextLotteryTime = _lotteryUpdateConfig.NextLotteryTime;
+            //_nextLotteryTime = _lotteryUpdateConfig.NextLotteryTime;
 
             _dataUpdateContainer = new DataUpdateContainer(_lotteryUpdateConfig,_lotteryDataAppService,this);
             
@@ -38,7 +39,14 @@ namespace Lottery.DataUpdater.Jobs
 
         internal DateTime NextLotteryTime
         {
-            get { return _nextLotteryTime; }
+            get
+            {
+                if (_nextLotteryTime == DateTime.MinValue)
+                {
+                    _nextLotteryTime = _lotteryUpdateConfig.NextLotteryTime;
+                }
+                return _nextLotteryTime;
+            }
             set { _nextLotteryTime = value; }
         }
 
@@ -70,7 +78,7 @@ namespace Lottery.DataUpdater.Jobs
                         
                     }
                     else
-                    {
+                    {         
                         if (DateTime.Now > NextLotteryTime ||
                             NextLotteryTime - DateTime.Now < TimeSpan.FromSeconds(_lotteryUpdateConfig.Interval * 3))
                         {

@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dapper\Account\UserDapperRepository.cs" />
     <Compile Include="Dapper\Common\DapperRepository.cs" />
     <Compile Include="Dapper\Log\AuditLogDapperRepostory.cs" />
     <Compile Include="Dapper\Lottery\FeatureDapperRepostory.cs" />

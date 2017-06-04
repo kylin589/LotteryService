@@ -54,12 +54,15 @@
     <Compile Include="Enums\LogOperationType.cs" />
     <Compile Include="Enums\LotteryType.cs" />
     <Compile Include="Enums\ResultCode.cs" />
+    <Compile Include="Enums\UserRegistType.cs" />
+    <Compile Include="Enums\UserState.cs" />
     <Compile Include="Excetions\LSException.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="LsConstant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultMessage.cs" />
+    <Compile Include="Tools\AppUtils.cs" />
     <Compile Include="Tools\IpHelper.cs" />
     <Compile Include="Tools\ResponseUtils.cs" />
     <Compile Include="Tools\Utils.cs" />

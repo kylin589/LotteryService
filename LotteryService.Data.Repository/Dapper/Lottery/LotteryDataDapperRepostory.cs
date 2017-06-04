@@ -8,7 +8,7 @@ using Dapper;
 using Lottery.Entities;
 using LotteryService.Data.Repository.Dapper.Common;
 using LotteryService.Domain.Interfaces.Repository.Common;
-using LotteryService.Domain.Interfaces.Repository.ReadOnly;
+using LotteryService.Domain.Interfaces.Repository.Dapper;
 
 namespace LotteryService.Data.Repository.Dapper.Lottery
 {
