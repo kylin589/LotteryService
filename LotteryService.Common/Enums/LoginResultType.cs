@@ -10,6 +10,7 @@
         UserEmailIsNotConfirmed = 6,
         UserPhoneIsNotConfirmed = 7,
         UnknownExternalLogin = 8,
-        LockedOut = 9
+        LockedOut = 9,
+        ServerError = 10,
     }
 }

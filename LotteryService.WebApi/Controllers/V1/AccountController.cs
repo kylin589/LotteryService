@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using Lottery.Entities;
 using LotteryService.Application.Account;
 using LotteryService.Application.Account.Dtos;
 using LotteryService.Common;
@@ -74,6 +75,15 @@ namespace LotteryService.WebApi.Controllers.V1
                 return ResponseUtils.ErrorResult<UserLoginOutput>(ex.Message);
             }
 
+        }
+
+        [Route("logout")]
+        [HttpPost]
+        public ResultMessage<string> Logout()
+        {
+            var loginUser = Request.GetLoginUser();
+            _loginManager.Logout(loginUser.TokenId);
+            return ResponseUtils.DataResult("登出成功");
         }
 
         private LoginResult GetLoginResult(string accountName, string password)

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
 using LotteryService.Common.Enums;
+using Newtonsoft.Json.Linq;
 
 namespace LotteryService.Common.Tools
 {
@@ -51,6 +51,20 @@ namespace LotteryService.Common.Tools
             IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
             IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
             return encoder.Encode(playload, secret);
+        }
+
+
+        public static JObject GetPayloadFromToken(string token,string secret)
+        {
+            IJsonSerializer serializer = new JsonNetSerializer();
+            IDateTimeProvider provider = new UtcDateTimeProvider();
+            IJwtValidator validator = new JwtValidator(serializer, provider);
+            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder);
+
+            var jsonstr = decoder.Decode(token, secret, verify: true);
+
+            return JObject.Parse(jsonstr);
         }
 
 

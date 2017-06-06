@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201706051418346_UpdateUserAndAddUserLoginApptempt.Designer.cs">
       <DependentUpon>201706051418346_UpdateUserAndAddUserLoginApptempt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706061451551_UpdateUserLoginAttempt.cs" />
+    <Compile Include="Migrations\201706061451551_UpdateUserLoginAttempt.Designer.cs">
+      <DependentUpon>201706061451551_UpdateUserLoginAttempt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -169,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706051418346_UpdateUserAndAddUserLoginApptempt.resx">
       <DependentUpon>201706051418346_UpdateUserAndAddUserLoginApptempt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706061451551_UpdateUserLoginAttempt.resx">
+      <DependentUpon>201706061451551_UpdateUserLoginAttempt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

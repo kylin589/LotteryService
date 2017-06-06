@@ -7,5 +7,7 @@ namespace LotteryService.Domain.Interfaces.Service
     public interface ILoginManager : ITransientDependency
     {
         LoginResult Login(string accountName, string password);
+
+        void Logout(string loginUserTokenId);
     }
 }

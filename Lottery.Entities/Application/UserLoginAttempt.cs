@@ -19,6 +19,10 @@ namespace Lottery.Entities
 
         [Required]
         [MaxLength(50)]
+        public string TokenId { get; set; }
+
+        [Required]
+        [MaxLength(50)]
         public string AccountName { get; set; }
 
         [Required]
@@ -34,7 +38,6 @@ namespace Lottery.Entities
 
         public LoginResultType LoginResult { get; set; }
 
-        
-
+        public bool IsOnline { get; set; }
     }
 }

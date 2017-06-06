@@ -5,6 +5,7 @@ using Lottery.Entities.Extend.Validation;
 using LotteryService.Application.Account.Dtos;
 using LotteryService.Common;
 using LotteryService.Common.Enums;
+using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
 using LotteryService.Data.Context;
 using LotteryService.Domain.Interfaces.Service;
@@ -117,9 +118,29 @@ namespace LotteryService.Application.Account
             }
         }
 
-        public LoginResultType Login(string accountName, string password)
+
+        public User GetUserByTokenId(string tokenId)
         {
-            throw new NotImplementedException();
+            return _accountService.GetUserByTokenId(tokenId);
+        }
+
+        public bool IsOnline(string accountName)
+        {
+            var user = _accountService.GetUserByAccountName(accountName);
+            if (user == null)
+            {
+                throw new LSException($"不存在账号为{accountName}的用户");
+            }
+
+            if (!user.IsActive)
+            {
+                throw new LSException($"账号为{accountName}的用户被冻结");
+            }
+            if (string.IsNullOrEmpty(user.TokenId))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

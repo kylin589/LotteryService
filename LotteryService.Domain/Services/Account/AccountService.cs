@@ -46,6 +46,19 @@ namespace LotteryService.Domain.Services.Account
             throw new NotImplementedException();
         }
 
+        public User GetUserByTokenId(string tokenId)
+        {
+            return ((IUserDapperRepository) _dapperRepository).GetUserByTokenId(tokenId);
+        }
 
+        public User GetUserByAccountName(string accountName)
+        {
+            return ((IUserDapperRepository)_dapperRepository).GetUserByAccountName(accountName);
+        }
+
+        public void Logout(string tokenId)
+        {
+            ((IUserDapperRepository)_dapperRepository).Logout(tokenId);
+        }
     }
 }

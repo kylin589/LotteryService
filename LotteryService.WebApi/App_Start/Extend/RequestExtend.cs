@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using Lottery.Entities;
+using LotteryService.Application.Account;
 using LotteryService.Common;
 using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
+using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -64,6 +68,54 @@ namespace LotteryService.WebApi
             return requestParams;
         }
 
-      
+        public static User GetLoginUser(this HttpRequestMessage request)
+        {
+
+            var ticket = request.GetHeader(LsConstant.LOTTERY_SERVICE_TICKET);
+            if (string.IsNullOrEmpty(ticket))
+            {
+                throw new LSException("请先登录系统.");
+            }
+            JObject playLoad = null;
+            try
+            {
+                playLoad = AppUtils.GetPayloadFromToken(ticket, Utils.GetConfigValuesByKey(LsConstant.JwtSecret));
+            }
+            catch (Exception ex)
+            {
+                
+                throw new LSException("票据无效，请通过合法的途径请求API");
+            }
+
+            // :todo 判断用户是否登录超时，如果登录超时，则直接登出
+
+            // ：todo 重构， 缓存，需要从缓存中获取用户,不是直接从数据库中获取用户信息
+            var appAccountService = ServiceLocator.Current.GetInstance<AccountAppService>();
+
+            var user = appAccountService.GetUserByTokenId(playLoad[LsConstant.TokenId].ToString());
+
+            if (user == null)
+            {
+                if (appAccountService.IsOnline(playLoad[LsConstant.AccountName].ToString()))
+                {
+                    throw new LSException("票据无效,请通过合法途径访问API");
+                }
+                // :todo 登出操作
+                throw new LSException("用户已登出");
+            }
+            return user;
+        }
+
+        public static string GetHeader(this HttpRequestMessage request, string key)
+        {
+            IEnumerable<string> keys = null;
+            if (!request.Headers.TryGetValues(key, out keys))
+                return null;
+
+            return keys.First();
+        }
+
+
+
     }
 }

@@ -13,5 +13,8 @@ namespace LotteryService.Domain.Interfaces.Repository.Dapper
         void LoginFail(string userId, string accountName, LoginResultType loginResultResultType);
 
         void LoginSuccess(string userId, string accountName, LoginResultType loginResultResultType, string tokenId,DateTime dateTime);
+
+        User GetUserByTokenId(string tokenId);
+        void Logout(string tokenId);
     }
 }

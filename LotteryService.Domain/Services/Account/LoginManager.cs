@@ -14,8 +14,12 @@ namespace LotteryService.Domain.Services.Account
 {
     public class LoginManager : DapperService<User>, ILoginManager
     {
-        public LoginManager(IUserDapperRepository dapperRepository) : base(dapperRepository)
+        private readonly AccountService _accountService;
+
+        public LoginManager(IUserDapperRepository dapperRepository,
+            AccountService accountService) : base(dapperRepository)
         {
+            _accountService = accountService;
         }
 
         public LoginResult Login(string accountName, string password)
@@ -69,19 +73,22 @@ namespace LotteryService.Domain.Services.Account
                     ((IUserDapperRepository)_dapperRepository).LoginSuccess(userInfo.Id, accountName, loginResult.ResultType,
                         loginResult.TokenId,loginResult.LoginTime);
                     // :todo 缓存TokenId
-                    LogDbHelper.LogWarn(loginResult.LoginResultMsg, GetType().FullName + "Login", OperationType.Account);
+                    LogDbHelper.LogInfo(loginResult.LoginResultMsg, GetType().FullName + "Login", OperationType.Account);
                 }
             }
             catch (Exception ex)
             {
-
+                ((IUserDapperRepository)_dapperRepository).LoginFail(userInfo.Id, accountName, loginResult.ResultType);
                 LogDbHelper.LogError("登录失败, 原因:" + ex.ToString(), GetType().FullName + "Login", OperationType.Account);
+                loginResult = new LoginResult(ex);
             }
-
 
             return loginResult;
         }
 
-       
+        public void Logout(string tokenId)
+        {
+            _accountService.Logout(tokenId);
+        }
     }
 }

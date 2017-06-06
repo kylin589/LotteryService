@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lottery.Entities;
+using LotteryService.Common;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
@@ -26,7 +27,7 @@ namespace LotteryService.Domain.Services.Account.Models
         private string _accountName;
 
         private DateTime _loginTime;
-
+    
 
         public string LoginResultMsg
         {
@@ -80,6 +81,12 @@ namespace LotteryService.Domain.Services.Account.Models
             GenerateToken();
         }
 
+        public LoginResult(Exception ex)
+        {
+            _loginResult = LoginResultType.ServerError;
+            _loginResultMsg = ex.Message;
+        }
+
         private void SetLoginResultMsg()
         {
             switch (_loginResult)
@@ -107,12 +114,13 @@ namespace LotteryService.Domain.Services.Account.Models
 
         private void GenerateToken()
         {
-            var secret = Utils.GetConfigValuesByKey("JwtSecret");
+            var secret = Utils.GetConfigValuesByKey(LsConstant.JwtSecret);
             _tokenId = Guid.NewGuid().ToString().Replace("-", "").ToUpper();
             _payload = new Dictionary<string, object>();
-            _payload["TokenId"] = _tokenId;
+            _payload[LsConstant.TokenId] = _tokenId;
             _loginTime = DateTime.Now;
-            _payload["LoginTime"] = _loginTime;
+            _payload[LsConstant.LoginTime] = _loginTime;
+            _payload[LsConstant.AccountName] = _accountName;
             _token = AppUtils.GenerateToken(_payload, secret);
 
         }

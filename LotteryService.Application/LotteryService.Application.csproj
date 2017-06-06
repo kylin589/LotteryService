@@ -71,6 +71,7 @@
     <Compile Include="Account\Dtos\UserCreateOutput.cs" />
     <Compile Include="Account\Dtos\UserLoginInput.cs" />
     <Compile Include="Account\Dtos\UserLoginOutput.cs" />
+    <Compile Include="Account\Dtos\UserLogoutOutput.cs" />
     <Compile Include="Account\IAccountAppService.cs" />
     <Compile Include="AppService.cs" />
     <Compile Include="Common\AutoMapper\DtoToEntityMappingProfile.cs" />

@@ -9,5 +9,11 @@ namespace LotteryService.Common.Extensions
         {
             return JsonMapper.ToJson(obj);           
         }
+
+        public static T ToObject<T>(this string jsonStr)
+        {
+            return JsonMapper.ToObject<T>(jsonStr);
+        }
+
     }
 }

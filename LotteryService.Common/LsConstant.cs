@@ -18,16 +18,28 @@
 
         public const string ExecKey = "ExecKey";
 
-        public static string PasswordKey = "password";
+        public const string PasswordKey = "password";
 
-        public static string Login = "login";
+        public const string Login = "login";
 
-        public static string AccountCreate = "create";
+        public const string AccountCreate = "create";
 
-        public static string AccountControllerName = "account";
+        public const string AccountControllerName = "account";
 
-        public static string InputParamDefaultName = "input";
+        public const string InputParamDefaultName = "input";
 
-        public static string LoginInputParamDefaultName = "loginInput";
+        public const string LoginInputParamDefaultName = "loginInput";
+
+        public const string LoginUser = "LoginUser";
+
+        public const string LOTTERY_SERVICE_TICKET = "LOTTERY_SERVICE_TICKET";
+
+        public const string TokenId = "TokenId";
+
+        public const string LoginTime = "LoginTime";
+
+        public const string JwtSecret = "JwtSecret";
+
+        public const string AccountName = "AccountName";
     }
 }
