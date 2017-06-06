@@ -1,24 +1,41 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using LotteryService.Application.Account;
 using LotteryService.Application.Account.Dtos;
 using LotteryService.Common;
+using LotteryService.Common.Enums;
+using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
+using LotteryService.Domain.Interfaces.Service;
+using LotteryService.Domain.Services.Account.Models;
 using LotteryService.WebApi.Controllers.Base;
+
 
 namespace LotteryService.WebApi.Controllers.V1
 {
     [RoutePrefix("account/v1")]
     public class AccountController : V1ControllerBase
     {
-        private readonly IAccountAppService _accountAppService;
 
-        public AccountController(IAccountAppService accountAppService)
+        private readonly IAccountAppService _accountAppService;
+        private readonly ILoginManager _loginManager;
+
+        public AccountController(IAccountAppService accountAppService,
+            ILoginManager loginManager)
         {
             _accountAppService = accountAppService;
+            _loginManager = loginManager;
+           
         }
 
+        /// <summary>
+        /// 注册用户(创建账号)
+        /// </summary>
+        /// <param name="input">入参</param>
+        /// <returns></returns>
         [Route("user")]
         [HttpPost]
+        [EncryptAuditLogParams]
         public ResultMessage<UserCreateOutput> Create(UserCreateInput input)
         {
             var result = _accountAppService.Create(input);
@@ -27,6 +44,49 @@ namespace LotteryService.WebApi.Controllers.V1
                 return ResponseUtils.DataResult(result);
             }
             return ResponseUtils.ErrorResult<UserCreateOutput>(result.Msg);
+        }
+
+        /// <summary>
+        /// 登录接口
+        /// </summary>
+        /// <param name="loginInput"></param>
+        /// <returns></returns>
+        [Route("login")]
+        [HttpPost]
+        [EncryptAuditLogParams]
+        public ResultMessage<UserLoginOutput> Login(UserLoginInput loginInput)
+        {
+            try
+            {
+                var loginResult = GetLoginResult(
+                    loginInput.AccountName,
+                    loginInput.Password
+                );
+                return ResponseUtils.DataResult(new UserLoginOutput()
+                {
+                    LoginResultMsg = loginResult.LoginResultMsg,
+                    Ticket = loginResult.Token
+                });
+            }
+            catch (Exception ex)
+            {
+
+                return ResponseUtils.ErrorResult<UserLoginOutput>(ex.Message);
+            }
+
+        }
+
+        private LoginResult GetLoginResult(string accountName, string password)
+        {
+            var loginResult = _loginManager.Login(accountName, password);
+            switch (loginResult.ResultType)
+            {
+                case LoginResultType.Success:
+                    return loginResult;
+                default:
+                    throw new LSException("登录不成功,原因:" + loginResult.LoginResultMsg );
+
+            }
         }
     }
 }

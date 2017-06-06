@@ -10,6 +10,7 @@ using LotteryService.WebApi.Controllers.Base;
 namespace LotteryService.WebApi.Controllers.V1
 {
     [RoutePrefix("lottery/v1")]
+    [LsAuthenticationFilter]
     public class LotteryController : V1ControllerBase
     {
         private readonly ILotteryDataAppService _lotteryDataAppService;

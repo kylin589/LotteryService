@@ -37,25 +37,7 @@ namespace LotteryService.Domain.Services.Account
         }
 
         public ValidationResult Add(User entity)
-        {
-            //if (!_validationResult.IsValid)
-            //    return _validationResult;
-
-            //var selfValidationEntity = entity as ISelfValidation;
-            //if (selfValidationEntity != null && !selfValidationEntity.IsValid)
-            //    return selfValidationEntity.ValidationResult;
-
-            //if (!((IUserDapperRepository)_dapperRepository).Add(entity))
-            //{
-            //    _validationResult.Add(string.Format("添加实体对象{0}失败", entity.GetType().FullName));
-            //}
-            //var baseEntity = entity as BaseEntity;
-            //if (baseEntity != null)
-            //{
-            //    _validationResult.SetData(LsConstant.IdKey, baseEntity.Id);
-            //}
-
-            //return _validationResult;
+        {         
             return base.Add(entity);
         }
 

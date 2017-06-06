@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace LotteryService.Common.Tools
 {
@@ -270,7 +272,7 @@ namespace LotteryService.Common.Tools
         /// <returns></returns>  
         public static bool IsMobilePhone(string input)
         {
-            Regex regex = new Regex("^(0|86|17951)?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$");
+            Regex regex = new Regex("^(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$");
             return regex.IsMatch(input);
 
         }
@@ -289,11 +291,110 @@ namespace LotteryService.Common.Tools
 
         public static bool IsLegalUserName(string input)
         {
-            Regex regex = new Regex("^[a-zA-z_][a-zA-Z0-9_]{2,16}$");
+            Regex regex = new Regex("^[a-zA-z][a-zA-Z0-9_]{2,16}$");
             return regex.IsMatch(input);
         }
 
 
         #endregion
+
+        #region Read Config 
+
+        public static string GetConfigValuesByKey(string key)
+        {
+
+            string values = ConfigurationManager.AppSettings[key];
+            if (values == null)
+            {
+                throw new Exception(string.Format("应用程序中没有key为{0}的设置", key));
+            }
+            return values;
+        }
+
+
+        #endregion
+
+        #region 生成随机密码/字符串
+
+        /// <summary>
+        /// 生成随机数的种子
+        /// </summary>
+        /// <returns></returns>
+        private static int GetNewSeed()
+        {
+            byte[] rndBytes = new byte[4];
+            System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            rng.GetBytes(rndBytes);
+            return BitConverter.ToInt32(rndBytes, 0);
+        }
+             
+        /// <summary>
+        /// 生成8位随机数
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string GetRandomString(int len)
+        {
+            string s = "123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ";
+            string reValue = string.Empty;
+            Random rnd = new Random(GetNewSeed());
+            while (reValue.Length < len)
+            {
+                string s1 = s[rnd.Next(0, s.Length)].ToString();
+                if (reValue.IndexOf(s1) == -1) reValue += s1;
+            }
+            return reValue;
+        }
+
+        #endregion
+
+        public static string GetBrowserInfo()
+        {
+           return HttpContext.Current.Request.Browser.Browser + " " + HttpContext.Current.Request.Browser.Version;
+        }
+
+        public static string GetOsInfo()
+        {
+            string agent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
+            if (agent.IndexOf("NT 4.0", StringComparison.Ordinal) > 0)
+                return "Windows NT ";
+            if (agent.IndexOf("NT 5.0", StringComparison.Ordinal) > 0)
+                return "Windows 2000";
+            if (agent.IndexOf("NT 5.1", StringComparison.Ordinal) > 0)
+                return "Windows XP";
+            if (agent.IndexOf("NT 5.2", StringComparison.Ordinal) > 0)
+                return "Windows 2003";
+            if (agent.IndexOf("NT 6.0", StringComparison.Ordinal) > 0)
+                return "Windows Vista";
+            if (agent.IndexOf("NT 7.0", StringComparison.Ordinal) > 0)
+                return "Windows 7";
+            if (agent.IndexOf("NT 8.0", StringComparison.Ordinal) > 0)
+                return "Windows 8";
+            if (agent.IndexOf("NT 10.0", StringComparison.Ordinal) > 0)
+                return "Windows 10";
+            if (agent.IndexOf("WindowsCE", StringComparison.Ordinal) > 0)
+                return "Windows CE";
+            if (agent.IndexOf("NT", StringComparison.Ordinal) > 0)
+                return "Windows NT ";
+            if (agent.IndexOf("9x", StringComparison.Ordinal) > 0)
+                return "Windows ME";
+            if (agent.IndexOf("98", StringComparison.Ordinal) > 0)
+                return "Windows 98";
+            if (agent.IndexOf("95", StringComparison.Ordinal) > 0)
+                return "Windows 95";
+            if (agent.IndexOf("Win32", StringComparison.Ordinal) > 0)
+                return "Win32";
+            if (agent.IndexOf("Linux", StringComparison.Ordinal) > 0)
+                return "Linux";
+            if (agent.IndexOf("SunOS", StringComparison.Ordinal) > 0)
+                return "SunOS";
+            if (agent.IndexOf("Mac", StringComparison.Ordinal) > 0)
+                return "Mac";
+            if (agent.IndexOf("Linux", StringComparison.Ordinal) > 0)
+                return "Linux";
+            if (agent.IndexOf("Windows", StringComparison.Ordinal) > 0)
+                return "Windows";
+            return "未知类型";
+        }
     }
 }

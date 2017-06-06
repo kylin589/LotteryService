@@ -17,5 +17,17 @@
         public const string AuditLogKey = "AuditLogKey";
 
         public const string ExecKey = "ExecKey";
+
+        public static string PasswordKey = "password";
+
+        public static string Login = "login";
+
+        public static string AccountCreate = "create";
+
+        public static string AccountControllerName = "account";
+
+        public static string InputParamDefaultName = "input";
+
+        public static string LoginInputParamDefaultName = "loginInput";
     }
 }

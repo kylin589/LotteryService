@@ -19,17 +19,14 @@ namespace LotteryService.WebApi
             switch (key)
             {
                 case LsConstant.RequestBrowser:
-                    value = HttpContext.Current.Request.Browser.Browser + " " + HttpContext.Current.Request.Browser.Version;
+                    value = Utils.GetBrowserInfo();
                     break;
                 case LsConstant.RequestClientAddress:
                     value = IpHelper.GetClientIP();
                     break;
                 case LsConstant.RequestClientName:
-                    value = SystemCheck(HttpContext.Current.Request);
-                    break;
-                case LsConstant.RequestParameters:
-                    value ="{}";
-                    break;
+                    value = Utils.GetOsInfo();
+                    break;               
                 default:
                     throw new LSException(string.Format("无法获取key为{0}请求的请求信息",key));
 
@@ -67,48 +64,6 @@ namespace LotteryService.WebApi
             return requestParams;
         }
 
-        public static string SystemCheck(HttpRequest request)
-        {
-            string agent = request.ServerVariables["HTTP_USER_AGENT"];
-            if (agent.IndexOf("NT 4.0", StringComparison.Ordinal) > 0)
-                return "Windows NT ";
-            if (agent.IndexOf("NT 5.0", StringComparison.Ordinal) > 0)
-                return "Windows 2000";
-            if (agent.IndexOf("NT 5.1", StringComparison.Ordinal) > 0)
-                return "Windows XP";
-            if (agent.IndexOf("NT 5.2", StringComparison.Ordinal) > 0)
-                return "Windows 2003";
-            if (agent.IndexOf("NT 6.0", StringComparison.Ordinal) > 0)
-                return "Windows Vista";
-            if (agent.IndexOf("NT 7.0", StringComparison.Ordinal) > 0)
-                return "Windows 7";
-            if (agent.IndexOf("NT 8.0", StringComparison.Ordinal) > 0)
-                return "Windows 8";
-            if (agent.IndexOf("NT 10.0", StringComparison.Ordinal) > 0)
-                return "Windows 10";
-            if (agent.IndexOf("WindowsCE", StringComparison.Ordinal) > 0)
-                return "Windows CE";
-            if (agent.IndexOf("NT", StringComparison.Ordinal) > 0)
-                return "Windows NT ";
-            if (agent.IndexOf("9x", StringComparison.Ordinal) > 0)
-                return "Windows ME";
-            if (agent.IndexOf("98", StringComparison.Ordinal) > 0)
-                return "Windows 98";
-            if (agent.IndexOf("95", StringComparison.Ordinal) > 0)
-                return "Windows 95";
-            if (agent.IndexOf("Win32", StringComparison.Ordinal) > 0)
-                return "Win32";
-            if (agent.IndexOf("Linux", StringComparison.Ordinal) > 0)
-                return "Linux";
-            if (agent.IndexOf("SunOS", StringComparison.Ordinal) > 0)
-                return "SunOS";
-            if (agent.IndexOf("Mac", StringComparison.Ordinal) > 0)
-                return "Mac";
-            if (agent.IndexOf("Linux", StringComparison.Ordinal) > 0)
-                return "Linux";
-             if (agent.IndexOf("Windows", StringComparison.Ordinal) > 0)
-                return "Windows";
-            return "未知类型";
-        }
+      
     }
 }

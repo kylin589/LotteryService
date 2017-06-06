@@ -1,4 +1,7 @@
+using System;
 using System.Web.Http;
+using System.Xml.XPath;
+using LotteryService.Common.Enums;
 using WebActivatorEx;
 using LotteryService.WebApi;
 using Swashbuckle.Application;
@@ -57,7 +60,7 @@ namespace LotteryService.WebApi
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -97,7 +100,8 @@ namespace LotteryService.WebApi
                         // those comments into the generated docs and UI. You can enable this by providing the path to one or
                         // more Xml comment files.
                         //
-                        //c.IncludeXmlComments(GetXmlCommentsPath());
+                        c.IncludeXmlComments(GetXmlCommentsPath(CommentsType.WebApi));
+                        c.IncludeXmlComments(GetXmlCommentsPath(CommentsType.Application));
 
                         // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types
                         // exposed in your API. However, there may be occasions when more control of the output is needed.
@@ -241,6 +245,23 @@ namespace LotteryService.WebApi
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
                     });
+        }
+
+        private static string GetXmlCommentsPath(CommentsType commentsType)
+        {
+            var rootDir = System.AppDomain.CurrentDomain.BaseDirectory;
+            var path = string.Empty;
+            switch (commentsType)
+            {
+                case CommentsType.WebApi:
+                    path = string.Format(@"{0}bin\LotteryService.WebApi.XML", rootDir);
+                    break;
+                case CommentsType.Application:
+                    path = string.Format(@"{0}bin\LotteryService.Application.XML", rootDir);
+                    break;
+            
+            }
+            return path;
         }
     }
 }

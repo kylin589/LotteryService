@@ -6,6 +6,6 @@
 
         public const string SystemSchema = "Global";
 
-        public const string ApplicationSchema = "Application";
+        public const string ApplicationSchema = "App";
     }
 }

@@ -37,7 +37,7 @@ namespace Lottery.Entities
         public DateTime? LastLoginTime { get; set; }
 
         [MaxLength(100)]
-        public string SessionId { get; set; }
+        public string TokenId { get; set; }
 
         [MaxLength(50)]
         public string QQ { get; set; }

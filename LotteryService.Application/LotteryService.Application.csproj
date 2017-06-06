@@ -16,10 +16,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\LotteryService.WebApi\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\LotteryService.WebApi\bin\LotteryService.Application.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -68,6 +69,8 @@
     <Compile Include="Account\AccountAppService.cs" />
     <Compile Include="Account\Dtos\UserCreateInput.cs" />
     <Compile Include="Account\Dtos\UserCreateOutput.cs" />
+    <Compile Include="Account\Dtos\UserLoginInput.cs" />
+    <Compile Include="Account\Dtos\UserLoginOutput.cs" />
     <Compile Include="Account\IAccountAppService.cs" />
     <Compile Include="AppService.cs" />
     <Compile Include="Common\AutoMapper\DtoToEntityMappingProfile.cs" />

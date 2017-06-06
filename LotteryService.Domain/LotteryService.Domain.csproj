@@ -56,6 +56,9 @@
     <Compile Include="Interfaces\Repository\Common\IDapperRepository.cs" />
     <Compile Include="Interfaces\Repository\Common\IRepository.cs" />
     <Compile Include="Services\Account\AccountService.cs" />
+    <Compile Include="Interfaces\Service\ILoginManager.cs" />
+    <Compile Include="Services\Account\LoginManager.cs" />
+    <Compile Include="Services\Account\Models\LoginResult.cs" />
     <Compile Include="Services\Common\DapperService.cs" />
     <Compile Include="Services\Common\Service.cs" />
     <Compile Include="Interfaces\Service\Common\IDapperService.cs" />
@@ -81,6 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

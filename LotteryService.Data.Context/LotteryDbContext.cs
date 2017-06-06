@@ -26,5 +26,7 @@ namespace LotteryService.Data.Context
         public virtual IDbSet<AuditLog> AuditLogs { get; set; }
 
         public virtual IDbSet<User> Users { get; set; }
+
+        public virtual IDbSet<UserLoginAttempt> UserLoginAttempts { get; set; }
     }
 }

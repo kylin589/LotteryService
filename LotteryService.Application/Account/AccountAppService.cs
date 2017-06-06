@@ -15,6 +15,8 @@ namespace LotteryService.Application.Account
     {
         private readonly IAccountService _accountService;
 
+        private readonly ILoginManager _loginManager;
+
         public AccountAppService(IAccountService accountService)
         {
             _accountService = accountService;
@@ -22,7 +24,7 @@ namespace LotteryService.Application.Account
 
         public UserCreateOutput Create(UserCreateInput input)
         {
-            #region 输入确认
+            #region 入参确认
 
             if (string.IsNullOrEmpty(input.AccountName))
             {
@@ -93,14 +95,14 @@ namespace LotteryService.Application.Account
                 {
                     return new UserCreateOutput()
                     {
-                        IsSuccess = false,
+                        IsSuccess = true,
                         Msg = "注册成功",
                         AccountName = input.AccountName
                     };
                 }
                 return new UserCreateOutput()
                 {
-                    IsSuccess = true,
+                    IsSuccess = false,
                     Msg = "注册失败，原因:" + result.Errors.Select(p=>p.Message),
                     AccountName = input.AccountName
                 };
@@ -110,9 +112,14 @@ namespace LotteryService.Application.Account
                 return new UserCreateOutput()
                 {
                     IsSuccess = false,
-                    Msg = "注册失败,原因:" + ex.Message + ",请稍后重试",
+                    Msg = "注册失败,原因:" + ex.Message ,
                 };
             }
+        }
+
+        public LoginResultType Login(string accountName, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

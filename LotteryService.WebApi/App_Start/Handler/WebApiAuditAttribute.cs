@@ -1,20 +1,11 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Autofac;
 using LotteryService.Application.Log;
 using LotteryService.Application.Log.Dtos;
-using LotteryService.Application.Lottery;
-using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common;
 using LotteryService.Common.Extensions;
-using LotteryService.CrossCutting.InversionOfControl;
-using LotteryService.Data.Context.Interfaces;
-using Microsoft.Practices.ServiceLocation;
 
 namespace LotteryService.WebApi
 {
@@ -47,7 +38,7 @@ namespace LotteryService.WebApi
                 ClientIpAddress = RequestExtend.RequestValue(LsConstant.RequestClientAddress),
                 MethodName = actionContext.Request.Method.ToString(),
                 ApiAddress = actionContext.Request.RequestUri.LocalPath,
-                Parameters = actionContext.ActionArguments.ToJsonString(),
+                Parameters = GetRequestParamters(actionContext),
                 ActionName = actionContext.ActionDescriptor.ActionName,
                 ControllerName = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                 IsExecSuccess = false,
@@ -57,6 +48,18 @@ namespace LotteryService.WebApi
             m_auditId = auditAppService.InsertAuditLog(auditLogInput);
 
            base.OnActionExecuting(actionContext);
+        }
+
+        private string GetRequestParamters(HttpActionContext actionContext)
+        {
+            var paramters = actionContext.ActionArguments;    
+
+            if (actionContext.ActionDescriptor.GetFilters().Contains(new EncryptAuditLogParamsAttribute()))
+            {
+                return "************************";
+            }
+
+            return paramters.ToJsonString();
         }
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
