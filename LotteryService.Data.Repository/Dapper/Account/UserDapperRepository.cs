@@ -32,7 +32,7 @@ namespace LotteryService.Data.Repository.Dapper.Account
                     accountName = entity.Phone;
                 }
 
-                string querySqlStr = "SELECT * FROM [App].[User] WITH(NOLOCK) WHERE UserName = @AccountName OR Email = @AccountName OR Phone = @AccountName";
+                string querySqlStr = "SELECT * FROM [dbo].[User] WITH(NOLOCK) WHERE UserName = @AccountName OR Email = @AccountName OR Phone = @AccountName";
 
                 var existUser = cn.Query<User>(querySqlStr, new
                 {
@@ -44,7 +44,7 @@ namespace LotteryService.Data.Repository.Dapper.Account
                     throw new Exception(string.Format("已经存在{0}的用户", accountName));
                 }
 
-                string insertSqlStr = "INSERT INTO [App].[User]" +
+                string insertSqlStr = "INSERT INTO [dbo].[User]" +
                                 " ([Id],[Password],[Email],[Phone],[IsActive],[UserName],[UserRegistType],[CreatTime])" +
                                 " VALUES(@Id, @Password, @Email, @Phone, @IsActive, @UserName, @UserRegistType, GETDATE())";
                 return cn.Execute(insertSqlStr, new
@@ -78,7 +78,7 @@ namespace LotteryService.Data.Repository.Dapper.Account
         public User GetUserByAccountName(string accountName)
         {
 
-            string querySqlStr = "SELECT * FROM [App].[User]  WHERE UserName = @AccountName OR Email = @AccountName OR Phone = @AccountName";
+            string querySqlStr = "SELECT * FROM [dbo].[User]  WHERE UserName = @AccountName OR Email = @AccountName OR Phone = @AccountName";
 
             using (var cn = LotteryDbConnection)
             {
@@ -93,7 +93,7 @@ namespace LotteryService.Data.Repository.Dapper.Account
         public void LoginFail(string userId, string accountName, LoginResultType loginResultType)
         {
             // string sqlStr1 = "UPDATE [App].[User] SET [LastLoginTime] = GETDATE() ,[TokenId] = @TokenId WHERE Id = @UserId";
-            string sqlStr = " INSERT INTO[App].[UserLoginAttempts]([Id],[UserId],[AccountName],[ClientIpAddress],[BrowserInfo],[LoginTime],[LoginResult],[IsOnline] )" +
+            string sqlStr = " INSERT INTO[dbo].[UserLoginAttempts]([Id],[UserId],[AccountName],[ClientIpAddress],[BrowserInfo],[LoginTime],[LoginResult],[IsOnline] )" +
                              " VALUES(@Id,@UserId, @AccountName,@ClientIpAddress,@BrowserInfo, GETDATE(),@LoginResult,@IsOnline)";
             using (var cn = LotteryDbConnection)
             {               
@@ -113,10 +113,10 @@ namespace LotteryService.Data.Repository.Dapper.Account
 
         public void LoginSuccess(string userId, string accountName, LoginResultType loginResultResultType, string tokenId, DateTime loginTime)
         {
-            string sqlStr1 = " UPDATE [App].[User] SET [LastLoginTime] = @DateTime ,[TokenId] = @TokenId WHERE Id = @UserId";
+            string sqlStr1 = " UPDATE [dbo].[User] SET [LastLoginTime] = @DateTime ,[TokenId] = @TokenId WHERE Id = @UserId";
             string sqlStr2 =
-                " UPDATE [App].[UserLoginAttempts] SET LogoutTime = GETDATE(),IsOnline = @Outline WHERE UserId = @UserId AND IsOnline = @Online";
-            string sqlStr3 = " INSERT INTO[App].[UserLoginAttempts]([Id],[UserId],[TokenId],[AccountName],[ClientIpAddress],[BrowserInfo],[LoginTime],[LoginResult],[IsOnline] )" +
+                " UPDATE [dbo].[UserLoginAttempts] SET LogoutTime = GETDATE(),IsOnline = @Outline WHERE UserId = @UserId AND IsOnline = @Online";
+            string sqlStr3 = " INSERT INTO[dbo].[UserLoginAttempts]([Id],[UserId],[TokenId],[AccountName],[ClientIpAddress],[BrowserInfo],[LoginTime],[LoginResult],[IsOnline] )" +
                              " VALUES(@Id,@UserId,@TokenId, @AccountName,@ClientIpAddress,@BrowserInfo,@DateTime,@LoginResult,@IsOnline)";
 
             using (var cn = LotteryDbConnection)
@@ -168,7 +168,7 @@ namespace LotteryService.Data.Repository.Dapper.Account
 
         public User GetUserByTokenId(string tokenId)
         {
-            string sqlStr = " SELECT * FROM App.[User] WHERE TokenId = @TokenId";
+            string sqlStr = " SELECT * FROM dbo.[User] WHERE TokenId = @TokenId";
             using (var cn = LotteryDbConnection)
             {
                 var loginUser = cn.Query<User>(sqlStr, new
@@ -181,8 +181,8 @@ namespace LotteryService.Data.Repository.Dapper.Account
 
         public void Logout(string tokenId)
         {
-            string sqlStr1 = "UPDATE App.[User] SET TokenId = NULL WHERE TokenId = @TokenId";
-            string sqlStr2 = "UPDATE [App].[UserLoginAttempts] SET LogoutTime = GETDATE(),IsOnline = @IsOnline WHERE TokenId=@TokenId ";
+            string sqlStr1 = "UPDATE dbo.[User] SET TokenId = NULL WHERE TokenId = @TokenId";
+            string sqlStr2 = "UPDATE [dbo].[UserLoginAttempts] SET LogoutTime = GETDATE(),IsOnline = @IsOnline WHERE TokenId=@TokenId ";
 
             using (var cn = LotteryDbConnection)
             {

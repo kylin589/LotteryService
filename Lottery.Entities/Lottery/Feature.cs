@@ -7,7 +7,7 @@ using ValidationResult = Lottery.Entities.Extend.Validation.ValidationResult;
 
 namespace Lottery.Entities
 {
-    [Table("Features", Schema = Constant.LotterySchema)]
+    [Table("Features")]
     public class Feature : BaseEntity, ISelfValidation
     {
         public string Name { get; set; }

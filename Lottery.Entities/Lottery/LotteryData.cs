@@ -8,7 +8,7 @@ using ValidationResult = Lottery.Entities.Extend.Validation.ValidationResult;
 
 namespace Lottery.Entities
 {
-    [Table("LotteryDatas",Schema = Constant.LotterySchema)]
+    [Table("LotteryDatas")]
     public class LotteryData : BaseEntity,ISelfValidation
     {
         public LotteryData()
@@ -17,6 +17,7 @@ namespace Lottery.Entities
         }
 
         [Required]
+        [Index]
         public int Period { get; set; }
 
         [Required]

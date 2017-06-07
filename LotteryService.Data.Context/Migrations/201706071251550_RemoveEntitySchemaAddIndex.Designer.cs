@@ -7,13 +7,13 @@ namespace LotteryService.Data.Context.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateUserEntity : IMigrationMetadata
+    public sealed partial class RemoveEntitySchemaAddIndex : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateUserEntity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveEntitySchemaAddIndex));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706031741120_UpdateUserEntity"; }
+            get { return "201706071251550_RemoveEntitySchemaAddIndex"; }
         }
         
         string IMigrationMetadata.Source

@@ -60,61 +60,17 @@
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="LotteryDbContext.cs" />
-    <Compile Include="Migrations\201706021150106_InitDB.cs" />
-    <Compile Include="Migrations\201706021150106_InitDB.Designer.cs">
-      <DependentUpon>201706021150106_InitDB.cs</DependentUpon>
+    <Compile Include="Migrations\201706061701022_InitDB.cs" />
+    <Compile Include="Migrations\201706061701022_InitDB.Designer.cs">
+      <DependentUpon>201706061701022_InitDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706021158544_ModifyAuditLog.cs" />
-    <Compile Include="Migrations\201706021158544_ModifyAuditLog.Designer.cs">
-      <DependentUpon>201706021158544_ModifyAuditLog.cs</DependentUpon>
+    <Compile Include="Migrations\201706061720244_RemoveUserLoginAttemptTokenIdRequired.cs" />
+    <Compile Include="Migrations\201706061720244_RemoveUserLoginAttemptTokenIdRequired.Designer.cs">
+      <DependentUpon>201706061720244_RemoveUserLoginAttemptTokenIdRequired.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706021208539_ModifyAuditLog1.cs" />
-    <Compile Include="Migrations\201706021208539_ModifyAuditLog1.Designer.cs">
-      <DependentUpon>201706021208539_ModifyAuditLog1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706021857053_AddAuditLogFileds.cs" />
-    <Compile Include="Migrations\201706021857053_AddAuditLogFileds.Designer.cs">
-      <DependentUpon>201706021857053_AddAuditLogFileds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706021902075_AddAuditLogFileds1.cs" />
-    <Compile Include="Migrations\201706021902075_AddAuditLogFileds1.Designer.cs">
-      <DependentUpon>201706021902075_AddAuditLogFileds1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706021924270_UpdateLotteryDataPeriodFiled.cs" />
-    <Compile Include="Migrations\201706021924270_UpdateLotteryDataPeriodFiled.Designer.cs">
-      <DependentUpon>201706021924270_UpdateLotteryDataPeriodFiled.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706031114304_UpdateLotteryData.cs" />
-    <Compile Include="Migrations\201706031114304_UpdateLotteryData.Designer.cs">
-      <DependentUpon>201706031114304_UpdateLotteryData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706031718375_AddUserEntity.cs" />
-    <Compile Include="Migrations\201706031718375_AddUserEntity.Designer.cs">
-      <DependentUpon>201706031718375_AddUserEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706031741120_UpdateUserEntity.cs" />
-    <Compile Include="Migrations\201706031741120_UpdateUserEntity.Designer.cs">
-      <DependentUpon>201706031741120_UpdateUserEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706031939122_UpdateUserEntity1.cs" />
-    <Compile Include="Migrations\201706031939122_UpdateUserEntity1.Designer.cs">
-      <DependentUpon>201706031939122_UpdateUserEntity1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706041351222_UpdateUserEntity2.cs" />
-    <Compile Include="Migrations\201706041351222_UpdateUserEntity2.Designer.cs">
-      <DependentUpon>201706041351222_UpdateUserEntity2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706041641084_UpdateUserEntity3.cs" />
-    <Compile Include="Migrations\201706041641084_UpdateUserEntity3.Designer.cs">
-      <DependentUpon>201706041641084_UpdateUserEntity3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706051418346_UpdateUserAndAddUserLoginApptempt.cs" />
-    <Compile Include="Migrations\201706051418346_UpdateUserAndAddUserLoginApptempt.Designer.cs">
-      <DependentUpon>201706051418346_UpdateUserAndAddUserLoginApptempt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706061451551_UpdateUserLoginAttempt.cs" />
-    <Compile Include="Migrations\201706061451551_UpdateUserLoginAttempt.Designer.cs">
-      <DependentUpon>201706061451551_UpdateUserLoginAttempt.cs</DependentUpon>
+    <Compile Include="Migrations\201706071251550_RemoveEntitySchemaAddIndex.cs" />
+    <Compile Include="Migrations\201706071251550_RemoveEntitySchemaAddIndex.Designer.cs">
+      <DependentUpon>201706071251550_RemoveEntitySchemaAddIndex.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,47 +91,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706021150106_InitDB.resx">
-      <DependentUpon>201706021150106_InitDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706061701022_InitDB.resx">
+      <DependentUpon>201706061701022_InitDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021158544_ModifyAuditLog.resx">
-      <DependentUpon>201706021158544_ModifyAuditLog.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706061720244_RemoveUserLoginAttemptTokenIdRequired.resx">
+      <DependentUpon>201706061720244_RemoveUserLoginAttemptTokenIdRequired.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021208539_ModifyAuditLog1.resx">
-      <DependentUpon>201706021208539_ModifyAuditLog1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021857053_AddAuditLogFileds.resx">
-      <DependentUpon>201706021857053_AddAuditLogFileds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021902075_AddAuditLogFileds1.resx">
-      <DependentUpon>201706021902075_AddAuditLogFileds1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021924270_UpdateLotteryDataPeriodFiled.resx">
-      <DependentUpon>201706021924270_UpdateLotteryDataPeriodFiled.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706031114304_UpdateLotteryData.resx">
-      <DependentUpon>201706031114304_UpdateLotteryData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706031718375_AddUserEntity.resx">
-      <DependentUpon>201706031718375_AddUserEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706031741120_UpdateUserEntity.resx">
-      <DependentUpon>201706031741120_UpdateUserEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706031939122_UpdateUserEntity1.resx">
-      <DependentUpon>201706031939122_UpdateUserEntity1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706041351222_UpdateUserEntity2.resx">
-      <DependentUpon>201706041351222_UpdateUserEntity2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706041641084_UpdateUserEntity3.resx">
-      <DependentUpon>201706041641084_UpdateUserEntity3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706051418346_UpdateUserAndAddUserLoginApptempt.resx">
-      <DependentUpon>201706051418346_UpdateUserAndAddUserLoginApptempt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706061451551_UpdateUserLoginAttempt.resx">
-      <DependentUpon>201706061451551_UpdateUserLoginAttempt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706071251550_RemoveEntitySchemaAddIndex.resx">
+      <DependentUpon>201706071251550_RemoveEntitySchemaAddIndex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

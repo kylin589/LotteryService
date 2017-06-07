@@ -6,7 +6,7 @@ using LotteryService.Common.Enums;
 
 namespace Lottery.Entities
 {
-    [Table("UserLoginAttempts",Schema = Constant.ApplicationSchema)]
+    [Table("UserLoginAttempts")]
     public class UserLoginAttempt : BaseEntity
     {
         public UserLoginAttempt()
@@ -17,7 +17,7 @@ namespace Lottery.Entities
         [Required]
         public string UserId { get; set; }
 
-        [Required]
+       
         [MaxLength(50)]
         public string TokenId { get; set; }
 

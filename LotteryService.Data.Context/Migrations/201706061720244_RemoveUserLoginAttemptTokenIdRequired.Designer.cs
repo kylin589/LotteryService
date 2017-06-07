@@ -7,13 +7,13 @@ namespace LotteryService.Data.Context.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddAuditLogFileds : IMigrationMetadata
+    public sealed partial class RemoveUserLoginAttemptTokenIdRequired : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAuditLogFileds));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveUserLoginAttemptTokenIdRequired));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706021857053_AddAuditLogFileds"; }
+            get { return "201706061720244_RemoveUserLoginAttemptTokenIdRequired"; }
         }
         
         string IMigrationMetadata.Source

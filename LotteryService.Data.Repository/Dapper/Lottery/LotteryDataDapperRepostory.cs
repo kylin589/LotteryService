@@ -21,7 +21,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             {
                 var lotteryDatas = cn.Query<LotteryData>(
                     "SELECT Period ,LotteryType ,Data ,LotteryDateTime" +
-                    " FROM Lottery.LotteryDatas").ToList();
+                    " FROM dbo.LotteryDatas").ToList();
                 return lotteryDatas;
             }
         }
@@ -38,7 +38,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
         {
             using (var cn = LotteryDbConnection)
             {
-                var sqlStr = "INSERT Lottery.LotteryDatas(Id,Period,LotteryType,Data,InsertTime,LotteryDateTime)" +
+                var sqlStr = "INSERT dbo.LotteryDatas(Id,Period,LotteryType,Data,InsertTime,LotteryDateTime)" +
                 "VALUES(@Id,@Period,@LotteryType,@Data,GETDATE(),@LotteryDateTime)";
                 return cn.Execute(sqlStr, new
                 {
@@ -63,7 +63,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             {
                 var lotteryData = cn.QuerySingleOrDefault<LotteryData>(
                     " SELECT  Id , Period , LotteryType , Data , InsertTime , LotteryDateTime" +
-                    " FROM Lottery.LotteryDatas WHERE Period = @Period AND LotteryType=@LotteryType ",
+                    " FROM dbo.LotteryDatas WHERE Period = @Period AND LotteryType=@LotteryType ",
                     new
                     {
                         LotteryType = lotteryType,
@@ -83,7 +83,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             {
                 var lotteryData = cn.Query<LotteryData>(
                     "SELECT TOP 1  Id , Period , LotteryType , Data , InsertTime , LotteryDateTime " +
-                    "FROM Lottery.LotteryDatas WHERE LotteryType=@LotteryType ORDER BY Period DESC",
+                    "FROM dbo.LotteryDatas WHERE LotteryType=@LotteryType ORDER BY Period DESC",
                     new
                     {
                         LotteryType = lotteryType
@@ -98,7 +98,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             {
                 var lotteryData = cn.Query<LotteryData>(
                     "SELECT TOP 1  Id , Period , LotteryType , Data , InsertTime , LotteryDateTime " +
-                    "FROM Lottery.LotteryDatas WHERE Id=@Id",
+                    "FROM dbo.LotteryDatas WHERE Id=@Id",
                     new
                     {
                         Id = id

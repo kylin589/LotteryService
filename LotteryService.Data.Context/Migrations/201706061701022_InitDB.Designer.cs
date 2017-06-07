@@ -7,13 +7,13 @@ namespace LotteryService.Data.Context.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateLotteryData : IMigrationMetadata
+    public sealed partial class InitDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateLotteryData));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706031114304_UpdateLotteryData"; }
+            get { return "201706061701022_InitDB"; }
         }
         
         string IMigrationMetadata.Source

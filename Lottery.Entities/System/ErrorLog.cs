@@ -4,7 +4,7 @@ using Lottery.Entities.Extend;
 
 namespace Lottery.Entities
 {
-    [Table("ErrorLogs",Schema = Constant.SystemSchema)]
+    [Table("ErrorLogs")]
     public class ErrorLog : BaseEntity
     {
         public int? UserId { get; set; }

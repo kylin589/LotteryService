@@ -8,7 +8,7 @@ using ValidationResult = Lottery.Entities.Extend.Validation.ValidationResult;
 
 namespace Lottery.Entities
 {
-    [Table("User",Schema = Constant.ApplicationSchema)]
+    [Table("User")]
     public class User : AuditedEntity, ISelfValidation
     {
         public User()
@@ -16,6 +16,7 @@ namespace Lottery.Entities
             IsActive = true;
         }
 
+        [Index]
         [MaxLength(50)]
         public string UserName { get; set; }
 
@@ -25,9 +26,11 @@ namespace Lottery.Entities
         [Required]
         public string Password { get; set; }
 
+        [Index]
         [MaxLength(100)]
         public string Email { get; set; }
 
+        [Index]
         [MaxLength(14)]
         public string Phone { get; set; }
 
@@ -36,6 +39,7 @@ namespace Lottery.Entities
 
         public DateTime? LastLoginTime { get; set; }
 
+        [Index]
         [MaxLength(100)]
         public string TokenId { get; set; }
 

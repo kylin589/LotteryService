@@ -5,7 +5,7 @@ using Lottery.Entities.Extend;
 
 namespace Lottery.Entities
 {
-    [Table("AuditLogs",Schema = Constant.SystemSchema)]
+    [Table("AuditLogs")]
     public class AuditLog : BaseEntity
     {
         public AuditLog() : base()
