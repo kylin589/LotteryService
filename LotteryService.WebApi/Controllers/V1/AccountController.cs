@@ -37,6 +37,7 @@ namespace LotteryService.WebApi.Controllers.V1
         [Route("user")]
         [HttpPost]
         [EncryptAuditLogParams]
+        [AllowAnonymous]
         public ResultMessage<UserCreateOutput> Create(UserCreateInput input)
         {
             var result = _accountAppService.Create(input);
@@ -55,6 +56,7 @@ namespace LotteryService.WebApi.Controllers.V1
         [Route("login")]
         [HttpPost]
         [EncryptAuditLogParams]
+        [AllowAnonymous]
         public ResultMessage<UserLoginOutput> Login(UserLoginInput loginInput)
         {
             try

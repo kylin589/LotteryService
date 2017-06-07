@@ -41,5 +41,7 @@
         public const string JwtSecret = "JwtSecret";
 
         public const string AccountName = "AccountName";
+
+        public const string Logout = "logout";
     }
 }

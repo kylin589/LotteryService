@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
 using Lottery.Entities;
 using LotteryService.Application.Account;
 using LotteryService.Common;
@@ -72,6 +74,7 @@ namespace LotteryService.WebApi
         {
 
             var ticket = request.GetHeader(LsConstant.LOTTERY_SERVICE_TICKET);
+
             if (string.IsNullOrEmpty(ticket))
             {
                 throw new LSException("请先登录系统.");
@@ -116,6 +119,9 @@ namespace LotteryService.WebApi
         }
 
 
-
+        public static HttpResponseMessage CreateErrorResponse<T>(this HttpRequestMessage request, HttpStatusCode statusCode,T value)
+        {
+            return request.CreateResponse(statusCode, value);
+        }
     }
 }

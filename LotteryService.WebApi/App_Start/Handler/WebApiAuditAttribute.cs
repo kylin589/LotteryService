@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using AutoMapper.Mappers;
 using LotteryService.Application.Log;
 using LotteryService.Application.Log.Dtos;
 using LotteryService.Common;
@@ -54,7 +56,7 @@ namespace LotteryService.WebApi
         {
             var paramters = actionContext.ActionArguments;    
 
-            if (actionContext.ActionDescriptor.GetFilters().Contains(new EncryptAuditLogParamsAttribute()))
+            if (Enumerable.Any(actionContext.ActionDescriptor.GetCustomAttributes<EncryptAuditLogParamsAttribute>()))
             {
                 return "************************";
             }

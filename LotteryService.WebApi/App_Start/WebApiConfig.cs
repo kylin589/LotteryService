@@ -23,8 +23,12 @@ namespace LotteryService.WebApi
             // 全局异常捕获处理器
             config.Filters.Add(new WebApiExceptionFilterAttribute());
 
+            // 身份认证
+            config.Filters.Add(new LsAuthenticationFilter());
+
             //   审计日志
             config.Filters.Add(new WebApiAuditFilterAttribute());
+            
         }
     }
 }
