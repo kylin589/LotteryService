@@ -63,6 +63,7 @@
     <Compile Include="Enums\CommentsType.cs" />
     <Compile Include="Enums\LoginResultType.cs" />
     <Compile Include="Enums\LogOperationType.cs" />
+    <Compile Include="Enums\Lottery.cs" />
     <Compile Include="Enums\LotteryType.cs" />
     <Compile Include="Enums\ResultCode.cs" />
     <Compile Include="Enums\UserRegistType.cs" />

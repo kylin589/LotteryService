@@ -3,11 +3,11 @@ using Lottery.Entities.Specifications.FeatureSpec;
 
 namespace Lottery.Entities.Validations
 {
-    public class FeatureIsValidValidation : Validation<Feature>
+    public class FeatureIsValidValidation : Validation<LotteryFeature>
     {
         public FeatureIsValidValidation()
         {
-            base.AddRule(new ValidationRule<Feature>(new FeatureLotteryTypeIsRequired(), ValidationMessages.LotteryTypeIsRequired));
+            base.AddRule(new ValidationRule<LotteryFeature>(new FeatureLotteryTypeIsRequired(), ValidationMessages.LotteryTypeIsRequired));
         }
     }
 }

@@ -52,10 +52,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILotteryFeatureLoader.cs" />
+    <Compile Include="LotteryFeatureLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lottery.Entities.Extend\Lottery.Entities.Extend.csproj">
+      <Project>{3a652242-ccf1-474a-943f-5c46b17cf16d}</Project>
+      <Name>Lottery.Entities.Extend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lottery.Entities\Lottery.Entities.csproj">
+      <Project>{f7798356-4fb7-41b4-a4fe-bd4c537bddaa}</Project>
+      <Name>Lottery.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.Application\LotteryService.Application.csproj">
+      <Project>{de1d1f4e-c7c8-4fa6-9b85-4433091fdf8a}</Project>
+      <Name>LotteryService.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.Common\LotteryService.Common.csproj">
+      <Project>{408228bd-2151-49ed-8b30-5835bc3e3e27}</Project>
+      <Name>LotteryService.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

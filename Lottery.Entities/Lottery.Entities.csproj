@@ -53,8 +53,15 @@
     <Compile Include="Application\UserLoginAttempt.cs" />
     <Compile Include="Common\AuditedEntity.cs" />
     <Compile Include="Common\BaseEntity.cs" />
-    <Compile Include="Lottery\Feature.cs" />
+    <Compile Include="Lottery\ConfigModel\LotteryFeature.cs" />
+    <Compile Include="Lottery\ConfigModel\TimeRule.cs" />
+    <Compile Include="Lottery\LotteryConfig.cs" />
     <Compile Include="Lottery\LotteryData.cs" />
+    <Compile Include="Lottery\ConfigModel\LotteryNorm.cs" />
+    <Compile Include="Lottery\ConfigModel\LotteryNormGroup.cs" />
+    <Compile Include="Lottery\ConfigModel\LotteryPlan.cs" />
+    <Compile Include="Lottery\ConfigModel\LotteryTimeRule.cs" />
+    <Compile Include="Lottery\ConfigModel\LotteryNumberInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specifications\FeatureSpec\FeatureLotteryTypeIsRequired.cs" />
     <Compile Include="Specifications\LotteryDataSpec\LotteryDataPeroidIsUnique.cs" />

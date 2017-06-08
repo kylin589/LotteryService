@@ -12,6 +12,7 @@ using LotteryService.Data.Repository.Dapper.Log;
 using LotteryService.Data.Repository.Dapper.Lottery;
 using LotteryService.Data.Repository.EntityFramework.Common;
 using LotteryService.Domain.Interfaces.Repository.Common;
+using LotteryService.Domain.Interfaces.Repository.Dapper;
 using LotteryService.Domain.Interfaces.Service.Common;
 using LotteryService.Domain.Services.Common;
 using Microsoft.Practices.ServiceLocation;
@@ -69,14 +70,15 @@ namespace LotteryService.CrossCutting.InversionOfControl
                 .As<IDapperRepository<AuditLog>>()
                 .InstancePerDependency();
 
-            ContainerBuilder.RegisterType<FeatureDapperRepostory>()
-                .As<IDapperRepository<Feature>>()
-                .InstancePerDependency();
+            //ContainerBuilder.RegisterType<LotteryConfigDapperRepostory>()
+            //    .As<IDapperRepository<LotteryFeature>>()
+            //    .InstancePerDependency();
 
             ContainerBuilder.RegisterType<UserDapperRepository>()
                 .As<UserDapperRepository>()
                 .As<IDapperRepository<User>>()
                 .InstancePerDependency();
+
         }
 
         private void SetupResolveGenerics()

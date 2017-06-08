@@ -396,5 +396,11 @@ namespace LotteryService.Common.Tools
                 return "Windows";
             return "未知类型";
         }
+
+        public static T StringConvertEnum<T>(string enumStr)
+            where T:  struct
+        {
+            return (T)Enum.Parse(typeof(T), enumStr);
+        }
     }
 }

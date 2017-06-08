@@ -45,25 +45,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Repository\Dapper\ILotteryConfigDapperRepostory.cs" />
     <Compile Include="Interfaces\Repository\Dapper\ILotteryDataDapperRepository.cs" />
     <Compile Include="Interfaces\Repository\Dapper\IUserDapperRepository.cs" />
     <Compile Include="Interfaces\Service\IAccountService.cs" />
+    <Compile Include="Interfaces\Service\ILotteryConfigService.cs" />
     <Compile Include="Interfaces\Service\ILotteryDataService.cs" />
     <Compile Include="Logs\Layout\CustomLayout.cs" />
     <Compile Include="Logs\CustomPatternConverter.cs" />
     <Compile Include="Logs\LogDbHelper.cs" />
+    <Compile Include="Lottery\LotteryConfigService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\Repository\Common\IDapperRepository.cs" />
     <Compile Include="Interfaces\Repository\Common\IRepository.cs" />
-    <Compile Include="Services\Account\AccountService.cs" />
+    <Compile Include="Account\AccountService.cs" />
     <Compile Include="Interfaces\Service\ILoginManager.cs" />
-    <Compile Include="Services\Account\LoginManager.cs" />
-    <Compile Include="Services\Account\Models\LoginResult.cs" />
-    <Compile Include="Services\Common\DapperService.cs" />
-    <Compile Include="Services\Common\Service.cs" />
+    <Compile Include="Account\LoginManager.cs" />
+    <Compile Include="Account\Models\LoginResult.cs" />
+    <Compile Include="Common\DapperService.cs" />
+    <Compile Include="Common\Service.cs" />
     <Compile Include="Interfaces\Service\Common\IDapperService.cs" />
     <Compile Include="Interfaces\Service\Common\IService.cs" />
-    <Compile Include="Services\Lottery\LotteryDataService.cs" />
+    <Compile Include="Lottery\LotteryDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lottery.Entities.Extend\Lottery.Entities.Extend.csproj">

@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Lottery.Entities;
-using Lottery.Entities.Extend.Interfaces.Validation;
 using Lottery.Entities.Extend.Validation;
-using LotteryService.Common;
-using LotteryService.Domain.Interfaces.Repository.Common;
 using LotteryService.Domain.Interfaces.Repository.Dapper;
 using LotteryService.Domain.Interfaces.Service;
-using LotteryService.Domain.Interfaces.Service.Common;
 using LotteryService.Domain.Services.Common;
 
-namespace LotteryService.Domain.Services.Account
+namespace LotteryService.Domain.Account
 {
     public class AccountService :DapperService<User>, IAccountService
     {

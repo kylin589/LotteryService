@@ -17,8 +17,6 @@ namespace LotteryService.Data.Context
 
         }
 
-        public virtual IDbSet<Feature> Features { get; set; }
-
         public virtual IDbSet<LotteryData> LotteryDatas { get; set; }
 
         public virtual IDbSet<ErrorLog> ErrorLogs { get; set; }
@@ -28,5 +26,7 @@ namespace LotteryService.Data.Context
         public virtual IDbSet<User> Users { get; set; }
 
         public virtual IDbSet<UserLoginAttempt> UserLoginAttempts { get; set; }
+
+        public virtual IDbSet<LotteryConfig> LotteryConfigs { get; set; }
     }
 }

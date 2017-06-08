@@ -6,7 +6,7 @@ using LotteryService.Common.Enums;
 using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
 
-namespace LotteryService.Domain.Services.Account.Models
+namespace LotteryService.Domain.Account.Models
 {
     public class LoginResult
     {

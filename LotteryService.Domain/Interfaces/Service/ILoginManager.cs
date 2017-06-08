@@ -1,6 +1,6 @@
 ﻿using LotteryService.Common.Dependency;
 using LotteryService.Common.Enums;
-using LotteryService.Domain.Services.Account.Models;
+using LotteryService.Domain.Account.Models;
 
 namespace LotteryService.Domain.Interfaces.Service
 {

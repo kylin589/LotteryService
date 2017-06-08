@@ -7,8 +7,8 @@ using LotteryService.Common;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
+using LotteryService.Domain.Account.Models;
 using LotteryService.Domain.Interfaces.Service;
-using LotteryService.Domain.Services.Account.Models;
 using LotteryService.WebApi.Controllers.Base;
 
 

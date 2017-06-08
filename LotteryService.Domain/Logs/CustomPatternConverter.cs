@@ -1,9 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
-using log4net;
 using log4net.Core;
 using log4net.Layout.Pattern;
-using Lottery.Entities;
 
 namespace LotteryService.Domain.Logs
 {

@@ -2,10 +2,9 @@
 using LotteryService.Domain.Interfaces.Repository.Common;
 using LotteryService.Domain.Interfaces.Repository.Dapper;
 using LotteryService.Domain.Interfaces.Service;
-using LotteryService.Domain.Interfaces.Service.Common;
 using LotteryService.Domain.Services.Common;
 
-namespace LotteryService.Domain.Services.Lottery
+namespace LotteryService.Domain.Lottery
 {
     public class LotteryDataService : Service<LotteryData>, ILotteryDataService
     {

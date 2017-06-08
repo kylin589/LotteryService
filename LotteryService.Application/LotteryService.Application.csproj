@@ -90,7 +90,9 @@
     <Compile Include="Lottery\Dtos\LotteryDataInput.cs" />
     <Compile Include="Lottery\Dtos\LotteryDataOutput.cs" />
     <Compile Include="Lottery\ILotteryDataAppService.cs" />
+    <Compile Include="Lottery\ILotteryConfigAppService.cs" />
     <Compile Include="Lottery\LotteryDataAppService.cs" />
+    <Compile Include="Lottery\LotteryConfigAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

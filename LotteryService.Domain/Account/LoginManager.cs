@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Security.Claims;
 using Lottery.Entities;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Tools;
-using LotteryService.Domain.Interfaces.Repository.Common;
+using LotteryService.Domain.Account.Models;
 using LotteryService.Domain.Interfaces.Repository.Dapper;
 using LotteryService.Domain.Interfaces.Service;
 using LotteryService.Domain.Logs;
-using LotteryService.Domain.Services.Account.Models;
 using LotteryService.Domain.Services.Common;
 
-namespace LotteryService.Domain.Services.Account
+namespace LotteryService.Domain.Account
 {
     public class LoginManager : DapperService<User>, ILoginManager
     {

@@ -99,6 +99,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lottery.DataAnalyzer\Lottery.DataAnalyzer.csproj">
+      <Project>{e81e065d-97fd-4c70-8593-d64a87204b88}</Project>
+      <Name>Lottery.DataAnalyzer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lottery.Engine\Lottery.Engine.csproj">
+      <Project>{8605f822-0f6e-43d6-ac51-fc94226be22f}</Project>
+      <Name>Lottery.Engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lottery.Entities.Extend\Lottery.Entities.Extend.csproj">
       <Project>{3a652242-ccf1-474a-943f-5c46b17cf16d}</Project>
       <Name>Lottery.Entities.Extend</Name>

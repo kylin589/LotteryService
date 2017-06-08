@@ -5,6 +5,7 @@ using System.Threading;
 using Lottery.DataUpdater.DataUpdateItems;
 using Lottery.DataUpdater.Jobs;
 using Lottery.DataUpdater.Models;
+using Lottery.Engine;
 using Lottery.Entities;
 using LotteryService.Application.Lottery;
 using LotteryService.Common.Enums;
@@ -98,6 +99,7 @@ namespace Lottery.DataUpdater
                             var lastLotteryData = _lotteryDataAppService.Insert(newData);
                             _lastPeriod = lastLotteryData.Period;
                             // todo:更新彩票分析数据
+                            var lotteryEngine = LotteryEngine.GetLotteryEngine(LotteryType.bjpks);
                         }
                     }
                     LogDbHelper.LogDebug(string.Format("更新彩票{0}开奖数据数据成功,共{1}条数据", _lotteryDataJob.LotteryType, newDataList.Count),
