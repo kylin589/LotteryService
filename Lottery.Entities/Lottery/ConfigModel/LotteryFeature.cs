@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net.NetworkInformation;
@@ -11,15 +12,23 @@ namespace Lottery.Entities
 {
     public class LotteryFeature
     {
+        //public int Id { get; set; }
+
+        //public string LotteryType { get; set; }
+
+        //public string CName { get; set; }
+
+        //public IList<NumberInfo> NumberInfos { get; set; }
+
+        //public LotteryTimeRule LotteryTimeRule { get; set; }
+
+        //public LotteryNorm LotteryNorm { get; set; }
+
+        public int Id { get; set; }
         public string LotteryType { get; set; }
-
         public string CName { get; set; }
-
-
-        public ICollection<NumberInfo> NumberInfos { get; set; }
-
         public LotteryTimeRule LotteryTimeRule { get; set; }
-
+        public List<NumberInfo> NumberInfos { get; set; }
         public LotteryNorm LotteryNorm { get; set; }
 
     }

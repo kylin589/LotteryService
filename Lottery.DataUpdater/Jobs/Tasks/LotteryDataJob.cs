@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Hosting;
 using Lottery.DataUpdater.Models;
+using Lottery.Engine;
 using LotteryService.Application.Lottery;
 using LotteryService.Common.Enums;
 using LotteryService.Domain.Logs;
@@ -71,6 +72,7 @@ namespace Lottery.DataUpdater.Jobs
                 {
                     if (isFirstStartService)
                     {
+                        var lotteryEngine = LotteryEngine.GetLotteryEngine(LotteryType.bjpks);
                         isFirstStartService = false;
                         LogDbHelper.LogInfo(string.Format("{0}彩种定时执行任务Job开始(First Start)", _LotteryType),
                             GetType().FullName + "=>Start", OperationType.Job);

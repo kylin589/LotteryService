@@ -8,6 +8,7 @@ using Lottery.Entities;
 using LotteryService.Common.Enums;
 using Microsoft.Practices.ServiceLocation;
 using LotteryService.Application.Lottery;
+using LotteryService.Common.Extensions;
 using LotteryService.Common.Tools;
 
 namespace Lottery.Engine
@@ -17,7 +18,17 @@ namespace Lottery.Engine
         private static IDictionary<LotteryType, LotteryFeature> _lotteryFeatures;
 
         private static IDictionary<LotteryType, LotteryEngine> _lotteryEngines;
-       
+
+        public static LotteryEngine GetLotteryEngine(LotteryType lotteryType)
+        {
+            return _lotteryEngines[lotteryType];
+        }
+
+        public static LotteryFeature GetLotteryFeature(LotteryType lotteryType)
+        {
+            return _lotteryFeatures[lotteryType];
+        }
+
         static LotteryEngine()
         {
             var _lotteryFeatureLoader = ServiceLocator.Current.GetInstance<ILotteryConfigAppService>();
@@ -44,17 +55,9 @@ namespace Lottery.Engine
 
         private void LoadLotteryFeature(LotteryType lotteryType, string lotteryConfigData)
         {
-            _lotteryFeatures[lotteryType] = new LotteryFeature();
+            _lotteryFeatures[lotteryType] = lotteryConfigData.ToObject<LotteryFeature>();
         }
 
-        public static LotteryEngine GetLotteryEngine(LotteryType lotteryType)
-        {
-            return _lotteryEngines[lotteryType];
-        }
-
-        public static LotteryFeature GetLotteryFeature(LotteryType lotteryType)
-        {
-            return _lotteryFeatures[lotteryType];
-        }
+      
     }
 }

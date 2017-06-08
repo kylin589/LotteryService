@@ -11,13 +11,12 @@ namespace Lottery.Entities
     public class LotteryTimeRule 
     {
         public string Weekdays { get; set; }
+        public List<TimeRule> TimeRules { get; set; }
 
-        public ICollection<TimeRule> TimeRules { get; set; }
-
-        public int[] WeekdayArray
-        {
-            get { return Weekdays.Split(',').Select(p => Convert.ToInt32(p)).ToArray(); }
-        }
+        //public int[] WeekdayArray
+        //{
+        //    get { return Weekdays.Split(',').Select(p => Convert.ToInt32(p)).ToArray(); }
+        //}
 
     }
 }
