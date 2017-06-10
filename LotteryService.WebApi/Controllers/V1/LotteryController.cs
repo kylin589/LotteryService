@@ -25,11 +25,12 @@ namespace LotteryService.WebApi.Controllers.V1
 
         [Route("data")]
         [HttpGet]
-        public ResultMessage<IList<LotteryDataOutput>> GetLotteryData(int proid)
+        public ResultMessage<IList<LotteryDataOutput>> GetLotteryData(int period)
         {            
             var data = _lotteryDataAppService.GetLotteryData();
             return  ResponseUtils.DataResult(data);
         }
+        
     
     }
 }

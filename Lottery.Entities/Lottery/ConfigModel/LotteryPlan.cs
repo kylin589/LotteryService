@@ -10,25 +10,16 @@ namespace Lottery.Entities
 {
     public class LotteryPlan 
     {
-        //public int PlanId { get; set; }
-
-        //public string Name { get; set; }
-
-        //public string Type { get; set; }
-
-        //public PlanType PlanType {
-        //    get { return Utils.StringConvertEnum<PlanType>(Type); }
-        //}
-
-        //public DsType DsType { get; set; }
-
-        //public ICollection<int> KeyNumber { get; set; }
-
-        //public int? GroupId { get; set; }
 
         public int PlanId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+
+        public PlanType PlanType
+        {
+            get { return Utils.StringConvertEnum<PlanType>(Type); }
+        }
+
         public List<int> KeyNumber { get; set; }
         public string DsType { get; set; }
         public int? GroupId { get; set; }

@@ -43,5 +43,9 @@
         public const string AccountName = "AccountName";
 
         public const string Logout = "logout";
+
+        public const string LotteryFeature = "{0}LotteryFeature";
+
+        public const string LotteryAnalyseNorm = "{0}LotteryAnalyseNorm";
     }
 }

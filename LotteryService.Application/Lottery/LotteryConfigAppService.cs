@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lottery.Entities;
+using LotteryService.Common;
 using LotteryService.Domain.Interfaces.Service;
 
 namespace LotteryService.Application.Lottery
@@ -15,6 +17,10 @@ namespace LotteryService.Application.Lottery
 
         public string GetLotteryConfig(string lotteryType)
         {
+            //if (RedisHelper.KeyExists(string.Format(LsConstant.LotteryFeature, lotteryType)))
+            //{
+            //    return RedisHelper.Get(string.Format(LsConstant.LotteryFeature, lotteryType));
+            //}
             return _lotteryConfigService.GetLotteryConfig(lotteryType);
         }
 

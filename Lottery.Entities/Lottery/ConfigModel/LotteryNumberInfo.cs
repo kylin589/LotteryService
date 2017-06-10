@@ -9,21 +9,6 @@ namespace Lottery.Entities
 {
     public class NumberInfo 
     {
-        //public int LocationNumber { get; set; }
-
-        //public int MaxValue { get; set; }
-
-        //public int MinValue { get; set; }
-
-        //public string LotteryType { get; set; }
-
-        //public LotteryType LotteryTypeE
-        //{
-        //    get { return Utils.StringConvertEnum<LotteryType>(LotteryType); }
-        //}
-
-        //public string FeatureId { get; set; }
-
         public string LotteryType { get; set; }
         public int KeyNumber { get; set; }
         public string Name { get; set; }

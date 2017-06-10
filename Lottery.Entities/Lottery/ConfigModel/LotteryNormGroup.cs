@@ -8,6 +8,7 @@ namespace Lottery.Entities
         public int GroupId { get; set; }
         public string Name { get; set; }
         public string Cname { get; set; }
+
         public List<LotteryPlan> Plans { get; set; }
     }
 }

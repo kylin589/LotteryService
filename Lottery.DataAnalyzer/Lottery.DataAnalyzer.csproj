@@ -52,11 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILotteryAnalyseNormManager.cs" />
     <Compile Include="ILotteryFeatureLoader.cs" />
+    <Compile Include="LotteryAnalyseNormManager.cs" />
     <Compile Include="LotteryFeatureLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

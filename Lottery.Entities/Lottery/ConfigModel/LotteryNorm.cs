@@ -7,6 +7,7 @@ namespace Lottery.Entities
     public class LotteryNorm 
     {
         public string Version { get; set; }
+
         public List<NormGroup> NormGroup { get; set; }
 
     }

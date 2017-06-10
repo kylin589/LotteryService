@@ -12,18 +12,6 @@ namespace Lottery.Entities
 {
     public class LotteryFeature
     {
-        //public int Id { get; set; }
-
-        //public string LotteryType { get; set; }
-
-        //public string CName { get; set; }
-
-        //public IList<NumberInfo> NumberInfos { get; set; }
-
-        //public LotteryTimeRule LotteryTimeRule { get; set; }
-
-        //public LotteryNorm LotteryNorm { get; set; }
-
         public int Id { get; set; }
         public string LotteryType { get; set; }
         public string CName { get; set; }
