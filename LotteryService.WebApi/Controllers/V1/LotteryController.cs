@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using Lottery.DataAnalyzer;
 using Lottery.Entities;
@@ -8,6 +9,7 @@ using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Tools;
+using LotteryService.Domain.Interfaces.Service;
 using LotteryService.WebApi.Controllers.Base;
 
 namespace LotteryService.WebApi.Controllers.V1
@@ -16,17 +18,17 @@ namespace LotteryService.WebApi.Controllers.V1
     [LsAuthenticationFilter]
     public class LotteryController : V1ControllerBase
     {
-        private readonly ILotteryDataAppService _lotteryDataAppService;
-        private readonly IAuditAppService _auditAppService;
+        private readonly ILotteryDataAppService _lotteryDataAppService;   
         private readonly ILotteryPlanManager _lotteryPlanManager;
+        private readonly ILotteryAnalyseNormAppService _analyseNormAppService;
 
         public LotteryController(ILotteryDataAppService lotteryDataAppService, 
-            IAuditAppService auditAppService, 
-            ILotteryPlanManager lotteryPlanManager)
+            ILotteryPlanManager lotteryPlanManager,
+            ILotteryAnalyseNormAppService analyseNormAppService)
         {
             _lotteryDataAppService = lotteryDataAppService;
-            _auditAppService = auditAppService;
             _lotteryPlanManager = lotteryPlanManager;
+            _analyseNormAppService = analyseNormAppService;
         }
 
         [Route("data")]
@@ -61,6 +63,49 @@ namespace LotteryService.WebApi.Controllers.V1
         {
             // : todo 鉴权
             return null;
+        }
+
+        /// <summary>
+        /// 获取用户计划基础指标
+        /// </summary>
+        /// <returns></returns>
+        [Route("userbasicplannorm")]
+        [HttpGet]
+        public ResultMessage<UserBasicNormDto> GetUserBasicNorm(string lotteryType)
+        {
+            // : todo 鉴权
+            try
+            {
+                var userBasicNorm = _analyseNormAppService.GetUserBasicNorm(LoginUser.Id,
+                    Utils.StringConvertEnum<LotteryType>(lotteryType));
+                return ResponseUtils.DataResult(userBasicNorm);
+            }
+            catch (Exception ex)
+            {
+
+                return ResponseUtils.ErrorResult<UserBasicNormDto>(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 新增/更新用户计划基础指标
+        /// </summary>
+        /// <returns></returns>
+        [Route("userbasicplannorm")]
+        [HttpPost]
+        [HttpPut]
+        public ResultMessage<UserBasicNormDto> UpdateBasicNorm(UserBasicNormInput input)
+        {
+            try
+            {
+                var userBasicNorm = _analyseNormAppService.SetUserBasicNorm(LoginUser.Id, input);
+                return userBasicNorm;
+            }
+            catch (Exception ex)
+            {
+
+                return ResponseUtils.ErrorResult<UserBasicNormDto>(ex.Message);
+            }
         }
 
     }

@@ -8,5 +8,9 @@ namespace LotteryService.Domain.Interfaces.Repository.Dapper
     public interface ILotteryAnalyseNormDapperRepostory : ITransientDependency
     {
         IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAll();
+
+        UserBasicNorm GetUserBasicNorm(string userId, LotteryType lotteryType);
+
+        bool SetUserBasicNorm(UserBasicNorm userBasicNorm);
     }
 }

@@ -68,5 +68,10 @@ namespace LotteryService.Common.Tools
         }
 
 
+        public static string GenerateModules(int inputForecastCount)
+        {
+            // :todo 生成用户指标Module
+            return "20,30,40,50";
+        }
     }
 }

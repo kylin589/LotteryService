@@ -9,5 +9,8 @@ namespace LotteryService.Domain.Interfaces.Service
     {
         IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAll();
 
+        UserBasicNorm GetUserBasicNorm(string userId, LotteryType lotteryType);
+
+        bool SetUserBasicNorm(UserBasicNorm userBasicNorm);
     }
 }

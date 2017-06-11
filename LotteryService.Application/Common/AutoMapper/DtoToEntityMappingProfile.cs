@@ -13,6 +13,7 @@ namespace LotteryService.Application.Common
             CreateMap<AuditLogEdit,AuditLog>();
 
             CreateMap<LotteryDataInput, LotteryData>();
+            CreateMap<UserBasicNormInput, UserBasicNorm>();
         }
     }
 }

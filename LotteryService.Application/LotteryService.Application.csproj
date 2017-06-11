@@ -93,6 +93,8 @@
     <Compile Include="Lottery\Dtos\LotteryDataOutput.cs" />
     <Compile Include="Lottery\Dtos\LotteryPlanGroupDto.cs" />
     <Compile Include="Lottery\Dtos\PlanOutput.cs" />
+    <Compile Include="Lottery\Dtos\UserBasicNormDto.cs" />
+    <Compile Include="Lottery\Dtos\UserBasicNormInput.cs" />
     <Compile Include="Lottery\IAnylseNormAppService.cs" />
     <Compile Include="Lottery\ILotteryAnalyseNormAppService.cs" />
     <Compile Include="Lottery\ILotteryDataAppService.cs" />

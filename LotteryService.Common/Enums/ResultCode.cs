@@ -21,5 +21,10 @@
         /// 服务器内部错误
         /// </summary>
         ServiceError = 500,
+
+        /// <summary>
+        /// 校验输入参数失败
+        /// </summary>
+        VerifyInputError = 501,
     }
 }

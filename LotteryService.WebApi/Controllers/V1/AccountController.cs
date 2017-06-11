@@ -78,6 +78,10 @@ namespace LotteryService.WebApi.Controllers.V1
 
         }
 
+        /// <summary>
+        /// 登出接口
+        /// </summary>
+        /// <returns>登出提示信息</returns>
         [Route("logout")]
         [HttpPost]
         public ResultMessage<string> Logout()

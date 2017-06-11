@@ -11,6 +11,7 @@ namespace LotteryService.Application.Common
         {
             CreateMap<LotteryData, LotteryDataOutput>();
             CreateMap<User, UserDto>();
+            CreateMap<UserBasicNorm, UserBasicNormDto>();
         }
     }
 }

@@ -32,5 +32,7 @@ namespace LotteryService.Data.Context
         public virtual IDbSet<LotteryAnalyseNorm> LotteryAnalyseNorms { get; set; }
 
         public virtual IDbSet<UserAnylseNorm> UserAnylseNorms { get; set; }
+
+        public virtual IDbSet<UserBasicNorm> UserBasicNorms { get; set; }
     }
 }
