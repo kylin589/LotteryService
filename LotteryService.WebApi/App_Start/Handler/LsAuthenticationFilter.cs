@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Filters;
 using Lottery.Entities;
+using LotteryService.Application.Account.Dtos;
 using LotteryService.Common;
 
 namespace LotteryService.WebApi
@@ -29,7 +30,7 @@ namespace LotteryService.WebApi
 
             HttpRequestMessage request = context.Request;
 
-            User loginUser = null;
+            UserDto loginUser = null;
 
             try
             {

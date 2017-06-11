@@ -4,16 +4,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
+using AutoMapper;
 using Lottery.Entities;
 using LotteryService.Application.Account;
+using LotteryService.Application.Account.Dtos;
 using LotteryService.Common;
 using LotteryService.Common.Excetions;
 using LotteryService.Common.Tools;
 using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using LotteryService.Application;
 
 namespace LotteryService.WebApi
 {
@@ -70,7 +71,7 @@ namespace LotteryService.WebApi
             return requestParams;
         }
 
-        public static User GetLoginUser(this HttpRequestMessage request)
+        public static UserDto GetLoginUser(this HttpRequestMessage request)
         {
 
             var ticket = request.GetHeader(LsConstant.LOTTERY_SERVICE_TICKET);
@@ -106,7 +107,7 @@ namespace LotteryService.WebApi
                 // :todo 登出操作
                 throw new LSException("用户已登出");
             }
-            return user;
+            return Mapper.Map(user,new UserDto());
         }
 
         public static string GetHeader(this HttpRequestMessage request, string key)

@@ -65,6 +65,7 @@
     <Compile Include="Dapper\Account\UserDapperRepository.cs" />
     <Compile Include="Dapper\Common\DapperRepository.cs" />
     <Compile Include="Dapper\Log\AuditLogDapperRepostory.cs" />
+    <Compile Include="Dapper\Lottery\AnylseNormDapperReportory.cs" />
     <Compile Include="Dapper\Lottery\LotteryAnalyseNormDapperRepostory.cs" />
     <Compile Include="Dapper\Lottery\LotteryConfigDapperRepostory.cs" />
     <Compile Include="Dapper\Lottery\LotteryDataDapperRepostory.cs" />

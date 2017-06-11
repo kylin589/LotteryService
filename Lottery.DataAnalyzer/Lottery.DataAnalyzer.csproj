@@ -54,8 +54,10 @@
   <ItemGroup>
     <Compile Include="ILotteryAnalyseNormManager.cs" />
     <Compile Include="ILotteryFeatureLoader.cs" />
+    <Compile Include="ILotteryPlanManager.cs" />
     <Compile Include="LotteryAnalyseNormManager.cs" />
     <Compile Include="LotteryFeatureLoader.cs" />
+    <Compile Include="LotteryPlanManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

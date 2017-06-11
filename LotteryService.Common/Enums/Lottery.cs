@@ -2,11 +2,18 @@
 {
     public enum PlanType
     {
-
+        NumPlan,
+        Kill,
+        SizePlan,
+        SingleDoublePlan,
+        RankPlan,
+        DragonTigerPlan,
     }
 
     public enum DsType
     {
+        Kill,
+        Fix
 
     }
 

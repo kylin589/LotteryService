@@ -314,6 +314,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lottery.DataAnalyzer\Lottery.DataAnalyzer.csproj">
+      <Project>{e81e065d-97fd-4c70-8593-d64a87204b88}</Project>
+      <Name>Lottery.DataAnalyzer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lottery.DataUpdater\Lottery.DataUpdater.csproj">
       <Project>{c3a4f72a-964e-4d7a-a1ed-91f4435c62a6}</Project>
       <Name>Lottery.DataUpdater</Name>

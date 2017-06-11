@@ -90,6 +90,7 @@
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\LsDateTimeConverter .cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="LsConstant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedisHelper.cs" />

@@ -69,6 +69,7 @@
     <Compile Include="Account\AccountAppService.cs" />
     <Compile Include="Account\Dtos\UserCreateInput.cs" />
     <Compile Include="Account\Dtos\UserCreateOutput.cs" />
+    <Compile Include="Account\Dtos\UserDto.cs" />
     <Compile Include="Account\Dtos\UserLoginInput.cs" />
     <Compile Include="Account\Dtos\UserLoginOutput.cs" />
     <Compile Include="Account\Dtos\UserLogoutOutput.cs" />
@@ -87,8 +88,12 @@
     <Compile Include="Log\Dtos\AuditLogEdit.cs" />
     <Compile Include="Log\Dtos\AuditLogInput.cs" />
     <Compile Include="Log\IAuditAppService.cs" />
+    <Compile Include="Lottery\AnylseNormAppService.cs" />
     <Compile Include="Lottery\Dtos\LotteryDataInput.cs" />
     <Compile Include="Lottery\Dtos\LotteryDataOutput.cs" />
+    <Compile Include="Lottery\Dtos\LotteryPlanGroupDto.cs" />
+    <Compile Include="Lottery\Dtos\PlanOutput.cs" />
+    <Compile Include="Lottery\IAnylseNormAppService.cs" />
     <Compile Include="Lottery\ILotteryAnalyseNormAppService.cs" />
     <Compile Include="Lottery\ILotteryDataAppService.cs" />
     <Compile Include="Lottery\ILotteryConfigAppService.cs" />

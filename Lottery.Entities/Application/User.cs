@@ -68,5 +68,6 @@ namespace Lottery.Entities
             get { return true; }
 
         }
+
     }
 }

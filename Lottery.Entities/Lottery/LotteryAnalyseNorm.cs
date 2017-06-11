@@ -49,5 +49,8 @@ namespace Lottery.Entities
 
         [Required]
         public bool IsDefault { get; set; }
+
+        [MaxLength(50)]
+        public string CreateUserId { get; set; }
     }
 }

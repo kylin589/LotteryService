@@ -33,8 +33,6 @@ namespace Lottery.DataAnalyzer
         {
             var lotteryAnalyseNorm = string.Format(LsConstant.LotteryAnalyseNorm, lotteryType);
 
-            var test = RedisHelper.Get<LotteryAnalyseNorm>(lotteryAnalyseNorm, "6A9E10FB-BF6E-4B27-84DA-1C33EEDD5EE3");
-
             return RedisHelper.GetAll<LotteryAnalyseNorm>(lotteryAnalyseNorm);
         }
 
