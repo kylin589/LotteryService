@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http.Controllers;
@@ -33,8 +34,7 @@ namespace LotteryService.WebApi
             var auditAppService = requestScope.GetService(typeof(IAuditAppService)) as IAuditAppService;
 
             var auditLogInput = new AuditLogInput()
-            {
-                UserId = "tempUserId",
+            {               
                 BrowserInfo = RequestExtend.RequestValue(LsConstant.RequestBrowser),
                 ClientName = RequestExtend.RequestValue(LsConstant.RequestClientName),
                 ClientIpAddress = RequestExtend.RequestValue(LsConstant.RequestClientAddress),
@@ -47,6 +47,14 @@ namespace LotteryService.WebApi
                 ExecutionDuration = 0,
 
             };
+            try
+            {
+                auditLogInput.UserId = actionContext.Request.GetLoginUser().Id;
+                auditLogInput.AccountName = actionContext.Request.GetLoginUser().AccountName;
+            }
+            catch (Exception)
+            {
+            }
             m_auditId = auditAppService.InsertAuditLog(auditLogInput);
 
            base.OnActionExecuting(actionContext);

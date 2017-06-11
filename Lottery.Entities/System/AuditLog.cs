@@ -15,6 +15,8 @@ namespace Lottery.Entities
 
         public string UserId { get; set; }
 
+        public string AccountName { get; set; }
+
         [MaxLength(50)]
         public string ApiAddress { get; set; }
 

@@ -27,16 +27,37 @@ namespace LotteryService.Application.Account.Dtos
         public string QQ { get; set; }
 
         public string Wechat { get; set; }
-        
+
         public string WechatOpenId { get; set; }
 
-  
+
         public UserRegistType UserRegistType { get; set; }
 
         public DateTime? LastModificationTime { get; set; }
 
-  
+
         public string LastModifierUserId { get; set; }
+
+        public string AccountName
+        {
+            get
+            {
+                string accountName = String.Empty;
+                switch (UserRegistType)
+                {
+                    case UserRegistType.Email:
+                        accountName = Email;
+                        break;
+                    case UserRegistType.Phone:
+                        accountName = Phone;
+                        break;
+                    case UserRegistType.UserName:
+                        accountName = UserName;
+                        break;
+                }
+                return accountName;
+            }
+        }
 
     }
 }

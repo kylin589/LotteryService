@@ -5,6 +5,8 @@ namespace LotteryService.Application.Log.Dtos
     {
         public string UserId { get; set; }
 
+        public string AccountName { get; set; }
+
         public string ApiAddress { get; set; }
 
         public string MethodName { get; set; }
