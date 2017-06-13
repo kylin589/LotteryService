@@ -8,5 +8,6 @@ namespace LotteryService.Application.Lottery
     public interface IAnylseNormAppService : ITransientDependency
     {
         IList<int> GetUserSelectedPlans(string userId, LotteryType lotteryType);
+        bool UpdateUserLotteryPlan(string userId, LotteryType lotteryType, IList<int> planIds);
     }
 }

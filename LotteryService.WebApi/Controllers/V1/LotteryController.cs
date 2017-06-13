@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Lottery.DataAnalyzer;
-using Lottery.Entities;
-using LotteryService.Application.Log;
 using LotteryService.Application.Lottery;
 using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Tools;
-using LotteryService.Domain.Interfaces.Service;
 using LotteryService.WebApi.Controllers.Base;
 
 namespace LotteryService.WebApi.Controllers.V1
@@ -54,15 +51,17 @@ namespace LotteryService.WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// 更新用户列表
+        /// 更新用户计划列表
         /// </summary>
+        /// <param name="lotteryType">彩种</param>
+        /// <param name="planIds">用户选择的彩种计划Ids</param>
         /// <returns></returns>
         [Route("userplan")]
         [HttpPut]
-        public ResultMessage<IList<LotteryPlanGroupDto>> UpdateUserLotteryPlan()
+        public ResultMessage<IList<LotteryPlanGroupDto>> UpdateUserLotteryPlan(string lotteryType,IList<int> planIds)
         {
-            // : todo 鉴权
-            return null;
+            _lotteryPlanManager.UpdateUserLotteryPlan(LoginUser.Id, Utils.StringConvertEnum<LotteryType>(lotteryType), planIds);
+            return GetUserLotteryPlan(lotteryType);
         }
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace LotteryService.WebApi.Controllers.V1
         /// <returns></returns>
         [Route("userbasicplannorm")]
         [HttpPost]
-        [HttpPut]
+        //[HttpPut]  屏蔽 Put方法
         public ResultMessage<UserBasicNormDto> UpdateBasicNorm(UserBasicNormInput input)
         {
             try

@@ -4,6 +4,12 @@ namespace Lottery.Entities
 {
     public class LotteryAnalyseNorm : AuditedEntity
     {
+        public LotteryAnalyseNorm()
+        {
+            IsDefault = false;
+            Enable = true;
+        }
+
         [Required]
         public int PlanId { get; set; }
 

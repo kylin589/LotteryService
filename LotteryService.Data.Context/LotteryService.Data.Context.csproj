@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201706110932476_UpdateUserBasicNormEntity1.Designer.cs">
       <DependentUpon>201706110932476_UpdateUserBasicNormEntity1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706131259036_AddUserAnylseNormFiledPlanId.cs" />
+    <Compile Include="Migrations\201706131259036_AddUserAnylseNormFiledPlanId.Designer.cs">
+      <DependentUpon>201706131259036_AddUserAnylseNormFiledPlanId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -148,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706110932476_UpdateUserBasicNormEntity1.resx">
       <DependentUpon>201706110932476_UpdateUserBasicNormEntity1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706131259036_AddUserAnylseNormFiledPlanId.resx">
+      <DependentUpon>201706131259036_AddUserAnylseNormFiledPlanId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -65,5 +65,10 @@ namespace Lottery.DataAnalyzer
            
             return lotteryPlanGroupDtos;
         }
+
+        public bool UpdateUserLotteryPlan(string userId, LotteryType lotteryType, IList<int> planIds)
+        {
+            return _anylseNormAppService.UpdateUserLotteryPlan(userId, lotteryType, planIds);
+        }
     }
 }

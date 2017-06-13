@@ -9,5 +9,7 @@ namespace Lottery.DataAnalyzer
     public interface ILotteryPlanManager : ITransientDependency
     {
         IList<LotteryPlanGroupDto> GetUserLotteryPlans(string userId,LotteryType lotteryType);
+
+        bool UpdateUserLotteryPlan(string loginUserId, LotteryType lotteryType,IList<int> planIds);
     }
 }

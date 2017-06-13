@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Dapper;
+using Lottery.Entities;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Extensions;
 using LotteryService.Data.Repository.Dapper.Common;
 using LotteryService.Domain.Interfaces.Repository.Dapper;
+using LotteryService.Domain.Logs;
 
 namespace LotteryService.Data.Repository.Dapper.Lottery
 {
-    public class AnylseNormDapperReportory : DapperRepository,IAnylseNormDapperReportory
+    public class AnylseNormDapperReportory : DapperRepository, IAnylseNormDapperReportory
     {
-        public IList<int> GetUserSelectedPlans(string userId, LotteryType lotteryType)
+        public IList<int> GetUserSelectedPlans(string userId, LotteryType lotteryType, out bool isSysDefault)
         {
             var planIds = new List<int>();
             using (var cn = LotteryDbConnection)
@@ -21,15 +24,17 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                 var lotteryAnalyseNormIds = cn.Query<string>(sqlStr1, new
                 {
                     UserId = userId,
-                    LotteryType = lotteryType
+                    LotteryType = lotteryType.ToString()
                 });
-                if (lotteryAnalyseNormIds !=null && lotteryAnalyseNormIds.Any())
+                if (lotteryAnalyseNormIds != null && lotteryAnalyseNormIds.Any())
                 {
-                    var sqlStr2 = "SELECT PlanId FROM dbo.LotteryAnalyseNorms WHERE Id IN(@LotteryAnalyseNormIds)";
+                    var sqlStr2 = "SELECT PlanId FROM dbo.LotteryAnalyseNorms WHERE Id IN @LotteryAnalyseNormIds";
+
                     planIds = cn.Query<int>(sqlStr2, new
                     {
-                        LotteryAnalyseNormIds = lotteryAnalyseNormIds.ToSplitString(",")
+                        LotteryAnalyseNormIds = lotteryAnalyseNormIds.ToArray()
                     }).ToList();
+                    isSysDefault = false;
                 }
                 else
                 {
@@ -41,9 +46,241 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                         LotteryType = lotteryType.ToString()
 
                     }).ToList();
+                    isSysDefault = true;
                 }
                 return planIds;
             }
         }
+
+
+        public void InsertUserPlans(string userId, LotteryType lotteryType, UserBasicNorm userBasicNorm, IList<int> planIds)
+        {
+            string sqlStr1 = "INSERT INTO [dbo].[LotteryAnalyseNorms]([Id],[PlanId],[PlanCycle],[LatestStartPeriod],[ForecastCount],[BasicHistoryCount] ,[UnitHistoryCount],[HotWeight],[SizeWeight]" +
+            " ,[ThreeRegionWeight],[MissingValueWeight],[OddEvenWeight],[Modulus],[LotteryType],[Enable],[IsDefault],[CreatTime],[CreateUserId])" +
+            " VALUES(@Id, @PlanId, @PlanCycle, @LatestStartPeriod, @ForecastCount, @BasicHistoryCount, @UnitHistoryCount, @HotWeight, @SizeWeight, @ThreeRegionWeight, @MissingValueWeight" +
+            ", @OddEvenWeight, @Modulus, @LotteryType, @ENABLE, @IsDefault, GETDATE(), @CreateUserId)";
+            string sqlStr2 = "INSERT INTO [dbo].[UserAnylseNorms]([Id],[UserId],[PlanId],[LotteryAnalyseNormId],[LotteryType],[CreatTime])" +
+            " VALUES(@Id, @UserId,@PlanId, @LotteryAnalyseNormId, @LotteryType, GETDATE())";
+
+            using (var cn = LotteryDbConnection)
+            {
+                cn.Open();
+                using (var trans = cn.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var planId in planIds)
+                        {
+                            var lotteryAnalyseNorm = new LotteryAnalyseNorm()
+                            {
+                                PlanId = planId,
+                                BasicHistoryCount = userBasicNorm.BasicHistoryCount,
+                                CreateUserId = userId,
+                                ForecastCount = userBasicNorm.ForecastCount,
+                                HotWeight = userBasicNorm.HotWeight,
+                                LatestStartPeriod = 0, // Todo: set LatestStartPeriod
+                                LotteryType = lotteryType.ToString(),
+                                UnitHistoryCount = userBasicNorm.UnitHistoryCount,
+                                Modulus = userBasicNorm.Modulus,
+                                OddEvenWeight = userBasicNorm.OddEvenWeight,
+                                MissingValueWeight = userBasicNorm.MissingValueWeight,
+                                ThreeRegionWeight = userBasicNorm.ThreeRegionWeight,
+                                SizeWeight = userBasicNorm.SizeWeight,
+                                PlanCycle = userBasicNorm.PlanCycle,
+
+                            };
+                            var userAnalyseNorm = new UserAnylseNorm()
+                            {
+                                LotteryAnalyseNormId = lotteryAnalyseNorm.Id,
+                                LotteryType = lotteryType.ToString(),
+                                UserId = userId,
+                                PlanId = planId,
+
+                            };
+
+                            cn.Execute(sqlStr1, lotteryAnalyseNorm, trans);
+                            cn.Execute(sqlStr2, userAnalyseNorm, trans);
+                        }
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+                        LogDbHelper.LogError(ex, GetType() + "=>InsertUserPlans");
+                        throw ex;
+                    }
+                }
+                
+
+            }
+        }
+
+        public void UpdateUserPlans(string userId, LotteryType lotteryType, UserBasicNorm userBasicNorm, IList<int> planIds,
+            IList<int> userOldLotteryPlanIds)
+        {
+            string sqlStr1 = "SELECT * FROM [dbo].[UserAnylseNorms] WHERE UserId=@UserId AND LotteryType=@LotteryType AND PlanId=@PlanId";
+            string sqlStr2 = "INSERT INTO [dbo].[UserAnylseNorms]([Id],[UserId],[PlanId],[LotteryAnalyseNormId],[LotteryType],[CreatTime])" +
+          " VALUES(@Id, @UserId,@PlanId, @LotteryAnalyseNormId, @LotteryType, GETDATE())";
+
+            string sqlStr2_1 = "INSERT INTO [dbo].[LotteryAnalyseNorms]([Id],[PlanId],[PlanCycle],[LatestStartPeriod],[ForecastCount],[BasicHistoryCount] ,[UnitHistoryCount],[HotWeight],[SizeWeight]" +
+           " ,[ThreeRegionWeight],[MissingValueWeight],[OddEvenWeight],[Modulus],[LotteryType],[Enable],[IsDefault],[CreatTime],[CreateUserId])" +
+           " VALUES(@Id, @PlanId, @PlanCycle, @LatestStartPeriod, @ForecastCount, @BasicHistoryCount, @UnitHistoryCount, @HotWeight, @SizeWeight, @ThreeRegionWeight, @MissingValueWeight" +
+           ", @OddEvenWeight, @Modulus, @LotteryType, @ENABLE, @IsDefault, GETDATE(), @CreateUserId)";
+
+            string sqlStr3 = "SELECT * FROM [dbo].[LotteryAnalyseNorms] WHERE Id=@Id";
+
+            string sqlStr4 = "DELETE [dbo].[UserAnylseNorms] WHERE Id = @Id";
+
+            string sqlStr5 = "UPDATE [dbo].[LotteryAnalyseNorms]" +
+                 "SET [LatestStartPeriod] = @LatestStartPeriod" +
+                 ",[Enable] = @Enable" +
+                 ",[ModifyTime] = GETDATE()" +
+                 " WHERE [Id] = @Id";
+            using (var cn = LotteryDbConnection)
+            {
+                cn.Open();
+                // :todo redis缓存用户计划
+                using (var trans = cn.BeginTransaction())
+                {
+
+                    try
+                    {
+                        // 1. 遍历更改的planIds
+                        foreach (var planId in planIds)
+                        {
+                            var userAnylseNorm = cn.QuerySingleOrDefault<UserAnylseNorm>(sqlStr1, new
+                            {
+                                UserId = userId,
+                                LotteryType = lotteryType.ToString(),
+                                PlanId = planId,
+                            },trans);
+                            // 如果用户还没有添加过该计划
+                            if (userAnylseNorm == null)
+                            {
+                                #region 用户没有添加过该计划
+
+                                var lotteryAnalyseNorm = new LotteryAnalyseNorm()
+                                {
+                                    PlanId = planId,
+                                    BasicHistoryCount = userBasicNorm.BasicHistoryCount,
+                                    CreateUserId = userId,
+                                    ForecastCount = userBasicNorm.ForecastCount,
+                                    HotWeight = userBasicNorm.HotWeight,
+                                    LatestStartPeriod = 0, // Todo: set LatestStartPeriod
+                                    LotteryType = lotteryType.ToString(),
+                                    UnitHistoryCount = userBasicNorm.UnitHistoryCount,
+                                    Modulus = userBasicNorm.Modulus,
+                                    OddEvenWeight = userBasicNorm.OddEvenWeight,
+                                    MissingValueWeight = userBasicNorm.MissingValueWeight,
+                                    ThreeRegionWeight = userBasicNorm.ThreeRegionWeight,
+                                    SizeWeight = userBasicNorm.SizeWeight,
+                                    PlanCycle = userBasicNorm.PlanCycle,
+
+                                };
+
+                                userAnylseNorm = new UserAnylseNorm()
+                                {
+                                    LotteryAnalyseNormId = lotteryAnalyseNorm.Id,
+                                    LotteryType = lotteryType.ToString(),
+                                    UserId = userId,
+                                    PlanId = planId,
+
+                                };
+                                cn.Execute(sqlStr2_1, lotteryAnalyseNorm, trans);
+                                cn.Execute(sqlStr2, userAnylseNorm, trans);
+
+                                #endregion
+                            }
+                            else
+                            {
+                                #region 用户添加过该计划
+
+                                var lotteryAnalyseNorm = cn.QuerySingle<LotteryAnalyseNorm>(sqlStr3, new
+                                {
+                                    Id = userAnylseNorm.LotteryAnalyseNormId
+                                }, trans);
+                                if (!lotteryAnalyseNorm.Enable)
+                                {
+                                    lotteryAnalyseNorm.Enable = true;
+                                    lotteryAnalyseNorm.ModifyTime = DateTime.Now;
+                                    lotteryAnalyseNorm.LatestStartPeriod = 0;  // Todo: set LatestStartPeriod
+
+                                    cn.Execute(sqlStr5, new
+                                    {
+                                        lotteryAnalyseNorm.Id,
+                                        lotteryAnalyseNorm.Enable,
+                                        lotteryAnalyseNorm.LatestStartPeriod
+                                    }, trans);
+                                }
+
+                                #endregion
+
+                            }
+                        }
+                        // 2. 将旧计划且当前没有选的计划移除
+
+                        #region 将旧计划且当前没有选的计划移除
+
+                        foreach (var oldPlanId in userOldLotteryPlanIds)
+                        {
+                            if (planIds.Contains(oldPlanId))
+                            {
+                                continue;
+                            }
+                            var userAnylseNorm = cn.QuerySingleOrDefault<UserAnylseNorm>(sqlStr1, new
+                            {
+                                UserId = userId,
+                                LotteryType = lotteryType.ToString(),
+                                PlanId = oldPlanId,
+                            },trans);
+
+                            if (userAnylseNorm != null)
+                            {
+                                cn.Execute(sqlStr4, new
+                                {
+                                    Id = userAnylseNorm.Id
+                                }, trans);
+
+                                #region 修改LotteryAnalyseNorm 指标
+
+                                var lotteryAnalyseNorm = cn.QuerySingle<LotteryAnalyseNorm>(sqlStr3, new
+                                {
+                                    Id = userAnylseNorm.LotteryAnalyseNormId
+                                },trans);
+                                if (lotteryAnalyseNorm.Enable)
+                                {
+                                    lotteryAnalyseNorm.Enable = false;
+                                    lotteryAnalyseNorm.LatestStartPeriod = 0;  // Todo: set LatestStartPeriod
+                                    
+                                    cn.Execute(sqlStr5, new
+                                    {
+                                        lotteryAnalyseNorm.Id,
+                                        lotteryAnalyseNorm.Enable,
+                                        lotteryAnalyseNorm.LatestStartPeriod
+                                    }, trans);
+                                }
+
+                                #endregion
+                            }
+
+                        }
+
+                        #endregion
+
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        LogDbHelper.LogError(ex, GetType().FullName + "UpdateUserPlans");
+                        trans.Rollback();
+                        throw ex;
+                    }
+                }
+                
+            }
+        }
+
+
     }
 }
