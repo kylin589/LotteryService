@@ -30,11 +30,11 @@ namespace LotteryService.WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// 
+        /// 获取指定彩种的历史开奖数据
         /// </summary>
-        /// <param name="lotteryType"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
+        /// <param name="lotteryType">彩种</param>
+        /// <param name="pageIndex">页数</param>
+        /// <param name="pageSize">每页大小</param>
         /// <returns></returns>
         [Route("lotterydatas")]
         [HttpGet]
