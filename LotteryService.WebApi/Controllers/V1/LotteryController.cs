@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Lottery.DataAnalyzer;
+using LotteryService.Application;
 using LotteryService.Application.Lottery;
 using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common;
@@ -28,11 +29,18 @@ namespace LotteryService.WebApi.Controllers.V1
             _analyseNormAppService = analyseNormAppService;
         }
 
-        [Route("data")]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lotteryType"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        [Route("lotterydatas")]
         [HttpGet]
-        public ResultMessage<IList<LotteryDataOutput>> GetLotteryDatas(int period)
+        public ResultMessage<IPageList<LotteryDataOutput>> GetLotteryDatas(string lotteryType, int pageIndex = 1,int pageSize = 20)
         {            
-            var data = _lotteryDataAppService.GetLotteryData();
+            var data = _lotteryDataAppService.GetLotteryDatas(lotteryType, pageIndex, pageSize);
             return  ResponseUtils.DataResult(data);
         }
 

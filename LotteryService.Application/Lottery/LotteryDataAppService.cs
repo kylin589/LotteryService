@@ -61,5 +61,14 @@ namespace LotteryService.Application.Lottery
             lotteryDataOutput = Mapper.Map(lotteryData, new LotteryDataOutput());
             return true;
         }
+
+        public IPageList<LotteryDataOutput> GetLotteryDatas(string lotteryType, int pageIndex, int pageSize)
+        {
+            int totalCount = 0;
+             
+            var lotteryDatas = _lotteryService.GetLotteryDatas(lotteryType,pageIndex,pageSize,out totalCount);
+            var lotteryDataOutputs = Mapper.Map(lotteryDatas, new List<LotteryDataOutput>());
+            return new PageList<LotteryDataOutput>(lotteryDataOutputs,totalCount,pageIndex,pageSize);
+        }
     }
 }

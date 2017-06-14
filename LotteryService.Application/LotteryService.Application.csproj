@@ -80,6 +80,8 @@
     <Compile Include="Common\BaseDto.cs" />
     <Compile Include="Common\IDto.cs" />
     <Compile Include="Common\AutoMapper\MapperExtensions.cs" />
+    <Compile Include="Common\IPageList.cs" />
+    <Compile Include="Common\PageList.cs" />
     <Compile Include="Interfaces\IBasicAppService.cs" />
     <Compile Include="Interfaces\IReadOnlyAppService.cs" />
     <Compile Include="Interfaces\ITransactionAppService.cs" />

@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using System.Security.Cryptography;
 using Dapper;
 using Lottery.Entities;
+using LotteryService.Common.Enums;
+using LotteryService.Common.Tools;
 using LotteryService.Data.Repository.Dapper.Common;
 using LotteryService.Domain.Interfaces.Repository.Common;
 using LotteryService.Domain.Interfaces.Repository.Dapper;
@@ -109,6 +111,27 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                 }
             }
             return GetLatestLotteryData(lotteryType);
+        }
+
+        public IList<LotteryData> GetLotteryDatas(string lotteryType, int pageIndex, int pageSize,out int totalCount)
+        {
+            //var sqlStr1 = "SELECT * FROM dbo.LotteryDatas WHERE LotteryType =N'@LotteryType' ORDER BY Period";
+
+            var sqlStr1 = SqlParser.PageSql("dbo.LotteryDatas", "AND LotteryType =@LotteryType", "Id", "Period",pageSize,pageIndex,OrderType.Desc);
+            var sqlStr2 = SqlParser.TotalCount("dbo.LotteryDatas", "AND LotteryType =@LotteryType");
+       
+            using (var cn = LotteryDbConnection)
+            {
+                var list = cn.Query<LotteryData>(sqlStr1, new
+                {
+                    LotteryType = lotteryType
+                }).ToList();
+                totalCount = cn.ExecuteScalar<int>(sqlStr2, new
+                {
+                    LotteryType = lotteryType
+                });
+                return list;
+            }
         }
 
         public LotteryData Get(string id)

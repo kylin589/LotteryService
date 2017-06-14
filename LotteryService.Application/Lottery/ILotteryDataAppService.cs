@@ -16,5 +16,7 @@ namespace LotteryService.Application.Lottery
         LotteryData GetLatestLotteryData(string lotteryType);
 
         bool GetLotteryData(string lotteryType, int? peroiod, out LotteryDataOutput lotteryData);
+
+        IPageList<LotteryDataOutput> GetLotteryDatas(string lotteryType, int pageIndex, int pageSize);
     }
 }

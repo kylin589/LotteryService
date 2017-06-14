@@ -83,6 +83,7 @@
     <Compile Include="Enums\LogOperationType.cs" />
     <Compile Include="Enums\Lottery.cs" />
     <Compile Include="Enums\LotteryType.cs" />
+    <Compile Include="Enums\OrderType.cs" />
     <Compile Include="Enums\ResultCode.cs" />
     <Compile Include="Enums\UserRegistType.cs" />
     <Compile Include="Enums\UserState.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Tools\AppUtils.cs" />
     <Compile Include="Tools\IpHelper.cs" />
     <Compile Include="Tools\ResponseUtils.cs" />
+    <Compile Include="Tools\SqlParser.cs" />
     <Compile Include="Tools\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
