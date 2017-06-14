@@ -30,10 +30,30 @@ namespace LotteryService.WebApi.Controllers.V1
 
         [Route("data")]
         [HttpGet]
-        public ResultMessage<IList<LotteryDataOutput>> GetLotteryData(int period)
+        public ResultMessage<IList<LotteryDataOutput>> GetLotteryDatas(int period)
         {            
             var data = _lotteryDataAppService.GetLotteryData();
             return  ResponseUtils.DataResult(data);
+        }
+
+        /// <summary>
+        /// 获取指定彩种指定期数的开奖结果
+        /// </summary>
+        /// <param name="lotteryType">彩种</param>
+        /// <param name="peroiod">开奖期数</param>
+        /// <returns></returns>
+        [Route("lotterydata")]
+        [HttpGet]
+        public ResultMessage<LotteryDataOutput> GetLotteryData(string lotteryType, int? peroiod)
+        {
+            LotteryDataOutput lotteryData = null;
+            var result = _lotteryDataAppService.GetLotteryData(lotteryType, peroiod, out lotteryData);
+            if (result)
+            {
+                return ResponseUtils.DataResult(lotteryData);
+            }
+            string peroidStr = peroiod?.ToString() ?? "最后一期";
+            return ResponseUtils.ErrorResult<LotteryDataOutput>($"获取{lotteryType}彩种第{peroidStr}期开奖数据失败,可能正在开奖...");
         }
 
         /// <summary>

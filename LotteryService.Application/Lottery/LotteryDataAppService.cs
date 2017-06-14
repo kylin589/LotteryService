@@ -49,5 +49,17 @@ namespace LotteryService.Application.Lottery
         {
             return _lotteryService.GetLatestLotteryData(lotteryType);
         }
+
+        public bool GetLotteryData(string lotteryType, int? peroiod, out LotteryDataOutput lotteryDataOutput)
+        {
+            var lotteryData = _lotteryService.GetLotteryData(lotteryType, peroiod);
+            if (lotteryData == null)
+            {
+                lotteryDataOutput = null;
+                return false;
+            }
+            lotteryDataOutput = Mapper.Map(lotteryData, new LotteryDataOutput());
+            return true;
+        }
     }
 }

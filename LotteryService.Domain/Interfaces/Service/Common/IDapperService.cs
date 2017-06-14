@@ -19,5 +19,6 @@ namespace LotteryService.Domain.Interfaces.Service.Common
         ValidationResult Add(TEntity entity);
 
         ValidationResult Update(string id, params object[] fields);
+       
     }
 }

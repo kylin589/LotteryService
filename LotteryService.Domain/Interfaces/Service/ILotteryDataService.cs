@@ -8,5 +8,7 @@ namespace LotteryService.Domain.Interfaces.Service
         bool ExsitData(string lotteryType, int period);
 
         LotteryData GetLatestLotteryData(string lotteryType);
+
+        LotteryData GetLotteryData(string lotteryType, int? peroiod);
     }
 }

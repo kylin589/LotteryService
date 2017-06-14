@@ -14,5 +14,7 @@ namespace LotteryService.Application.Lottery
         bool ExsitData(string lotteryType, int period);
 
         LotteryData GetLatestLotteryData(string lotteryType);
+
+        bool GetLotteryData(string lotteryType, int? peroiod, out LotteryDataOutput lotteryData);
     }
 }

@@ -22,5 +22,10 @@ namespace LotteryService.Domain.Lottery
         {
             return ((ILotteryDataDapperRepository)_dapperRepository).GetLatestLotteryData(lotteryType);
         }
+
+        public LotteryData GetLotteryData(string lotteryType, int? peroiod)
+        {
+            return ((ILotteryDataDapperRepository)_dapperRepository).GetLotteryData(lotteryType,peroiod);
+        }
     }
 }

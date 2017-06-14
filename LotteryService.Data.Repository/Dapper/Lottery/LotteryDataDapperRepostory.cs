@@ -92,6 +92,25 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             }
         }
 
+        public LotteryData GetLotteryData(string lotteryType, int? peroiod)
+        {
+            if (peroiod.HasValue)
+            {
+                var sqlStr1 = " SELECT * FROM dbo.[LotteryDatas] WHERE Period=@Period AND LotteryType=@LotteryType";
+                using (var cn = LotteryDbConnection)
+                {
+                    var lotteryData = cn.Query<LotteryData>(sqlStr1,
+                    new
+                    {
+                        LotteryType = lotteryType,
+                        Period = peroiod
+                    }).SingleOrDefault();
+                    return lotteryData;
+                }
+            }
+            return GetLatestLotteryData(lotteryType);
+        }
+
         public LotteryData Get(string id)
         {
             using (var cn = LotteryDbConnection)
