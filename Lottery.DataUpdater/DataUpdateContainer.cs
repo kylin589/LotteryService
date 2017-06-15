@@ -8,8 +8,10 @@ using Lottery.DataUpdater.Models;
 using Lottery.Engine;
 using Lottery.Entities;
 using LotteryService.Application.Lottery;
+using LotteryService.Common;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Excetions;
+using LotteryService.Common.Tools;
 using LotteryService.Domain.Interfaces.Repository.Common;
 using LotteryService.Domain.Logs;
 using Microsoft.Practices.ServiceLocation;
@@ -98,7 +100,8 @@ namespace Lottery.DataUpdater
                         {
                             var lastLotteryData = _lotteryDataAppService.Insert(newData);
                             _lastPeriod = lastLotteryData.Period;
-                            // todo:更新彩票分析数据                           
+                            // todo:更新彩票分析数据   
+                            
                         }
                     }
                     LogDbHelper.LogDebug(string.Format("更新彩票{0}开奖数据数据成功,共{1}条数据", _lotteryDataJob.LotteryType, newDataList.Count),

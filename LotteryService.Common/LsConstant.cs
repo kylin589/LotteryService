@@ -44,8 +44,12 @@
 
         public const string Logout = "logout";
 
-        public const string LotteryFeature = "{0}LotteryFeature";
+        public const int LOAD_HISTORY_LOTTERYDATA = 5000;
 
-        public const string LotteryAnalyseNorm = "{0}LotteryAnalyseNorm";
+        public const string LotteryFeatureRedisKey = "{0}LotteryFeatureRedisKey";
+
+        public const string LotteryAnalyseNormRedisKey = "{0}LotteryAnalyseNormRedisKey";
+
+        public const string LotteryDataRedisKey = "{0}LotteryDataNormRedisKey";
     }
 }

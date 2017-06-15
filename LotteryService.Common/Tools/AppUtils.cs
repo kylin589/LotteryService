@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
@@ -72,6 +73,11 @@ namespace LotteryService.Common.Tools
         {
             // :todo 生成用户指标Module
             return "20,30,40,50";
+        }
+
+        public static string GetLotteryRedisKey(string lotteryType, string lotteryDataRedisKey)
+        {
+            return string.Format(lotteryDataRedisKey,lotteryType);
         }
     }
 }

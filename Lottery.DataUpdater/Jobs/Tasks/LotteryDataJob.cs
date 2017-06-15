@@ -72,6 +72,7 @@ namespace Lottery.DataUpdater.Jobs
                 {
                     if (isFirstStartService)
                     {
+                        // :todo 移除
                         var lotteryEngine = LotteryEngine.GetLotteryEngine(LotteryType.bjpks);
                         isFirstStartService = false;
                         LogDbHelper.LogInfo(string.Format("{0}彩种定时执行任务Job开始(First Start)", _LotteryType),

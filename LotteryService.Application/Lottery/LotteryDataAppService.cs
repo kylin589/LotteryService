@@ -6,6 +6,7 @@ using Lottery.Entities;
 using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common;
 using LotteryService.Common.Enums;
+using LotteryService.Common.Tools;
 using LotteryService.Data.Context;
 using LotteryService.Domain.Interfaces.Service;
 using LotteryService.Domain.Interfaces.Service.Common;
@@ -36,8 +37,25 @@ namespace LotteryService.Application.Lottery
  
         public LotteryData Insert(LotteryData newData)
         {
+            var redisKey = AppUtils.GetLotteryRedisKey(newData.LotteryType, LsConstant.LotteryDataRedisKey);
+            try
+            {
+                RedisHelper.SetHash(redisKey, newData.Id, newData);
+                if (RedisHelper.GetHashCount(redisKey) >= LsConstant.LOAD_HISTORY_LOTTERYDATA)
+                {
+                    var mostOldLottery = RedisHelper.GetAll<LotteryData>(redisKey).Last();
+                    RedisHelper.Remove(redisKey, mostOldLottery.Id);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                LogDbHelper.LogError(ex, GetType() + "UpdateLotteryDataCache");
+                throw ex;
+            }
+
             var lotteryDataId = _lotteryDapperService.Add(newData);
-            return _lotteryDapperService.Get(lotteryDataId.GetData<string>(LsConstant.IdKey));
+            return RedisHelper.Get<LotteryData>(redisKey,newData.Id);
         }
 
         public bool ExsitData(string lotteryType, int period)
@@ -69,6 +87,11 @@ namespace LotteryService.Application.Lottery
             var lotteryDatas = _lotteryService.GetLotteryDatas(lotteryType,pageIndex,pageSize,out totalCount);
             var lotteryDataOutputs = Mapper.Map(lotteryDatas, new List<LotteryDataOutput>());
             return new PageList<LotteryDataOutput>(lotteryDataOutputs,totalCount,pageIndex,pageSize);
+        }
+
+        public IDictionary<LotteryType, IList<LotteryData>> GetAnaylesBasicLotteryDatas(int basicHistoryCount)
+        {
+            return _lotteryService.GetAnaylesBasicLotteryDatas(basicHistoryCount);
         }
     }
 }

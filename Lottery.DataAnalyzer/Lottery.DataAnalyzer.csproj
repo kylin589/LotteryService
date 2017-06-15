@@ -53,9 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ILotteryAnalyseNormManager.cs" />
+    <Compile Include="ILotteryDataManager.cs" />
     <Compile Include="ILotteryFeatureLoader.cs" />
     <Compile Include="ILotteryPlanManager.cs" />
     <Compile Include="LotteryAnalyseNormManager.cs" />
+    <Compile Include="LotteryDataManager.cs" />
     <Compile Include="LotteryFeatureLoader.cs" />
     <Compile Include="LotteryPlanManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +82,10 @@
     <ProjectReference Include="..\LotteryService.Common\LotteryService.Common.csproj">
       <Project>{408228bd-2151-49ed-8b30-5835bc3e3e27}</Project>
       <Name>LotteryService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotteryService.Domain\LotteryService.Domain.csproj">
+      <Project>{AFFD11F8-DD7C-4EEF-AB73-4D59607BC87D}</Project>
+      <Name>LotteryService.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

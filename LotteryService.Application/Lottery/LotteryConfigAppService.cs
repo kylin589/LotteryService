@@ -17,9 +17,9 @@ namespace LotteryService.Application.Lottery
 
         public string GetLotteryConfig(string lotteryType)
         {
-            //if (RedisHelper.KeyExists(string.Format(LsConstant.LotteryFeature, lotteryType)))
+            //if (RedisHelper.KeyExists(string.Format(LsConstant.RedistLotteryFeatureKey, lotteryType)))
             //{
-            //    return RedisHelper.Get(string.Format(LsConstant.LotteryFeature, lotteryType));
+            //    return RedisHelper.Get(string.Format(LsConstant.RedistLotteryFeatureKey, lotteryType));
             //}
             return _lotteryConfigService.GetLotteryConfig(lotteryType);
         }

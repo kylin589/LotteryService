@@ -19,23 +19,17 @@ namespace Lottery.Engine
         private static IDictionary<LotteryType, LotteryFeature> _lotteryFeatures;
 
         private static IDictionary<LotteryType, LotteryEngine> _lotteryEngines;
-
+      
         private LotteryType _lotteryType;
+
+        private IList<LotteryData> _histroyLotteryDatas;
 
         private LotteryFeature _lotteryFeature;
 
         private ICollection<LotteryAnalyseNorm> _lotteryAnalyseNorms;
-        
-        public static LotteryEngine GetLotteryEngine(LotteryType lotteryType)
-        {
-            return _lotteryEngines[lotteryType];
-        }
 
-        public static LotteryFeature GetLotteryFeature(LotteryType lotteryType)
-        {
-            return _lotteryFeatures[lotteryType];
-        }
-
+        private ILotteryDataManager _lotteryDataManager;
+      
         static LotteryEngine()
         {
             var _lotteryFeatureLoader = ServiceLocator.Current.GetInstance<ILotteryConfigAppService>();
@@ -55,16 +49,33 @@ namespace Lottery.Engine
             _lotteryEngines[lotteryType] = new LotteryEngine(lotteryType, lotteryConfigData);
         }
 
+        public static LotteryEngine GetLotteryEngine(LotteryType lotteryType)
+        {
+            return _lotteryEngines[lotteryType];
+        }
+
+        public static LotteryFeature GetLotteryFeature(LotteryType lotteryType)
+        {
+            return _lotteryFeatures[lotteryType];
+        }
+
         private LotteryEngine(LotteryType lotteryType, string lotteryConfigData)
         {
             _lotteryType = lotteryType;
             _lotteryFeature = lotteryConfigData.ToObject<LotteryFeature>();
             _lotteryFeatures[lotteryType] = _lotteryFeature;
 
-            var lotteryAnalyseNormManager = ServiceLocator.Current.GetInstance<ILotteryAnalyseNormManager>();
-            _lotteryAnalyseNorms = lotteryAnalyseNormManager.LoadLotteryAnalyseNorms(lotteryType);
-             RedisHelper.Set(string.Format(LsConstant.LotteryFeature, lotteryType), lotteryConfigData);
+            var lotteryAnalyseNormManager = ServiceLocator.Current.GetInstance<ILotteryAnalyseNormManager>();           
+            _lotteryAnalyseNorms = lotteryAnalyseNormManager.LoadLotteryAnalyseNorms(lotteryType);            
+            _lotteryDataManager = ServiceLocator.Current.GetInstance<ILotteryDataManager>();
 
+            RedisHelper.Set(AppUtils.GetLotteryRedisKey(lotteryType.ToString(), LsConstant.LotteryFeatureRedisKey), lotteryConfigData);
+
+        }
+
+        public IList<LotteryData> HistoryLotteryDatas
+        {
+            get { return _lotteryDataManager.GetHistoryLotteryDatas(_lotteryType); }
         }
 
         public void CalculateNextLotteryData()

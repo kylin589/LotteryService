@@ -2,6 +2,7 @@
 using Lottery.Entities;
 using LotteryService.Application.Lottery.Dtos;
 using LotteryService.Common.Dependency;
+using LotteryService.Common.Enums;
 
 namespace LotteryService.Application.Lottery
 {
@@ -18,5 +19,7 @@ namespace LotteryService.Application.Lottery
         bool GetLotteryData(string lotteryType, int? peroiod, out LotteryDataOutput lotteryData);
 
         IPageList<LotteryDataOutput> GetLotteryDatas(string lotteryType, int pageIndex, int pageSize);
+
+        IDictionary<LotteryType, IList<LotteryData>> GetAnaylesBasicLotteryDatas(int basicHistoryCount);
     }
 }

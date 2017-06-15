@@ -71,7 +71,7 @@ namespace LotteryService.CrossCutting.InversionOfControl
                 .InstancePerDependency();
 
             //ContainerBuilder.RegisterType<LotteryConfigDapperRepostory>()
-            //    .As<IDapperRepository<LotteryFeature>>()
+            //    .As<IDapperRepository<RedistLotteryFeatureKey>>()
             //    .InstancePerDependency();
 
             ContainerBuilder.RegisterType<UserDapperRepository>()

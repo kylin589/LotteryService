@@ -134,6 +134,27 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             }
         }
 
+        public IDictionary<LotteryType, IList<LotteryData>> GetAnaylesBasicLotteryDatas(int basicHistoryCount)
+        {
+            IDictionary<LotteryType, IList<LotteryData>> _dictionary = new Dictionary<LotteryType, IList<LotteryData>>();
+            using (var cn = LotteryDbConnection)
+            {
+                string sqlStr1 = "SELECT LotteryType FROM dbo.LotteryDatas GROUP BY LotteryType";
+                string sqlStr2 = "SELECT TOP "+ basicHistoryCount +" * FROM dbo.LotteryDatas WHERE LotteryType = @LotteryType ORDER BY Period DESC";
+                var lotteryTypes = cn.Query<string>(sqlStr1);
+
+                foreach (var lotteryType in lotteryTypes)
+                {
+                    var lotteryAnalysDatas = cn.Query<LotteryData>(sqlStr2, new
+                    {
+                        LotteryType = lotteryType,
+                    }).ToList();
+                    _dictionary.Add(Utils.StringConvertEnum<LotteryType>(lotteryType), lotteryAnalysDatas);
+                }
+            }
+            return _dictionary;
+        }
+
         public LotteryData Get(string id)
         {
             using (var cn = LotteryDbConnection)

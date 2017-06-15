@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Lottery.Entities;
 using Lottery.Entities.Extend.Validation;
 using LotteryService.Common.Dependency;
+using LotteryService.Common.Enums;
 
 namespace LotteryService.Domain.Interfaces.Service.Common
 {
@@ -19,6 +20,7 @@ namespace LotteryService.Domain.Interfaces.Service.Common
         ValidationResult Add(TEntity entity);
 
         ValidationResult Update(string id, params object[] fields);
+
 
         
     }

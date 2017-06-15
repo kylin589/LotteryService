@@ -138,7 +138,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                  ",[ModifyTime] = GETDATE()" +
                  " WHERE [Id] = @Id";
 
-            string lotteryAnalyseNormHashKey = string.Format(LsConstant.LotteryAnalyseNorm, lotteryType);
+            string lotteryAnalyseNormHashKey = string.Format(LsConstant.LotteryAnalyseNormRedisKey, lotteryType);
 
             using (var cn = LotteryDbConnection)
             {

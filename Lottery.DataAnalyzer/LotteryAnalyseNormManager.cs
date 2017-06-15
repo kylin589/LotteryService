@@ -20,7 +20,7 @@ namespace Lottery.DataAnalyzer
 
             foreach (var item in _lotteryAnalyseNorms)
             {
-                var lotteryAnalyseNorm = string.Format(LsConstant.LotteryAnalyseNorm, item.Key);
+                var lotteryAnalyseNorm = string.Format(LsConstant.LotteryAnalyseNormRedisKey, item.Key);
                 if (RedisHelper.KeyExists(lotteryAnalyseNorm))
                 {
                     RedisHelper.KeyDelete(lotteryAnalyseNorm);
@@ -36,7 +36,7 @@ namespace Lottery.DataAnalyzer
 
         public ICollection<LotteryAnalyseNorm> LoadLotteryAnalyseNorms(LotteryType lotteryType)
         {
-            var lotteryAnalyseNorm = string.Format(LsConstant.LotteryAnalyseNorm, lotteryType);
+            var lotteryAnalyseNorm = string.Format(LsConstant.LotteryAnalyseNormRedisKey, lotteryType);
 
             return RedisHelper.GetAll<LotteryAnalyseNorm>(lotteryAnalyseNorm);
         }

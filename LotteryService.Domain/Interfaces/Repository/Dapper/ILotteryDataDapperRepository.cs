@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Lottery.Entities;
+using LotteryService.Common.Enums;
 using LotteryService.Domain.Interfaces.Repository.Common;
 
 namespace LotteryService.Domain.Interfaces.Repository.Dapper
@@ -13,5 +14,7 @@ namespace LotteryService.Domain.Interfaces.Repository.Dapper
         LotteryData GetLotteryData(string lotteryType, int? peroiod);
 
         IList<LotteryData> GetLotteryDatas(string lotteryType, int pageIndex, int pageSize,out int totalCount);
+
+        IDictionary<LotteryType, IList<LotteryData>> GetAnaylesBasicLotteryDatas(int basicHistoryCount);
     }
 }
