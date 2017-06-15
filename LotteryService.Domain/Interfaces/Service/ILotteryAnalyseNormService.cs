@@ -12,5 +12,7 @@ namespace LotteryService.Domain.Interfaces.Service
         UserBasicNorm GetUserBasicNorm(string userId, LotteryType lotteryType);
 
         bool SetUserBasicNorm(UserBasicNorm userBasicNorm);
+
+        IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAllEnable();
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Dapper;
 using Lottery.Entities;
+using LotteryService.Common;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Extensions;
 using LotteryService.Data.Repository.Dapper.Common;
@@ -136,10 +137,12 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                  ",[Enable] = @Enable" +
                  ",[ModifyTime] = GETDATE()" +
                  " WHERE [Id] = @Id";
+
+            string lotteryAnalyseNormHashKey = string.Format(LsConstant.LotteryAnalyseNorm, lotteryType);
+
             using (var cn = LotteryDbConnection)
             {
                 cn.Open();
-                // :todo redis缓存用户计划
                 using (var trans = cn.BeginTransaction())
                 {
 
@@ -189,6 +192,8 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                                 cn.Execute(sqlStr2_1, lotteryAnalyseNorm, trans);
                                 cn.Execute(sqlStr2, userAnylseNorm, trans);
 
+                                RedisHelper.SetHash(lotteryAnalyseNormHashKey, lotteryAnalyseNorm.Id,
+                                      lotteryAnalyseNorm);
                                 #endregion
                             }
                             else
@@ -211,6 +216,9 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                                         lotteryAnalyseNorm.Enable,
                                         lotteryAnalyseNorm.LatestStartPeriod
                                     }, trans);
+
+                                    RedisHelper.SetHash(lotteryAnalyseNormHashKey, lotteryAnalyseNorm.Id,
+                                        lotteryAnalyseNorm);
                                 }
 
                                 #endregion
@@ -258,6 +266,9 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                                         lotteryAnalyseNorm.Enable,
                                         lotteryAnalyseNorm.LatestStartPeriod
                                     }, trans);
+
+                                    RedisHelper.Remove(lotteryAnalyseNormHashKey, lotteryAnalyseNorm.Id);
+                                    
                                 }
 
                                 #endregion

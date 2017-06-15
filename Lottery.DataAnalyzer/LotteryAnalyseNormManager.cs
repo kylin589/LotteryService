@@ -16,13 +16,18 @@ namespace Lottery.DataAnalyzer
         static LotteryAnalyseNormManager()
         {
             _analyseNormAppService = ServiceLocator.Current.GetInstance<ILotteryAnalyseNormAppService>();
-            _lotteryAnalyseNorms = _analyseNormAppService.GetAll();
+            _lotteryAnalyseNorms = _analyseNormAppService.GetAllEnable();
 
             foreach (var item in _lotteryAnalyseNorms)
             {
                 var lotteryAnalyseNorm = string.Format(LsConstant.LotteryAnalyseNorm, item.Key);
+                if (RedisHelper.KeyExists(lotteryAnalyseNorm))
+                {
+                    RedisHelper.KeyDelete(lotteryAnalyseNorm);
+                }
                 foreach (var anlyse in item.Value)
                 {
+                  
                     RedisHelper.SetHash(lotteryAnalyseNorm, anlyse.Id,anlyse);
                 }
             }

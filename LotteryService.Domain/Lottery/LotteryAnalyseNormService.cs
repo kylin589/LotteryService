@@ -29,5 +29,10 @@ namespace LotteryService.Domain.Lottery
         {
             return _analyseNormDapperRepostory.SetUserBasicNorm(userBasicNorm);
         }
+
+        public IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAllEnable()
+        {
+            return _analyseNormDapperRepostory.GetAllEnable();
+        }
     }
 }

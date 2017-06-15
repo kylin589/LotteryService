@@ -14,5 +14,7 @@ namespace LotteryService.Application.Lottery
         UserBasicNormDto GetUserBasicNorm(string userId, LotteryType lotteryType);
 
         ResultMessage<UserBasicNormDto> SetUserBasicNorm(string userId, UserBasicNormInput input);
+
+        IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAllEnable();
     }
 }

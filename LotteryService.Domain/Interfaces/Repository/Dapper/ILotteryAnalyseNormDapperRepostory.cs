@@ -12,5 +12,7 @@ namespace LotteryService.Domain.Interfaces.Repository.Dapper
         UserBasicNorm GetUserBasicNorm(string userId, LotteryType lotteryType);
 
         bool SetUserBasicNorm(UserBasicNorm userBasicNorm);
+
+        IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAllEnable();
     }
 }

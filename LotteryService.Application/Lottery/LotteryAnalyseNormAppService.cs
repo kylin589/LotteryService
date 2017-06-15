@@ -73,5 +73,10 @@ namespace LotteryService.Application.Lottery
 
             return result;
         }
+
+        public IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAllEnable()
+        {
+            return _analyseNormService.GetAllEnable();
+        }
     }
 }

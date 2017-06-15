@@ -101,5 +101,27 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             }
             return isSuccess;
         }
+
+        public IDictionary<LotteryType, IList<LotteryAnalyseNorm>> GetAllEnable()
+        {
+            IDictionary<LotteryType, IList<LotteryAnalyseNorm>> _dictionary = new Dictionary<LotteryType, IList<LotteryAnalyseNorm>>();
+            using (var cn = LotteryDbConnection)
+            {
+                string sqlStr1 = "SELECT LotteryType FROM dbo.LotteryAnalyseNorms GROUP BY LotteryType";
+                string sqlStr2 = "SELECT * FROM dbo.LotteryAnalyseNorms WHERE LotteryType = @LotteryType AND　Enable = @Enable";
+                var lotteryTypes = cn.Query<string>(sqlStr1);
+
+                foreach (var lotteryType in lotteryTypes)
+                {
+                    var lotteryAnalyseNorms = cn.Query<LotteryAnalyseNorm>(sqlStr2, new
+                    {
+                        LotteryType = lotteryType,
+                        Enable = 1
+                    }).ToList();
+                    _dictionary.Add(Utils.StringConvertEnum<LotteryType>(lotteryType), lotteryAnalyseNorms);
+                }
+            }
+            return _dictionary;
+        }
     }
 }
