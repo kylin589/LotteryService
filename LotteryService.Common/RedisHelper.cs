@@ -23,7 +23,12 @@ namespace LotteryService.Common
         static RedisHelper()
         {
             var conn = CreateManager.Value;
+#if DEBUG
+            Cache = conn.GetDatabase(1); //获取实例
+#else
             Cache = conn.GetDatabase(); //获取实例
+#endif
+
         }
 
         private static Lazy<ConnectionMultiplexer> GetManager(string connectionString = null)
