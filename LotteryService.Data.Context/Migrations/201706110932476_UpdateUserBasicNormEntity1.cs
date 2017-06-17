@@ -7,12 +7,12 @@ namespace LotteryService.Data.Context.Migrations
     {
         public override void Up()
         {
-            AlterColumn("dbo.UserBasicNorms", "LatestStartPeriod", c => c.Int());
+            AlterColumn("dbo.UserBasicNorms", "LastStartPeriod", c => c.Int());
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.UserBasicNorms", "LatestStartPeriod", c => c.Int(nullable: false));
+            AlterColumn("dbo.UserBasicNorms", "LastStartPeriod", c => c.Int(nullable: false));
         }
     }
 }

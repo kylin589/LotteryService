@@ -8,6 +8,9 @@ namespace Lottery.DataAnalyzer
     public interface ILotteryDataManager : ISingletonDependency
     {
         IList<LotteryData> GetHistoryLotteryDatas(LotteryType lotteryType);
-      
+
+        IList<LotteryData> GetHistoryLotteryDatas(LotteryType lotteryType, int count);
+
+
     }
 }

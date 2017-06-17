@@ -8,11 +8,6 @@ namespace Lottery.DataAnalyzer
     public interface ILotteryAnalyseNormManager : ISingletonDependency
     {
         ICollection<LotteryAnalyseNorm> LoadLotteryAnalyseNorms(LotteryType lotteryType);
-
-        bool AddLotteryAnalyseNorms(LotteryType lotteryType, LotteryAnalyseNorm lotteryAnalyseNorm);
-
-        bool RemoveLotteryAnalyseNorms(LotteryType lotteryType, LotteryAnalyseNorm lotteryAnalyseNorm);
-
-        
+       
     }
 }

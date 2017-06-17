@@ -15,14 +15,14 @@ namespace LotteryService.Application.Lottery
             _lotteryConfigService = lotteryConfigService;
         }
 
-        public string GetLotteryConfig(string lotteryType)
-        {
-            //if (RedisHelper.KeyExists(string.Format(LsConstant.RedistLotteryFeatureKey, lotteryType)))
-            //{
-            //    return RedisHelper.Get(string.Format(LsConstant.RedistLotteryFeatureKey, lotteryType));
-            //}
-            return _lotteryConfigService.GetLotteryConfig(lotteryType);
-        }
+        //public string GetLotteryConfig(string lotteryType)
+        //{
+        //    //if (RedisHelper.KeyExists(string.Format(LsConstant.RedistLotteryFeatureKey, lotteryType)))
+        //    //{
+        //    //    return RedisHelper.Get(string.Format(LsConstant.RedistLotteryFeatureKey, lotteryType));
+        //    //}
+        //    return _lotteryConfigService.GetLotteryConfig(lotteryType);
+        //}
 
         public IDictionary<string, string> GetLotteryConfigs()
         {

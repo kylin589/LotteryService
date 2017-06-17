@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Lottery.Entities;
 using LotteryService.Application.Lottery;
 using LotteryService.Common;
@@ -25,11 +26,19 @@ namespace Lottery.DataAnalyzer
                 {
                     RedisHelper.KeyDelete(lotteryAnalyseNorm);
                 }
-                foreach (var anlyse in item.Value)
-                {
+                //foreach (var anlyse in item.Value)
+                //{
                   
-                    RedisHelper.SetHash(lotteryAnalyseNorm, anlyse.Id,anlyse);
-                }
+                //    RedisHelper.SetHash(lotteryAnalyseNorm, anlyse.Id,anlyse);
+                //}
+
+                Parallel.ForEach(item.Value, new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = LsConstant.MaxDegreeOfParallelism,
+                }, anlyse =>
+                {
+                    RedisHelper.SetHash(lotteryAnalyseNorm, anlyse.Id, anlyse);
+                });
             }
         }
     

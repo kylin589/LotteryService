@@ -56,9 +56,9 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
 
         public void InsertUserPlans(string userId, LotteryType lotteryType, UserBasicNorm userBasicNorm, IList<int> planIds)
         {
-            string sqlStr1 = "INSERT INTO [dbo].[LotteryAnalyseNorms]([Id],[PlanId],[PlanCycle],[LatestStartPeriod],[ForecastCount],[BasicHistoryCount] ,[UnitHistoryCount],[HotWeight],[SizeWeight]" +
+            string sqlStr1 = "INSERT INTO [dbo].[LotteryAnalyseNorms]([Id],[PlanId],[PlanCycle],[LastStartPeriod],[ForecastCount],[BasicHistoryCount] ,[UnitHistoryCount],[HotWeight],[SizeWeight]" +
             " ,[ThreeRegionWeight],[MissingValueWeight],[OddEvenWeight],[Modulus],[LotteryType],[Enable],[IsDefault],[CreatTime],[CreateUserId])" +
-            " VALUES(@Id, @PlanId, @PlanCycle, @LatestStartPeriod, @ForecastCount, @BasicHistoryCount, @UnitHistoryCount, @HotWeight, @SizeWeight, @ThreeRegionWeight, @MissingValueWeight" +
+            " VALUES(@Id, @PlanId, @PlanCycle, @LastStartPeriod, @ForecastCount, @BasicHistoryCount, @UnitHistoryCount, @HotWeight, @SizeWeight, @ThreeRegionWeight, @MissingValueWeight" +
             ", @OddEvenWeight, @Modulus, @LotteryType, @ENABLE, @IsDefault, GETDATE(), @CreateUserId)";
             string sqlStr2 = "INSERT INTO [dbo].[UserAnylseNorms]([Id],[UserId],[PlanId],[LotteryAnalyseNormId],[LotteryType],[CreatTime])" +
             " VALUES(@Id, @UserId,@PlanId, @LotteryAnalyseNormId, @LotteryType, GETDATE())";
@@ -79,7 +79,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                                 CreateUserId = userId,
                                 ForecastCount = userBasicNorm.ForecastCount,
                                 HotWeight = userBasicNorm.HotWeight,
-                                LatestStartPeriod = 0, // Todo: set LatestStartPeriod
+                                LastStartPeriod = 0, // Todo: set LastStartPeriod
                                 LotteryType = lotteryType.ToString(),
                                 UnitHistoryCount = userBasicNorm.UnitHistoryCount,
                                 Modulus = userBasicNorm.Modulus,
@@ -123,9 +123,9 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             string sqlStr2 = "INSERT INTO [dbo].[UserAnylseNorms]([Id],[UserId],[PlanId],[LotteryAnalyseNormId],[LotteryType],[CreatTime])" +
           " VALUES(@Id, @UserId,@PlanId, @LotteryAnalyseNormId, @LotteryType, GETDATE())";
 
-            string sqlStr2_1 = "INSERT INTO [dbo].[LotteryAnalyseNorms]([Id],[PlanId],[PlanCycle],[LatestStartPeriod],[ForecastCount],[BasicHistoryCount] ,[UnitHistoryCount],[HotWeight],[SizeWeight]" +
+            string sqlStr2_1 = "INSERT INTO [dbo].[LotteryAnalyseNorms]([Id],[PlanId],[PlanCycle],[LastStartPeriod],[ForecastCount],[BasicHistoryCount] ,[UnitHistoryCount],[HotWeight],[SizeWeight]" +
            " ,[ThreeRegionWeight],[MissingValueWeight],[OddEvenWeight],[Modulus],[LotteryType],[Enable],[IsDefault],[CreatTime],[CreateUserId])" +
-           " VALUES(@Id, @PlanId, @PlanCycle, @LatestStartPeriod, @ForecastCount, @BasicHistoryCount, @UnitHistoryCount, @HotWeight, @SizeWeight, @ThreeRegionWeight, @MissingValueWeight" +
+           " VALUES(@Id, @PlanId, @PlanCycle, @LastStartPeriod, @ForecastCount, @BasicHistoryCount, @UnitHistoryCount, @HotWeight, @SizeWeight, @ThreeRegionWeight, @MissingValueWeight" +
            ", @OddEvenWeight, @Modulus, @LotteryType, @ENABLE, @IsDefault, GETDATE(), @CreateUserId)";
 
             string sqlStr3 = "SELECT * FROM [dbo].[LotteryAnalyseNorms] WHERE Id=@Id";
@@ -133,7 +133,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
             string sqlStr4 = "DELETE [dbo].[UserAnylseNorms] WHERE Id = @Id";
 
             string sqlStr5 = "UPDATE [dbo].[LotteryAnalyseNorms]" +
-                 "SET [LatestStartPeriod] = @LatestStartPeriod" +
+                 "SET [LastStartPeriod] = @LastStartPeriod" +
                  ",[Enable] = @Enable" +
                  ",[ModifyTime] = GETDATE()" +
                  " WHERE [Id] = @Id";
@@ -169,7 +169,7 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                                     CreateUserId = userId,
                                     ForecastCount = userBasicNorm.ForecastCount,
                                     HotWeight = userBasicNorm.HotWeight,
-                                    LatestStartPeriod = 0, // Todo: set LatestStartPeriod
+                                    LastStartPeriod = 0, // Todo: set LastStartPeriod
                                     LotteryType = lotteryType.ToString(),
                                     UnitHistoryCount = userBasicNorm.UnitHistoryCount,
                                     Modulus = userBasicNorm.Modulus,
@@ -208,13 +208,13 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                                 {
                                     lotteryAnalyseNorm.Enable = true;
                                     lotteryAnalyseNorm.ModifyTime = DateTime.Now;
-                                    lotteryAnalyseNorm.LatestStartPeriod = 0;  // Todo: set LatestStartPeriod
+                                    lotteryAnalyseNorm.LastStartPeriod = 0;  // Todo: set LastStartPeriod
 
                                     cn.Execute(sqlStr5, new
                                     {
                                         lotteryAnalyseNorm.Id,
                                         lotteryAnalyseNorm.Enable,
-                                        lotteryAnalyseNorm.LatestStartPeriod
+                                        LatestStartPeriod = lotteryAnalyseNorm.LastStartPeriod
                                     }, trans);
 
                                     RedisHelper.SetHash(lotteryAnalyseNormHashKey, lotteryAnalyseNorm.Id,
@@ -258,13 +258,13 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                                 if (lotteryAnalyseNorm.Enable)
                                 {
                                     lotteryAnalyseNorm.Enable = false;
-                                    lotteryAnalyseNorm.LatestStartPeriod = 0;  // Todo: set LatestStartPeriod
+                                    lotteryAnalyseNorm.LastStartPeriod = 0;  // Todo: set LastStartPeriod
                                     
                                     cn.Execute(sqlStr5, new
                                     {
                                         lotteryAnalyseNorm.Id,
                                         lotteryAnalyseNorm.Enable,
-                                        lotteryAnalyseNorm.LatestStartPeriod
+                                        LatestStartPeriod = lotteryAnalyseNorm.LastStartPeriod
                                     }, trans);
 
                                     RedisHelper.Remove(lotteryAnalyseNormHashKey, lotteryAnalyseNorm.Id);

@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201706131259036_AddUserAnylseNormFiledPlanId.Designer.cs">
       <DependentUpon>201706131259036_AddUserAnylseNormFiledPlanId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706170513066_UpdateLotteryAnalyseNormEntity.cs" />
+    <Compile Include="Migrations\201706170513066_UpdateLotteryAnalyseNormEntity.Designer.cs">
+      <DependentUpon>201706170513066_UpdateLotteryAnalyseNormEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -155,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706131259036_AddUserAnylseNormFiledPlanId.resx">
       <DependentUpon>201706131259036_AddUserAnylseNormFiledPlanId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706170513066_UpdateLotteryAnalyseNormEntity.resx">
+      <DependentUpon>201706170513066_UpdateLotteryAnalyseNormEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

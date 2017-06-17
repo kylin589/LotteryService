@@ -17,7 +17,7 @@ namespace Lottery.Entities
         public int PlanCycle { get; set; }
 
         [Required]
-        public int LatestStartPeriod { get; set; }
+        public int LastStartPeriod { get; set; }
 
         [Required]
         public int ForecastCount { get; set; }
@@ -49,6 +49,8 @@ namespace Lottery.Entities
         [MaxLength(20)]
         [Required]
         public string LotteryType { get; set; }
+
+        public double? CurrentAccuracy { get; set; }
 
         [Required]
         public bool Enable { get; set; }

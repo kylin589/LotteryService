@@ -101,7 +101,10 @@ namespace Lottery.DataUpdater
                             var lastLotteryData = _lotteryDataAppService.Insert(newData);
                             _lastPeriod = lastLotteryData.Period;
                             // todo:更新彩票分析数据   
-                            
+                            var lotteryEngine =
+                                LotteryEngine.GetLotteryEngine(
+                                    Utils.StringConvertEnum<LotteryType>(lastLotteryData.LotteryType));
+                            lotteryEngine.CalculateNextLotteryData();
                         }
                     }
                     LogDbHelper.LogDebug(string.Format("更新彩票{0}开奖数据数据成功,共{1}条数据", _lotteryDataJob.LotteryType, newDataList.Count),

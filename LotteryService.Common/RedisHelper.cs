@@ -38,6 +38,14 @@ namespace LotteryService.Common
                 connectionString = GetDefaultConnectionString();
             }
 
+            //var configurationOptions = new ConfigurationOptions
+            //{
+            //    EndPoints = { { "121.43.164.110", 6379 } },
+            //    SyncTimeout = int.MaxValue,
+            //    Ssl = true,
+            //    Password = "Liuhl881208"
+            //};
+
             return new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(connectionString));
         }
 

@@ -50,6 +50,8 @@
 
         public const string LotteryAnalyseNormRedisKey = "{0}LotteryAnalyseNormRedisKey";
 
-        public const string LotteryDataRedisKey = "{0}LotteryDataNormRedisKey";
+        public const string LotteryDataRedisKey = "{0}LotteryDataRedisKey";
+
+        public const int MaxDegreeOfParallelism = 200;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Lottery.Entities;
 using LotteryService.Application.Lottery;
 using LotteryService.Common;
@@ -33,11 +34,18 @@ namespace Lottery.DataAnalyzer
                 {
                     RedisHelper.KeyDelete(lotteryDataRedisKey);
                 }
-                foreach (var data in item.Value)
-                {
+                //foreach (var data in item.Value)
+                //{
 
-                    RedisHelper.SetHash(lotteryDataRedisKey, data.Id, data);
-                }
+                //    RedisHelper.SetHash(lotteryDataRedisKey, data.Id, data);
+                //}
+                Parallel.ForEach(item.Value, new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = LsConstant.MaxDegreeOfParallelism,
+                }, lotteryData =>
+                {
+                    RedisHelper.SetHash(lotteryDataRedisKey, lotteryData.Id, lotteryData);
+                });
             }
         }
 
@@ -48,9 +56,16 @@ namespace Lottery.DataAnalyzer
         /// <returns></returns>
         public IList<LotteryData> GetHistoryLotteryDatas(LotteryType lotteryType)
         {
-            return RedisHelper.GetAll<LotteryData>(string.Format(LsConstant.LotteryDataRedisKey, lotteryType));
+            return RedisHelper.GetAll<LotteryData>(string.Format(LsConstant.LotteryDataRedisKey, lotteryType)).OrderByDescending(p=>p.Period).ToList();
         }
 
- 
+        public IList<LotteryData> GetHistoryLotteryDatas(LotteryType lotteryType, int count)
+        {
+            return
+                RedisHelper.GetAll<LotteryData>(string.Format(LsConstant.LotteryDataRedisKey, lotteryType))
+                    .OrderByDescending(p => p.Period)
+                    .Take(count)
+                    .ToList();
+        }
     }
 }

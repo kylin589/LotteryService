@@ -65,13 +65,13 @@ namespace LotteryService.Data.Repository.Dapper.Lottery
                    "SELECT TOP 1 * FROM [Lottery-Dev].[dbo].[UserBasicNorms] WITH(NOLOCK) WHERE UserId=@UserId AND LotteryType=@LotteryType";
                 string sqlStr2 =
                     "INSERT INTO [dbo].[UserBasicNorms]([Id] ,[UserId],[PlanCycle],[ForecastCount],[BasicHistoryCount] ,[UnitHistoryCount],[HotWeight],[SizeWeight] ,[ThreeRegionWeight]," +
-                    " [MissingValueWeight],[OddEvenWeight],[Modulus],[LotteryType],[LatestStartPeriod],[Enable],[IsDefault],[CreatTime],[ModifyTime])" +
-                    " VALUES(@Id,@UserId,@PlanCycle,@ForecastCount,@BasicHistoryCount,@UnitHistoryCount,@HotWeight,@SizeWeight,@ThreeRegionWeight,@MissingValueWeight,@OddEvenWeight,@Modulus,@LotteryType,@LatestStartPeriod,@Enable," +
+                    " [MissingValueWeight],[OddEvenWeight],[Modulus],[LotteryType],[LastStartPeriod],[Enable],[IsDefault],[CreatTime],[ModifyTime])" +
+                    " VALUES(@Id,@UserId,@PlanCycle,@ForecastCount,@BasicHistoryCount,@UnitHistoryCount,@HotWeight,@SizeWeight,@ThreeRegionWeight,@MissingValueWeight,@OddEvenWeight,@Modulus,@LotteryType,@LastStartPeriod,@Enable," +
                     " @IsDefault,GETDATE(),GETDATE())";
 
                 string sqlStr3 = "UPDATE [dbo].[UserBasicNorms]" +
                                  "SET[PlanCycle] = @PlanCycle" +
-                                 ",[LatestStartPeriod] = @LatestStartPeriod" +
+                                 ",[LastStartPeriod] = @LastStartPeriod" +
                                  ",[ForecastCount] = @ForecastCount" +
                                  ",[BasicHistoryCount] = @BasicHistoryCount" +
                                  ",[UnitHistoryCount] = @UnitHistoryCount" +

@@ -6,7 +6,7 @@ namespace LotteryService.Application.Lottery
 {
     public interface ILotteryConfigAppService : ITransientDependency
     {
-        string GetLotteryConfig(string lotteryType);
+        //string GetLotteryConfig(string lotteryType);
 
         IDictionary<string, string> GetLotteryConfigs();
     }

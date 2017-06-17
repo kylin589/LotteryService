@@ -53,6 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LotteryEngine.cs" />
+    <Compile Include="Perdictor\TrackNumber\DragonTigerPlanTrackNumber.cs" />
+    <Compile Include="Perdictor\TrackNumber\ILotteryTrackNumber.cs" />
+    <Compile Include="Perdictor\LotteryPerdictor.cs" />
+    <Compile Include="Perdictor\TrackNumber\KillPlanTrackNumber.cs" />
+    <Compile Include="Perdictor\TrackNumber\NumPlanTrackNumber.cs" />
+    <Compile Include="Perdictor\TrackNumber\RankPlanTrackNumber.cs" />
+    <Compile Include="Perdictor\TrackNumber\SizePlanTrackNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
