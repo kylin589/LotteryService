@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web;
 
 namespace LotteryService.Common.Tools
@@ -43,9 +44,16 @@ namespace LotteryService.Common.Tools
         /// <returns>若失败则返回回送地址</returns>
         public static string GetWorkIP()
         {
-            if (HttpContext.Current != null)
+            try
             {
-                return GetClientIP();
+                if (HttpContext.Current != null)
+                {
+                    return GetClientIP();
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
             }
             string hostName = Dns.GetHostName();   //获取本机名
             IPHostEntry localhost = Dns.GetHostByName(hostName);    //方法已过期，可以获取IPv4的地址

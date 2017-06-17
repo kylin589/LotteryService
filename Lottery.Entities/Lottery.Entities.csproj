@@ -53,6 +53,7 @@
     <Compile Include="Application\UserLoginAttempt.cs" />
     <Compile Include="Common\AuditedEntity.cs" />
     <Compile Include="Common\BaseEntity.cs" />
+    <Compile Include="Extensions\NumberInfoExtension.cs" />
     <Compile Include="Lottery\ConfigModel\LotteryFeature.cs" />
     <Compile Include="Lottery\ConfigModel\TimeRule.cs" />
     <Compile Include="Lottery\LotteryConfig.cs" />

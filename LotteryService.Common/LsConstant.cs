@@ -53,5 +53,7 @@
         public const string LotteryDataRedisKey = "{0}LotteryDataRedisKey";
 
         public const int MaxDegreeOfParallelism = 200;
+
+        public const int ThreadPoolCount = 50;
     }
 }

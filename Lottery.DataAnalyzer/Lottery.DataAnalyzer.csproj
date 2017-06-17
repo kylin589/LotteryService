@@ -52,6 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analyzer\ILotteryDataAnlyer.cs" />
+    <Compile Include="Analyzer\ILotteryNumberAnalyzer.cs" />
+    <Compile Include="Analyzer\LotteryDataAnlyer.cs" />
+    <Compile Include="Analyzer\LotteryNumberAnalyzer.cs" />
+    <Compile Include="Analyzer\NumberMissingDataInfo.cs" />
+    <Compile Include="Analyzer\NumberRateDataInfo.cs" />
+    <Compile Include="Analyzer\PeriodNumberInfo.cs" />
+    <Compile Include="Analyzer\ThreeRegionDataInfo.cs" />
     <Compile Include="ILotteryAnalyseNormManager.cs" />
     <Compile Include="ILotteryDataManager.cs" />
     <Compile Include="ILotteryFeatureLoader.cs" />

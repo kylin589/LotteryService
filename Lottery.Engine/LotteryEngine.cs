@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Lottery.DataAnalyzer;
+using Lottery.DataAnalyzer.Analyzer;
 using Lottery.Engine.Perdictor;
 using Lottery.Entities;
 using LotteryService.Common.Enums;
@@ -37,6 +38,12 @@ namespace Lottery.Engine
         private ILotteryDataManager _lotteryDataManager;
 
         private ILotteryAnalyseNormManager _lotteryAnalyseNormManager;
+
+        /// <summary>
+        /// 彩种的数据信息
+        /// </summary>
+        public IList<NumberInfo> NumberInfos => _lotteryFeature.NumberInfos;
+
 
         /// <summary>
         /// 加载数据引擎，系统启动时，即刻加载数据引擎
@@ -100,7 +107,6 @@ namespace Lottery.Engine
             _lotteryAnalyseNormManager = ServiceLocator.Current.GetInstance<ILotteryAnalyseNormManager>();
             _lotteryAnalyseNorms = _lotteryAnalyseNormManager.LoadLotteryAnalyseNorms(lotteryType);
             _lotteryDataManager = ServiceLocator.Current.GetInstance<ILotteryDataManager>();
-
             InitLotteryPlan();
 
             RedisHelper.Set(AppUtils.GetLotteryRedisKey(lotteryType.ToString(), LsConstant.LotteryFeatureRedisKey), lotteryConfigData);
@@ -123,19 +129,24 @@ namespace Lottery.Engine
         {
             get
             {
-                _lotteryAnalyseNorms = _lotteryAnalyseNormManager.LoadLotteryAnalyseNorms(_lotteryType);
+                _lotteryAnalyseNorms = _lotteryAnalyseNormManager.LoadLotteryAnalyseNorms(LotteryType);
                 return _lotteryAnalyseNorms;
             }
         }
 
         public IList<LotteryData> HistoryLotteryDataAll
         {
-            get { return _lotteryDataManager.GetHistoryLotteryDatas(_lotteryType); }
+            get { return _lotteryDataManager.GetHistoryLotteryDatas(LotteryType); }
+        }
+
+        public LotteryType LotteryType
+        {
+            get { return _lotteryType; }
         }
 
         public IList<LotteryData> GetLotteryDatas(int count)
         {
-            return _lotteryDataManager.GetHistoryLotteryDatas(_lotteryType, count);
+            return _lotteryDataManager.GetHistoryLotteryDatas(LotteryType, count);
         }
 
         public void CalculateNextLotteryData()

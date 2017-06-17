@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lottery.DataAnalyzer.Analyzer;
 using Lottery.Entities;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Excetions;
@@ -14,10 +15,16 @@ namespace Lottery.Engine.Perdictor
         private LotteryEngine _lotteryEngine;
         private LotteryAnalyseNorm _norm;
 
+        private ILotteryDataAnlyer _basicLotteryDataAnlyer;
+        private ILotteryDataAnlyer _unitLotteryDataAnlyer;
+
         public LotteryPerdictor(LotteryAnalyseNorm norm, LotteryEngine lotteryEngine)
         {
             _norm = norm;
             _lotteryEngine = lotteryEngine;
+            _basicLotteryDataAnlyer = new LotteryDataAnlyer(lotteryEngine.LotteryType,lotteryEngine.NumberInfos, _norm.BasicHistoryCount);
+            _unitLotteryDataAnlyer = new LotteryDataAnlyer(lotteryEngine.LotteryType, lotteryEngine.NumberInfos, _norm.UnitHistoryCount);
+
         }
 
         public LotteryEngine LotteryEngine => _lotteryEngine;
@@ -42,7 +49,7 @@ namespace Lottery.Engine.Perdictor
                 case PlanType.RankPlan:
                     lotteryTrackNumber = new RankPlanTrackNumber(this, lotteryPlan);
                     break;
-               case PlanType.SizePlan:
+                case PlanType.SizePlan:
                     lotteryTrackNumber = new SizePlanTrackNumber(this, lotteryPlan);
                     break;
                 default:

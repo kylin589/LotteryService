@@ -85,6 +85,7 @@
     <Compile Include="Enums\LotteryType.cs" />
     <Compile Include="Enums\OrderType.cs" />
     <Compile Include="Enums\ResultCode.cs" />
+    <Compile Include="Enums\LotteryShape.cs" />
     <Compile Include="Enums\UserRegistType.cs" />
     <Compile Include="Enums\UserState.cs" />
     <Compile Include="Excetions\LSException.cs" />

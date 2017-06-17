@@ -15,6 +15,6 @@ namespace Lottery.Entities
         public int MaxValue { get; set; }
         public int MinValue { get; set; }
 
-
+        public int SizeCriticalValue => (MaxValue - MinValue + 1)/2;
     }
 }
