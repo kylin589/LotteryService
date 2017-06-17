@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Lottery.DataUpdater.Jobs;
+using LotteryService.Common;
 using LotteryService.Common.Enums;
 using LotteryService.Common.Tools;
 using LotteryService.Data.Context;
@@ -27,6 +28,19 @@ namespace LotteryService.WebApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //            JobConfig.JobRegister();
+
+
+            int minWorker, minIOC;
+            ThreadPool.GetMinThreads(out minWorker, out minIOC);
+            LogDbHelper.LogInfo($"线程池最大工作线程数-{minWorker}/IO线程数-${minIOC}", "Global => Application_Start", OperationType.Other);
+            if (ThreadPool.SetMinThreads(LsConstant.ThreadPoolCount, LsConstant.ThreadPoolCount))
+            {
+                LogDbHelper.LogInfo("设置线程池最大工作线程数/IO线程数成功", "Global => Application_Start", OperationType.Other);
+            }
+            else
+            {
+                LogDbHelper.LogError("设置线程池最大工作线程数/IO线程数成功", "Global => Application_Start", OperationType.Other);
+            }
 
             JobScheduler.Start();
             AutoMapperConfig.RegisterMappings();
@@ -61,7 +75,7 @@ namespace LotteryService.WebApi
             }
             catch (Exception ex)
             {
-                LogDbHelper.LogWarn("App Restart Failure" + ex.Message, "Global => Application_End", OperationType.Other);              
+                LogDbHelper.LogError("App Restart Failure" + ex.Message, "Global => Application_End", OperationType.Other);              
             }
 
         }
