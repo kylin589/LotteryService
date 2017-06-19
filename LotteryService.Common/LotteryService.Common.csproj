@@ -84,6 +84,7 @@
     <Compile Include="Enums\Lottery.cs" />
     <Compile Include="Enums\LotteryType.cs" />
     <Compile Include="Enums\OrderType.cs" />
+    <Compile Include="Enums\PredictionResult.cs" />
     <Compile Include="Enums\ResultCode.cs" />
     <Compile Include="Enums\LotteryShape.cs" />
     <Compile Include="Enums\UserRegistType.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="RedisHelper.cs" />
     <Compile Include="ResultMessage.cs" />
     <Compile Include="Tools\AppUtils.cs" />
+    <Compile Include="Tools\CacheHelper.cs" />
     <Compile Include="Tools\IpHelper.cs" />
     <Compile Include="Tools\ResponseUtils.cs" />
     <Compile Include="Tools\SqlParser.cs" />

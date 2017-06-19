@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Lottery.Entities;
 using LotteryService.Data.Context.Config;
+using LotteryService.Data.Context.Migrations;
 
 namespace LotteryService.Data.Context
 {
@@ -34,5 +35,7 @@ namespace LotteryService.Data.Context
         public virtual IDbSet<UserAnylseNorm> UserAnylseNorms { get; set; }
 
         public virtual IDbSet<UserBasicNorm> UserBasicNorms { get; set; }
+
+        public virtual IDbSet<LotteryPredictData> LotteryPredictDatas { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace Lottery.DataAnalyzer
         IList<LotteryData> GetHistoryLotteryDatas(LotteryType lotteryType, int count);
 
 
+        LotteryData GetLastLotteryDatas(LotteryType lotteryType);
     }
 }

@@ -194,10 +194,17 @@ namespace LotteryService.Common
 
         #region Lists
 
-        //public static bool SetList<T>(string listId, List<T> list)
+        //public static long AddList<T>(string listId, List<T> list)
         //{
-        //    var value = list.ToJsonString();
-        //    return Cache.SetAdd(listId, value);
+        //    //var value = list.ToJsonString();
+        //    //return Cache.SetAdd(listId, value);
+        //    long length = 0;
+        //    list.ForEach(x =>
+        //    {
+        //        var value = x.ToJsonString();
+        //        length = Cache.ListLeftPush(listId, value);
+        //    });
+        //    return length;
         //}
 
         public static long AddList<T>(string listId, T t)

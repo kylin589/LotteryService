@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Lottery.DataAnalyzer;
@@ -43,6 +45,11 @@ namespace Lottery.Engine
         /// 彩种的数据信息
         /// </summary>
         public IList<NumberInfo> NumberInfos => _lotteryFeature.NumberInfos;
+
+        public NumberInfo GetNumberInfo(int key)
+        {
+            return NumberInfos.First(p => p.KeyNumber == key);
+        }
 
 
         /// <summary>
@@ -107,11 +114,26 @@ namespace Lottery.Engine
             _lotteryAnalyseNormManager = ServiceLocator.Current.GetInstance<ILotteryAnalyseNormManager>();
             _lotteryAnalyseNorms = _lotteryAnalyseNormManager.LoadLotteryAnalyseNorms(lotteryType);
             _lotteryDataManager = ServiceLocator.Current.GetInstance<ILotteryDataManager>();
+
             InitLotteryPlan();
 
             RedisHelper.Set(AppUtils.GetLotteryRedisKey(lotteryType.ToString(), LsConstant.LotteryFeatureRedisKey), lotteryConfigData);
 
         }
+
+        public LotteryData LastLotteryData => _lotteryDataManager.GetLastLotteryDatas(_lotteryType);
+
+        public int[] LastLotteryDataNumbers
+        {
+            get { return LastLotteryData.Data.Split(',').Select(p=>Convert.ToInt32(p)).ToArray(); }
+        }
+
+        public int GetLastLotteryDataNumber(int keyNumber)
+        {
+            return LastLotteryDataNumbers[keyNumber - 1];
+        }
+
+        public int ForecastPeriod => LastLotteryData.Period + 1;
 
         private void InitLotteryPlan()
         {
@@ -161,11 +183,26 @@ namespace Lottery.Engine
                 var lotteryPredictor = new LotteryPerdictor(norm, this);
                 lotteryPredictor.ComputeTrackNumber();
             });
+
         }
 
         public LotteryPlan GetLotteryPlan(int planId)
         {
             return _lotteryPlans.First(p => p.PlanId == planId);
+        }
+
+        public int GetLastLotteryDataNumberRank(int key)
+        {
+            int index = 0;
+            foreach (var item in LastLotteryDataNumbers)
+            {
+                index++;
+                if (item == key)
+                {
+                  break;
+                }             
+            }
+            return index;
         }
     }
 }

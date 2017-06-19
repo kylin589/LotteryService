@@ -101,9 +101,11 @@
     <Compile Include="Lottery\ILotteryAnalyseNormAppService.cs" />
     <Compile Include="Lottery\ILotteryDataAppService.cs" />
     <Compile Include="Lottery\ILotteryConfigAppService.cs" />
+    <Compile Include="Lottery\ILotteryPredictDataAppService.cs" />
     <Compile Include="Lottery\LotteryAnalyseNormAppService.cs" />
     <Compile Include="Lottery\LotteryDataAppService.cs" />
     <Compile Include="Lottery\LotteryConfigAppService.cs" />
+    <Compile Include="Lottery\LotteryPredictDataAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

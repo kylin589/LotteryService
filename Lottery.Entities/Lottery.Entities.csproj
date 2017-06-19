@@ -64,6 +64,7 @@
     <Compile Include="Lottery\ConfigModel\LotteryTimeRule.cs" />
     <Compile Include="Lottery\ConfigModel\LotteryNumberInfo.cs" />
     <Compile Include="Lottery\LotteryAnalyseNorm.cs" />
+    <Compile Include="Lottery\LotteryPredictData.cs" />
     <Compile Include="Lottery\UserAnylseNorm.cs" />
     <Compile Include="Lottery\UserBasicNorm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

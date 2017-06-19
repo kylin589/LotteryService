@@ -37,14 +37,15 @@ namespace LotteryService.Application.Lottery
  
         public LotteryData Insert(LotteryData newData)
         {
-            var redisKey = AppUtils.GetLotteryRedisKey(newData.LotteryType, LsConstant.LotteryDataRedisKey);
+            var redisKey = AppUtils.GetLotteryRedisKey(newData.LotteryType, LsConstant.LotteryDataCacheKey);
             try
             {
-                RedisHelper.SetHash(redisKey, newData.Id, newData);
-                if (RedisHelper.GetHashCount(redisKey) >= LsConstant.LOAD_HISTORY_LOTTERYDATA)
+                CacheHelper.AddCacheListItem(redisKey, newData);
+                if (CacheHelper.GetCache<IList<LotteryData>>(redisKey).Count >= LsConstant.LOAD_HISTORY_LOTTERYDATA)
                 {
-                    var mostOldLottery = RedisHelper.GetAll<LotteryData>(redisKey).Last();
-                    RedisHelper.Remove(redisKey, mostOldLottery.Id);
+                    //var mostOldLottery = RedisHelper.GetAll<LotteryData>(redisKey).Last();
+                    //RedisHelper.RemoveList(redisKey, mostOldLottery);
+
                 }
                
             }
@@ -55,7 +56,7 @@ namespace LotteryService.Application.Lottery
             }
 
             var lotteryDataId = _lotteryDapperService.Add(newData);
-            return RedisHelper.Get<LotteryData>(redisKey,newData.Id);
+            return CacheHelper.GetCache<IList<LotteryData>>(redisKey).First(p=>p.Id == newData.Id);
         }
 
         public bool ExsitData(string lotteryType, int period)

@@ -1,22 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Lottery.Entities;
+using LotteryService.Common.Enums;
 
 namespace Lottery.Engine.Perdictor
 {
-    class NumPlanTrackNumber : ILotteryTrackNumber
+    class NumPlanTrackNumber : BasePlanTrackNumber
     {
-        private LotteryPerdictor lotteryPerdictor;
-        private LotteryPlan lotteryPlan;
 
-        public NumPlanTrackNumber(LotteryPerdictor lotteryPerdictor, LotteryPlan lotteryPlan)
+        public NumPlanTrackNumber(LotteryPerdictor lotteryPerdictor) : base(lotteryPerdictor)
         {
-            this.lotteryPerdictor = lotteryPerdictor;
-            this.lotteryPlan = lotteryPlan;
         }
 
-        public IList<object> TrackNumber()
+        public override IList<object> TrackNumber()
         {
-            throw new System.NotImplementedException();
+             return new List<object>()
+             {
+                 1,
+                 3,
+                 6,
+             };
         }
+
+        protected override bool AssertPredictDataResult()
+        {
+            return AssertPredictNumberDataResult();
+        }
+
     }
 }

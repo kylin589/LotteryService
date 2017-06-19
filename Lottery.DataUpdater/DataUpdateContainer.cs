@@ -100,6 +100,8 @@ namespace Lottery.DataUpdater
                         {
                             var lastLotteryData = _lotteryDataAppService.Insert(newData);
                             _lastPeriod = lastLotteryData.Period;
+                            string key = AppUtils.GetLotteryRedisKey(lastLotteryData.LotteryType, LsConstant.LastLotteryDataCacheKey);
+                            CacheHelper.SetCache(key, lastLotteryData);
                             // todo:更新彩票分析数据   
                             var lotteryEngine =
                                 LotteryEngine.GetLotteryEngine(

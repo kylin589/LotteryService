@@ -19,17 +19,18 @@ namespace Lottery.DataAnalyzer
 
         private static IDictionary<LotteryType, IList<LotteryData>> _historyLotteryDataDictionary;
 
+
         /// <summary>
         /// Redis 缓存历史开奖数据
         /// </summary>
         static LotteryDataManager()
-        {           
+        {
             _lotteryDataAppService = ServiceLocator.Current.GetInstance<ILotteryDataAppService>();
             _historyLotteryDataDictionary = _lotteryDataAppService.GetAnaylesBasicLotteryDatas(LsConstant.LOAD_HISTORY_LOTTERYDATA);
             foreach (var item in _historyLotteryDataDictionary)
             {
 
-                var lotteryDataRedisKey = string.Format(LsConstant.LotteryDataRedisKey, item.Key);
+                var lotteryDataRedisKey = string.Format(LsConstant.LotteryDataCacheKey, item.Key);
                 if (RedisHelper.KeyExists(lotteryDataRedisKey))
                 {
                     RedisHelper.KeyDelete(lotteryDataRedisKey);
@@ -39,13 +40,22 @@ namespace Lottery.DataAnalyzer
 
                 //    RedisHelper.SetHash(lotteryDataRedisKey, data.Id, data);
                 //}
-                Parallel.ForEach(item.Value, new ParallelOptions()
-                {
-                    MaxDegreeOfParallelism = LsConstant.MaxDegreeOfParallelism,
-                }, lotteryData =>
-                {
-                    RedisHelper.SetHash(lotteryDataRedisKey, lotteryData.Id, lotteryData);
-                });
+                //Parallel.ForEach(item.Value, new ParallelOptions()
+                //{
+                //    MaxDegreeOfParallelism = LsConstant.MaxDegreeOfParallelism,
+                //}, lotteryData =>
+                //{
+                //    RedisHelper.SetHash(lotteryDataRedisKey, lotteryData.Id, lotteryData);
+                //});
+
+                //RedisHelper.AddList(lotteryDataRedisKey, item.Value);
+                //item.Value.AsParallel().ForAll(val =>
+                //{
+                //    RedisHelper.AddList(lotteryDataRedisKey, val);
+                //});
+
+                CacheHelper.SetCache(lotteryDataRedisKey, item.Value);
+
             }
         }
 
@@ -56,16 +66,19 @@ namespace Lottery.DataAnalyzer
         /// <returns></returns>
         public IList<LotteryData> GetHistoryLotteryDatas(LotteryType lotteryType)
         {
-            return RedisHelper.GetAll<LotteryData>(string.Format(LsConstant.LotteryDataRedisKey, lotteryType)).OrderByDescending(p=>p.Period).ToList();
+            return CacheHelper.GetCache<IList<LotteryData>>(string.Format(LsConstant.LotteryDataCacheKey, lotteryType));
+
         }
 
         public IList<LotteryData> GetHistoryLotteryDatas(LotteryType lotteryType, int count)
         {
-            return
-                RedisHelper.GetAll<LotteryData>(string.Format(LsConstant.LotteryDataRedisKey, lotteryType))
-                    .OrderByDescending(p => p.Period)
-                    .Take(count)
-                    .ToList();
+            return GetHistoryLotteryDatas(lotteryType).Take(count).ToList();
+        }
+
+        public LotteryData GetLastLotteryDatas(LotteryType lotteryType)
+        {
+            var key = AppUtils.GetLotteryRedisKey(lotteryType.ToString(), LsConstant.LastLotteryDataCacheKey);
+            return CacheHelper.GetCache<LotteryData>(key);
         }
     }
 }

@@ -69,6 +69,7 @@
     <Compile Include="Dapper\Lottery\LotteryAnalyseNormDapperRepostory.cs" />
     <Compile Include="Dapper\Lottery\LotteryConfigDapperRepostory.cs" />
     <Compile Include="Dapper\Lottery\LotteryDataDapperRepostory.cs" />
+    <Compile Include="Dapper\Lottery\LotteryPredictDataDapperRepostory.cs" />
     <Compile Include="EntityFramework\Common\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

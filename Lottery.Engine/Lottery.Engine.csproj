@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LotteryEngine.cs" />
+    <Compile Include="Perdictor\TrackNumber\BasePlanTrackNumber.cs" />
     <Compile Include="Perdictor\TrackNumber\DragonTigerPlanTrackNumber.cs" />
     <Compile Include="Perdictor\TrackNumber\ILotteryTrackNumber.cs" />
     <Compile Include="Perdictor\LotteryPerdictor.cs" />

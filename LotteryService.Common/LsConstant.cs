@@ -50,10 +50,12 @@
 
         public const string LotteryAnalyseNormRedisKey = "{0}LotteryAnalyseNormRedisKey";
 
-        public const string LotteryDataRedisKey = "{0}LotteryDataRedisKey";
+        public const string LotteryDataCacheKey = "{0}LotteryDataCacheKey";
+
+        public const string LastLotteryDataCacheKey = "{0}LastLotteryDataCacheKey";
 
         public const int MaxDegreeOfParallelism = 200;
 
-        public const int ThreadPoolCount = 50;
+        public const int ThreadPoolCount = 100;
     }
 }
